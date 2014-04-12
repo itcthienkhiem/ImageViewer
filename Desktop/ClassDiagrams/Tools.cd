@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="ClearCanvas.Desktop.Tools.ToolBase" Collapsed="true">
+    <Position X="2.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAICIABQAAAAAAAAAAAAAABAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\ToolBase.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="_context" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ClearCanvas.Desktop.Tools.ToolSet" Collapsed="true">
+    <Position X="0.5" Y="2.5" Width="1.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAICBAAAAAAAAAAAAAAAAIAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Tools\ToolSet.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="ClearCanvas.Desktop.Tools.ToolContext" Collapsed="true">
+    <Position X="1.75" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\ToolContext.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="ClearCanvas.Desktop.Tools.ITool" Collapsed="true">
+    <Position X="2.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\ITool.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Actions" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="ClearCanvas.Desktop.Actions.IAction" Collapsed="true">
+    <Position X="5.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAkIAhAKJAAEAEQABAAAAAAABYAAAAIQAAAAA=</HashCode>
+      <FileName>Actions\IAction.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ClearCanvas.Desktop.Tools.IToolSet" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIAAAAAAAAAAAAAAAAAAIAAAAQAAAAAAAAAA=</HashCode>
+      <FileName>Tools\IToolSet.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Tools" />
+    </ShowAsCollectionAssociation>
+  </Interface>
+  <Interface Name="ClearCanvas.Desktop.Tools.IToolContext" Collapsed="true">
+    <Position X="5.25" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Tools\IToolContext.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Tahoma" Size="8.4" />
+</ClassDiagram>
