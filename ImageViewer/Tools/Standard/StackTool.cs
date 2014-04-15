@@ -45,7 +45,7 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 	[GroupHint("activate", "Tools.Image.Manipulation.Stacking.Standard")]
 	//
 	[MouseWheelHandler(ModifierFlags.None)]
-	[MouseToolButton(XMouseButtons.Left, true)]
+	[MouseToolButton(XMouseButtons.Left, false)]
 	//
 	[KeyboardAction("stackup", "imageviewer-keyboard/ToolsStandardStack/StackUp", "StackUp", KeyStroke = XKeys.PageUp)]
 	[KeyboardAction("stackdown", "imageviewer-keyboard/ToolsStandardStack/StackDown", "StackDown", KeyStroke = XKeys.PageDown)]

@@ -206,7 +206,7 @@
             // columnHeader5
             // 
             this.columnHeader5.Text = "诊断日期";
-            this.columnHeader5.Width = 80;
+            this.columnHeader5.Width = 98;
             // 
             // columnHeader6
             // 

@@ -84,7 +84,14 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 
 		private static Frame GetFrame(IPresentationImage image)
 		{
-			return image is IImageSopProvider ? ((IImageSopProvider) image).Frame : null;
+            try
+            {
+                return image is IImageSopProvider ? ((IImageSopProvider)image).Frame : null;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
 		}
 
 		#endregion

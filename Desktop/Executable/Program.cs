@@ -66,6 +66,10 @@ namespace ClearCanvas.Desktop.Executable
             //}
           
             //Platform.StartApp(@"ClearCanvas.Desktop.Application", new string[0]);
+            string str = Application.LocalUserAppDataPath;
+
+            
+            Platform.Log(LogLevel.Info, "the path is " + str);
             Platform.StartApp(@"ClearCanvas.Desktop.Application", args);
 		}
 

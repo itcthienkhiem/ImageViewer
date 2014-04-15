@@ -40,10 +40,10 @@ using ClearCanvas.ImageViewer.Tests;
 
 namespace ClearCanvas.ImageViewer.AdvancedImaging.Fusion.Tests
 {
-	[MenuAction("setBase", "global-menus/MenuDebug/MenuFusion/Base Display Set", "SetBaseDisplaySet")]
-	[MenuAction("setOverlay", "global-menus/MenuDebug/MenuFusion/Overlay Display Set", "SetOverlayDisplaySet")]
-	[MenuAction("setFusion", "global-menus/MenuDebug/MenuFusion/Fusion Display Set", "SetFusionDisplaySet")]
-	[MenuAction("assertFusion", "global-menus/MenuDebug/MenuFusion/Assert Fusion Results", "AssertFusionResults")]
+    //[MenuAction("setBase", "global-menus/MenuDebug/MenuFusion/Base Display Set", "SetBaseDisplaySet")]
+    //[MenuAction("setOverlay", "global-menus/MenuDebug/MenuFusion/Overlay Display Set", "SetOverlayDisplaySet")]
+    //[MenuAction("setFusion", "global-menus/MenuDebug/MenuFusion/Fusion Display Set", "SetFusionDisplaySet")]
+    //[MenuAction("assertFusion", "global-menus/MenuDebug/MenuFusion/Assert Fusion Results", "AssertFusionResults")]
 	[ExtensionOf(typeof (ImageViewerToolExtensionPoint))]
 	internal class TestDisplaySetsTool : ImageViewerTool
 	{

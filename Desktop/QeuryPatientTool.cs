@@ -9,7 +9,7 @@ using ClearCanvas.Desktop.Tools;
 
 namespace ClearCanvas.Desktop
 {
-    [MenuAction("QueryPatient", "global-menus/测试/测试", "test")]
+    [MenuAction("QueryPatient", "global-menus/视图/影像查找", "test")]
   
     [ExtensionOf(typeof(DesktopToolExtensionPoint))]
     class QeuryPatientTool : Tool<IDesktopToolContext>

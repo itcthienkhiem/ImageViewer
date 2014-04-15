@@ -183,7 +183,7 @@ namespace ClearCanvas.Desktop
 		public static string Name
         {
             //luojiang
-            //get { return _instance.ApplicationName; }
+            // get { return _instance.ApplicationName; }
             get { return "Efilm"; }
         }
 
@@ -651,6 +651,8 @@ namespace ClearCanvas.Desktop
 
             GlobalData.ReadIniFile();
             ConnectDataBase();
+
+            System.Configuration.Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.PerUserRoamingAndLocal);
 
             // load gui toolkit
             try

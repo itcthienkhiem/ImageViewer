@@ -65,7 +65,7 @@ namespace ClearCanvas.Desktop.View.WinForms
                 {
                     DesktopWindowView windowview = (DesktopWindowView)desktopWindow.DesktopWindowView;
                     viewer.LoadHistoryStudyFromFtp(windowview.DesktopForm);
-                } 
+                }  
             }
         }
 
