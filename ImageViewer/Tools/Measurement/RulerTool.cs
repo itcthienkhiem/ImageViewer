@@ -31,15 +31,22 @@ using ClearCanvas.ImageViewer.Automation;
 using ClearCanvas.ImageViewer.BaseTools;
 using ClearCanvas.ImageViewer.Graphics;
 using ClearCanvas.ImageViewer.InteractiveGraphics;
-
+using ClearCanvas.Desktop.Tools;
 namespace ClearCanvas.ImageViewer.Tools.Measurement
 {
-	[MenuAction("activate", "imageviewer-contextmenu/MenuRuler", "Select", Flags = ClickActionFlags.CheckAction)]
-	[MenuAction("activate", "global-menus/MenuTools/MenuMeasurement/MenuRuler", "Select", Flags = ClickActionFlags.CheckAction)]
-	[ButtonAction("activate", "global-toolbars/ToolbarMeasurement/ToolbarRuler", "Select", Flags = ClickActionFlags.CheckAction)]
-	[CheckedStateObserver("activate", "Active", "ActivationChanged")]
-	[TooltipValueObserver("activate", "Tooltip", "TooltipChanged")]
-	[MouseButtonIconSet("activate", "Icons.RulerToolSmall.png", "Icons.RulerToolMedium.png", "Icons.RulerToolLarge.png")]
+   
+    [ExtensionPoint]
+    public sealed class MeasurementToolbarToolExtensionPoint : ExtensionPoint< ClearCanvas.Desktop.Tools.ITool> { }
+
+    //[MenuAction("activate", "imageviewer-contextmenu/MenuRuler", "Select", Flags = ClickActionFlags.CheckAction)]
+    
+    //[MenuAction("activate", "global-menus/MenuTools/MenuMeasurement/MenuRuler", "Select", Flags = ClickActionFlags.CheckAction)]
+   [DropDownButtonAction("activate", "global-toolbars/ToolbarMeasurement/ToolbarRuler", "Select", "MeasurementMenuModel")]
+
+	//[ButtonAction("activate", "global-toolbars/ToolbarMeasurement/ToolbarRuler", "Select", Flags = ClickActionFlags.CheckAction)]
+    //[CheckedStateObserver("activate", "Active", "ActivationChanged")]
+    [TooltipValueObserver("activate", "Tooltip", "TooltipChanged")]
+    [MouseButtonIconSet("activate", "Icons.RulerToolSmall.png", "Icons.RulerToolMedium.png", "Icons.RulerToolLarge.png")]
     [GroupHint("activate", "Tools.Image.Annotations.Measurement.Roi.Linear")]
 
 	[MouseToolButton(XMouseButtons.Left, false)]
@@ -50,7 +57,7 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement
 			: base(SR.TooltipRuler)
 		{
 		}
-
+        
 		protected override string CreationCommandName
 		{
 			get { return SR.CommandCreateRuler; }
@@ -75,6 +82,72 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement
 		{
 			return new RulerCalloutLocationStrategy();
 		}
+        //--added by luojiang
+        private class ToolContextProxy : IImageViewerToolContext
+        {
+            private readonly IImageViewerToolContext _realContext;
+
+            public ToolContextProxy(IImageViewerToolContext realContext)
+            {
+                _realContext = realContext;
+            }
+
+            #region IImageViewerToolContext Members
+
+            public IImageViewer Viewer
+            {
+                get { return _realContext.Viewer; }
+            }
+
+            public IDesktopWindow DesktopWindow
+            {
+                get { return _realContext.DesktopWindow; }
+            }
+
+            #endregion
+        }
+
+
+        private ClearCanvas.Desktop.Tools.ToolSet _toolSet;
+        public const string MeasurementToolbarDropdownSite = "Measurement-toolbar-dropdown";
+        public ActionModelNode MeasurementMenuModel
+        {
+            get { return ActionModelRoot.CreateModel(typeof(RulerTool).FullName, MeasurementToolbarDropdownSite, _toolSet.Actions); }
+        }
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            object[] tools;
+
+            try
+            {
+                tools = new MeasurementToolbarToolExtensionPoint().CreateExtensions();
+            }
+            catch (NotSupportedException)
+            {
+                tools = new object[0];
+                Platform.Log(LogLevel.Debug, "No clipboard toolbar drop-down items found.");
+            }
+            catch (Exception e)
+            {
+                tools = new object[0];
+                Platform.Log(LogLevel.Debug, "Failed to create clipboard toolbar drop-down items.", e);
+            }
+
+            _toolSet = new ToolSet(tools, new ToolContextProxy(Context));
+            //ע�᣿
+            ImageViewerComponent viewer = Context.Viewer as ImageViewerComponent;
+            viewer.RegisterImageViewerTool(_toolSet);
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            _toolSet.Dispose();
+            base.Dispose(disposing);
+        }
+
+        
     }
 
     #region Oto

@@ -20,6 +20,11 @@ namespace ClearCanvas.Desktop.View.WinForms
         {
             InitializeComponent();
             _component = component;
+             
+            edtPatientID.Text = GlobalData.RunParams.PatientID;
+            dtStart.Value = DateTime.Now.AddYears(-3);
+            dtEnd.Value = DateTime.Now;
+       
         }
 
         private void btnQuery_Click(object sender, EventArgs e)

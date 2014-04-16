@@ -36,6 +36,7 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement
 {
 	[MenuAction("activate", "imageviewer-contextmenu/MenuEllipticalRoi", "Select", Flags = ClickActionFlags.CheckAction, InitiallyAvailable = false)]
 	[MenuAction("activate", "global-menus/MenuTools/MenuMeasurement/MenuEllipticalRoi", "Select", Flags = ClickActionFlags.CheckAction)]
+    [MenuAction("activate", RulerTool.MeasurementToolbarDropdownSite + "/MenuEllipticalRoi", "Select", Flags = ClickActionFlags.CheckAction)]
 	[ButtonAction("activate", "global-toolbars/ToolbarMeasurement/ToolbarEllipticalRoi", "Select", Flags = ClickActionFlags.CheckAction)]
     [CheckedStateObserver("activate", "Active", "ActivationChanged")]
 	[TooltipValueObserver("activate", "Tooltip", "TooltipChanged")]
@@ -43,6 +44,7 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement
     [GroupHint("activate", "Tools.Image.Annotations.Measurement.Roi.Elliptical")]
 
 	[MouseToolButton(XMouseButtons.Left, false)]
+    [ExtensionOf(typeof(MeasurementToolbarToolExtensionPoint))]
     [ExtensionOf(typeof(ImageViewerToolExtensionPoint))]
     public partial class EllipticalRoiTool : MeasurementTool
 	{
@@ -50,6 +52,11 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement
 			: base(SR.TooltipEllipticalRoi)
 		{
 		}
+
+        public void test()
+        {
+            Select();
+        }
 
 		protected override string CreationCommandName
 		{

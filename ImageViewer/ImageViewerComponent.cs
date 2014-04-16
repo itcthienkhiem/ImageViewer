@@ -1164,5 +1164,11 @@ namespace ClearCanvas.ImageViewer
             DownloadDicomFile downloadfile = new MyStudyLoader(this);
             downloadfile.DownloadImages();
         }
+
+        public void RegisterImageViewerTool(ToolSet set)
+        {
+            foreach (ITool tool in set.Tools)
+                _shortcutManager.RegisterImageViewerTool(tool);
+        }
 	}
 }
