@@ -82,7 +82,7 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement
 		{
 			return new RulerCalloutLocationStrategy();
 		}
-        //--added by luojiang
+        
         private class ToolContextProxy : IImageViewerToolContext
         {
             private readonly IImageViewerToolContext _realContext;
@@ -136,7 +136,7 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement
             }
 
             _toolSet = new ToolSet(tools, new ToolContextProxy(Context));
-            //ע�᣿
+             
             ImageViewerComponent viewer = Context.Viewer as ImageViewerComponent;
             viewer.RegisterImageViewerTool(_toolSet);
         }

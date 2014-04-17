@@ -89,6 +89,10 @@
       <Project>{F6EAD428-E6CF-4DF6-B2F3-D33D532C5343}</Project>
       <Name>ClearCanvas.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\..\Controls\WinForms\ClearCanvas.Controls.WinForms.csproj">
+      <Project>{A5B36F78-7CA7-4C46-ABD7-E8DF1517B64C}</Project>
+      <Name>ClearCanvas.Controls.WinForms</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\..\Desktop\ClearCanvas.Desktop.csproj">
       <Project>{26E9A01A-64B5-42C5-8252-FBB30DF9CEC7}</Project>
       <Name>ClearCanvas.Desktop</Name>
@@ -126,6 +130,7 @@
     <Reference Include="System.Drawing">
       <Name>System.Drawing</Name>
     </Reference>
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
@@ -194,6 +199,7 @@
     <Compile Include="PresetVoiLuts\PresetVoiLutReservedActionModelKeyStrokesProvider.cs" />
     <Compile Include="Rotate3DTool.cs" />
     <Compile Include="TextCalloutTool.cs" />
+    <Compile Include="ThirdPrint.cs" />
     <Compile Include="ToolSettings.cs" />
     <Compile Include="ToolSettings.Designer.cs">
       <AutoGen>True</AutoGen>

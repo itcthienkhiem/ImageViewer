@@ -1053,6 +1053,24 @@ namespace ClearCanvas.ImageViewer.Tools.Standard {
         }
         
         /// <summary>
+        ///   查找类似 选择整个序列 的本地化字符串。
+        /// </summary>
+        internal static string MenuPrintChooseDisplaySet {
+            get {
+                return ResourceManager.GetString("MenuPrintChooseDisplaySet", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 选择单张图 的本地化字符串。
+        /// </summary>
+        internal static string MenuPrintChooseOne {
+            get {
+                return ResourceManager.GetString("MenuPrintChooseOne", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 点灰度值 的本地化字符串。
         /// </summary>
         internal static string MenuProbe {
@@ -1166,6 +1184,15 @@ namespace ClearCanvas.ImageViewer.Tools.Standard {
         internal static string MenuTextCallout {
             get {
                 return ResourceManager.GetString("MenuTextCallout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 胶片打印 的本地化字符串。
+        /// </summary>
+        internal static string MenuThirdPrint {
+            get {
+                return ResourceManager.GetString("MenuThirdPrint", resourceCulture);
             }
         }
         
@@ -1734,6 +1761,15 @@ namespace ClearCanvas.ImageViewer.Tools.Standard {
         internal static string ToolbarTextCallout {
             get {
                 return ResourceManager.GetString("ToolbarTextCallout", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 胶片打印 的本地化字符串。
+        /// </summary>
+        internal static string ToolbarThirdPrint {
+            get {
+                return ResourceManager.GetString("ToolbarThirdPrint", resourceCulture);
             }
         }
         

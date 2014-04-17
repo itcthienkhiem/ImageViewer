@@ -29,10 +29,14 @@ using System.Runtime.InteropServices;
 
 namespace ClearCanvas.Controls.WinForms.Native
 {
-	internal static class User32
+	public static class User32
 	{
-		[DllImport("user32.dll")]
-		public static extern Int32 SendMessage(IntPtr pWnd, UInt32 uMsg, UInt32 wParam, IntPtr lParam);
+        [DllImport("user32.dll")]
+        public static extern Int32 SendMessage(IntPtr pWnd, UInt32 uMsg, UInt32 wParam, IntPtr lParam);
+        
+        [DllImport("User32.dll", EntryPoint = "FindWindow")]
+        public static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
 	}
 }
 

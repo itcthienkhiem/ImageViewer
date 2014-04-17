@@ -187,11 +187,29 @@ namespace ClearCanvas.ImageViewer.Volume.Mpr {
         }
         
         /// <summary>
-        ///   查找类似 Open Selection with &amp;MPR 的本地化字符串。
+        ///   查找类似 简单三维重建 的本地化字符串。
+        /// </summary>
+        public static string MenuOpenSelectionWith3D {
+            get {
+                return ResourceManager.GetString("MenuOpenSelectionWith3D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 简单 MPR 重建 的本地化字符串。
         /// </summary>
         public static string MenuOpenSelectionWithMpr {
             get {
                 return ResourceManager.GetString("MenuOpenSelectionWithMpr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 简单三维重建 的本地化字符串。
+        /// </summary>
+        public static string MenuOpenWith3D {
+            get {
+                return ResourceManager.GetString("MenuOpenWith3D", resourceCulture);
             }
         }
         
@@ -331,7 +349,16 @@ namespace ClearCanvas.ImageViewer.Volume.Mpr {
         }
         
         /// <summary>
-        ///   查找类似 Open Selection with MPR 的本地化字符串。
+        ///   查找类似 简单三维重建 的本地化字符串。
+        /// </summary>
+        public static string ToolbarOpenSelectionWith3D {
+            get {
+                return ResourceManager.GetString("ToolbarOpenSelectionWith3D", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 简单 MPR 重建 的本地化字符串。
         /// </summary>
         public static string ToolbarOpenSelectionWithMpr {
             get {

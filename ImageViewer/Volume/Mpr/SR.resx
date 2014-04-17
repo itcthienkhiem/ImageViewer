@@ -129,13 +129,13 @@
     <comment>0 - Slice Plane Description</comment>
   </data>
   <data name="MenuOpenSelectionWithMpr" xml:space="preserve">
-    <value>Open Selection with &amp;MPR</value>
+    <value>简单 MPR 重建</value>
   </data>
   <data name="MenuVolume" xml:space="preserve">
     <value>&amp;Volume</value>
   </data>
   <data name="ToolbarOpenSelectionWithMpr" xml:space="preserve">
-    <value>Open Selection with MPR</value>
+    <value>简单 MPR 重建</value>
   </data>
   <data name="FormatSliceCustom" xml:space="preserve">
     <value>(X{0:f0}° x Y{1:f0}° x Z{2:f0}°)</value>
@@ -239,5 +239,14 @@
   </data>
   <data name="CommandMprReslice" xml:space="preserve">
     <value>Reslice MPR</value>
+  </data>
+  <data name="MenuOpenSelectionWith3D" xml:space="preserve">
+    <value>简单三维重建</value>
+  </data>
+  <data name="MenuOpenWith3D" xml:space="preserve">
+    <value>简单三维重建</value>
+  </data>
+  <data name="ToolbarOpenSelectionWith3D" xml:space="preserve">
+    <value>简单三维重建</value>
   </data>
 </root>

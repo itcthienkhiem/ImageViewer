@@ -35,6 +35,7 @@ using ClearCanvas.ImageViewer.Configuration;
 using ClearCanvas.ImageViewer.StudyManagement;
 using ClearCanvas.ImageViewer.Volume.Mpr.Utilities;
 using ClearCanvas.ImageViewer.Volumes;
+using System.IO;
 
 namespace ClearCanvas.ImageViewer.Volume.Mpr
 {
@@ -290,4 +291,109 @@ namespace ClearCanvas.ImageViewer.Volume.Mpr
 			Enabled = selectedDisplaySet != null && selectedDisplaySet.PresentationImages.Count > 1;
 		}
 	}
+
+    //ADDED THE THIRD CLASS
+    [ButtonAction("open", "global-toolbars/ToolbarMpr/ToolbarOpenSelectionWith3D", "Launch3D")]
+    [MenuAction("open", "imageviewer-contextmenu/MenuOpenWith3D", "Launch3D")]
+    [MenuAction("open", "global-menus/MenuTools/MenuMpr/MenuOpenSelectionWith3D", "Launch3D")]
+    [IconSet("open", "Icons.LaunchMprToolSmall.png", "Icons.LaunchMprToolMedium.png", "Icons.LaunchMprToolLarge.png")]
+    [EnabledStateObserver("open", "Enabled", "EnabledChanged")]
+    [VisibleStateObserver("open", "Visible", null)]
+    [ViewerActionPermission("open", AuthorityTokens.ViewerClinical)]
+    [GroupHint("open", "Tools.Volume.MPR")]
+    //
+    [ExtensionOf(typeof(ImageViewerToolExtensionPoint))]
+    public class LaunchThird3DTool : ImageViewerTool
+    {
+
+        public bool Visible { get; private set; }
+
+        public override void Initialize()
+		{
+			base.Initialize();
+
+			Visible = !(ImageViewer is MprViewerComponent);
+
+			Context.Viewer.EventBroker.ImageBoxSelected += OnImageBoxSelected;
+			Context.Viewer.EventBroker.DisplaySetSelected += OnDisplaySetSelected;
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+			Context.Viewer.EventBroker.ImageBoxSelected -= OnImageBoxSelected;
+			Context.Viewer.EventBroker.DisplaySetSelected -= OnDisplaySetSelected;
+
+			base.Dispose(disposing);
+		}
+
+        public void Launch3D()
+        {
+            IPresentationImage currentImage = Context.Viewer.SelectedPresentationImage;
+            IDisplaySet displaySet = currentImage.ParentDisplaySet;
+            var filteredFrames = new List<Frame>();
+            string lDicom3DPath = System.Windows.Forms.Application.StartupPath + @"\Third\3ddata\";
+             
+            DirectoryInfo Dir = new DirectoryInfo(lDicom3DPath);
+            if (!Dir.Exists)
+                Dir.Create();
+            else
+            {
+                foreach (FileInfo file in Dir.GetFiles())
+                {
+                    file.Delete();
+                }
+            }
+
+            string strSourceTemp = "";
+            string strDestTemp = "";
+            foreach (IPresentationImage image in displaySet.PresentationImages)
+            {
+                if (image is IImageSopProvider)
+                {
+                    Sop  sop = ((IImageSopProvider)image).Sop;
+                    strSourceTemp = System.Windows.Forms.Application.StartupPath + @"\DicomFiles\" + sop.SopInstanceUid + ".dcm";
+                    strDestTemp = lDicom3DPath + sop.SopInstanceUid + ".dcm";
+                    File.Copy(strSourceTemp, strDestTemp);
+                }
+            }
+            //
+            string l3dPrnAppName = System.Windows.Forms.Application.StartupPath + @"\Third\3d.exe";
+            try
+            {
+                //Call Dicom Print Process            
+                System.Diagnostics.ProcessStartInfo Info = new System.Diagnostics.ProcessStartInfo();
+                Info.FileName = l3dPrnAppName;
+                Info.Arguments = "3D";
+                System.Diagnostics.Process proc = System.Diagnostics.Process.Start(Info);
+            }
+            catch (Exception ex)
+            {
+                Platform.Log(LogLevel.Error, ex.ToString());
+            }
+        }
+
+        protected override void OnPresentationImageSelected(object sender, PresentationImageSelectedEventArgs e)
+        {
+            if (e.SelectedPresentationImage != null)
+                UpdateEnabled(e.SelectedPresentationImage.ParentDisplaySet);
+            else
+                UpdateEnabled(null);
+        }
+
+        private void OnImageBoxSelected(object sender, ImageBoxSelectedEventArgs e)
+        {
+            if (e.SelectedImageBox.DisplaySet == null)
+                UpdateEnabled(null);
+        }
+
+        private void OnDisplaySetSelected(object sender, DisplaySetSelectedEventArgs e)
+        {
+            UpdateEnabled(e.SelectedDisplaySet);
+        }
+
+        private void UpdateEnabled(IDisplaySet selectedDisplaySet)
+        {
+            Enabled = selectedDisplaySet != null && selectedDisplaySet.PresentationImages.Count > 1;
+        }
+    }
 }

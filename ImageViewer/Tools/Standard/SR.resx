@@ -786,4 +786,16 @@ Please check the log for more details.</value>
   <data name="Message3DOnly" xml:space="preserve">
     <value>3D Only</value>
   </data>
+  <data name="MenuPrintChooseDisplaySet" xml:space="preserve">
+    <value>选择整个序列</value>
+  </data>
+  <data name="MenuPrintChooseOne" xml:space="preserve">
+    <value>选择单张图</value>
+  </data>
+  <data name="MenuThirdPrint" xml:space="preserve">
+    <value>胶片打印</value>
+  </data>
+  <data name="ToolbarThirdPrint" xml:space="preserve">
+    <value>胶片打印</value>
+  </data>
 </root>
