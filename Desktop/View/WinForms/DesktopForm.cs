@@ -372,12 +372,6 @@ namespace ClearCanvas.Desktop.View.WinForms
                 viewer.ReAllocateStudyTree();
                 viewer.Layout();
                 viewer.LoadStudyFromFtp(this);
-                              
-                //DownloadDicomFile downloadfile = new DownloadDicomFile();
-                //downloadfile.DownloadImages();
-                //viewer.LoadImages(downloadfile.m_files.ToArray(), desktopWindow, out cancelled);
-                //viewer.Layout();
-
             } 
             else
             {

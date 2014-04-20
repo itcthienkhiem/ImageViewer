@@ -61,6 +61,7 @@ namespace ClearCanvas.ImageViewer.Thumbnails
         {
             base.GalleryItemFactory = new ThumbnailGalleryItemFactory(() => ThumbnailLoader, suppressLoadingThumbnails);
             _thumbnailSize = ThumbnailSizes.Medium;
+           
         }
 
         private IThumbnailLoader ThumbnailLoader

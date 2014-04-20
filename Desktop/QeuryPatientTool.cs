@@ -7,6 +7,7 @@ using ClearCanvas.Common;
 using ClearCanvas.Desktop.Actions;
 using ClearCanvas.Desktop.Tools;
 
+ 
 namespace ClearCanvas.Desktop
 {
     [MenuAction("QueryPatient", "global-menus/视图/影像查找", "test")]
@@ -29,6 +30,8 @@ namespace ClearCanvas.Desktop
     [AssociateView(typeof(QueryPatientComponentViewExtensionPoint))]
     public class QueryPatientComponent : ApplicationComponent
     {
+
+         
 
         public override void Start()
         {

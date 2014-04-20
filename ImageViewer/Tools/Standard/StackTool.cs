@@ -341,10 +341,53 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
             sourceDisplaySetIndex += direction;
 
             if (sourceDisplaySetIndex < 0)
-                sourceDisplaySetIndex = parentImageSet.DisplaySets.Count - 1;
+            {
+                if (base.Context.Viewer.LogicalWorkspace.ImageSets.Count >= 2)
+                {
+                    int tempNum = 0;
+                    foreach (IImageSet set in base.Context.Viewer.LogicalWorkspace.ImageSets)
+                    {
+                        if (set.Equals(parentImageSet))
+                        {
+                            tempNum++;
+                            break;
+                        }
+                        tempNum++;
+                    }
+                    if (tempNum >= base.Context.Viewer.LogicalWorkspace.ImageSets.Count)
+                    {
+                        tempNum = 0;
+                    }
+                    parentImageSet = base.Context.Viewer.LogicalWorkspace.ImageSets[tempNum];
+                    sourceDisplaySetIndex = 0;
+                }
+                else
+                    sourceDisplaySetIndex = parentImageSet.DisplaySets.Count - 1;
+            }
             else if (sourceDisplaySetIndex >= parentImageSet.DisplaySets.Count)
-                sourceDisplaySetIndex = 0;
+            {
+                if (base.Context.Viewer.LogicalWorkspace.ImageSets.Count >= 2)
+                {
+                    int tempNum = 0;
+                    foreach (IImageSet set in base.Context.Viewer.LogicalWorkspace.ImageSets)
+                    {
+                        if (set.Equals(parentImageSet))
+                        {
+                            tempNum++;
+                            break;
+                        }
+                        tempNum++;
+                    }
 
+                    if (tempNum >= base.Context.Viewer.LogicalWorkspace.ImageSets.Count)
+                    {
+                        tempNum = 0;
+                    }
+                    parentImageSet = base.Context.Viewer.LogicalWorkspace.ImageSets[tempNum];
+                    sourceDisplaySetIndex = 0;
+                } else
+                     sourceDisplaySetIndex = 0;
+            }
             //MemorableUndoableCommand memorableCommand = new MemorableUndoableCommand(imageBox);
             //memorableCommand.BeginState = imageBox.CreateMemento();
 

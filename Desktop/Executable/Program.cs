@@ -38,7 +38,7 @@ namespace ClearCanvas.Desktop.Executable
 		[STAThread]
 		private static void Main(string[] args)
 		{
-			//Always at least try to let our application code handle the exception.
+         	//Always at least try to let our application code handle the exception.
 			//Setting this to "catch" means the Application.ThreadException event
 			//will fire first, essentially causing the app to crash right away and shut down.
 			Application.SetUnhandledExceptionMode(UnhandledExceptionMode.ThrowException);
