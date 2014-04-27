@@ -62,7 +62,7 @@ namespace ClearCanvas.Desktop.View.WinForms
 			_listView.BackColor = Color.Black;
 			_listView.ForeColor = Color.WhiteSmoke;
 			_listView.ListViewItemSorter = new ListViewIndexComparer();
-			//_listView.ItemSelectionChanged += OnSelectionChanged;
+			_listView.ItemSelectionChanged += OnSelectionChanged;
 			_listView.ItemDrag += OnItemDrag;
 			_listView.DragEnter += OnItemDragEnter;
 			_listView.DragOver += OnItemDragOver;
