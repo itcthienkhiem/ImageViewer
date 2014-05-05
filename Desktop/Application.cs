@@ -182,7 +182,7 @@ namespace ClearCanvas.Desktop
         /// </summary>
 		public static string Name
         {
-            //luojiang
+            
             // get { return _instance.ApplicationName; }
             get { return "Efilm"; }
         }

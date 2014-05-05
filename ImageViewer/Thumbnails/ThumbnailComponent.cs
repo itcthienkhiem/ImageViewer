@@ -342,7 +342,7 @@ namespace ClearCanvas.ImageViewer.Thumbnails
 			var imageSetItem = TreeSelection.Item as ImageSetTreeItem;
             if (imageSetItem == null)
             {
-                //luojiang
+                
                 try
                 {
                     _thumbnailGallery.SourceItems = _activeViewer.LogicalWorkspace.ImageSets[0].DisplaySets;

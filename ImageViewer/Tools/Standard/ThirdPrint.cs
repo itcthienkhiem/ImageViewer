@@ -119,6 +119,7 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
                 Platform.Log(LogLevel.Error, ex.ToString());
             }
         }
+
         protected override void OnPresentationImageSelected(object sender, PresentationImageSelectedEventArgs e)
         {
             if (e.SelectedPresentationImage != null)

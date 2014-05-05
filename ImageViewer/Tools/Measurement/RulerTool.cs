@@ -136,7 +136,7 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement
             }
 
             _toolSet = new ToolSet(tools, new ToolContextProxy(Context));
-             
+            //should register
             ImageViewerComponent viewer = Context.Viewer as ImageViewerComponent;
             viewer.RegisterImageViewerTool(_toolSet);
         }

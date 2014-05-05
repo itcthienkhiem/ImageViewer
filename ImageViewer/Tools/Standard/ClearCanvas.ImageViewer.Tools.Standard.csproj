@@ -153,6 +153,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CdromWrite.cs" />
     <Compile Include="DicomGraphicAnnotationTool.cs" />
     <Compile Include="MagnificationTool2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

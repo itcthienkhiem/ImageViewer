@@ -798,4 +798,7 @@ Please check the log for more details.</value>
   <data name="ToolbarThirdPrint" xml:space="preserve">
     <value>胶片打印</value>
   </data>
+  <data name="CDROM" xml:space="preserve">
+    <value>光盘写入</value>
+  </data>
 </root>

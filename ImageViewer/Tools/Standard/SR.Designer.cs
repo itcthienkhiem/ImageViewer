@@ -97,6 +97,15 @@ namespace ClearCanvas.ImageViewer.Tools.Standard {
         }
         
         /// <summary>
+        ///   查找类似 光盘写入 的本地化字符串。
+        /// </summary>
+        internal static string CDROM {
+            get {
+                return ResourceManager.GetString("CDROM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 颜色映射 的本地化字符串。
         /// </summary>
         internal static string ColourMaps {

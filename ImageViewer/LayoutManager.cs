@@ -149,13 +149,13 @@ namespace ClearCanvas.ImageViewer
 				throw new InvalidOperationException("Layout has already been called.");
 
 			BuildLogicalWorkspace();
-            //luojiang
+            
 			//ValidateLogicalWorkspace();
             
 			LayoutAndFillPhysicalWorkspace();
 			
 			// Now, only after showing the "primary study", sort the image sets according to study order. (yes, this calls SortStudies)
-            //luojiang
+           
 			//SortImageSets();
 
             ImageViewer.PhysicalWorkspace.Draw();
@@ -413,7 +413,7 @@ namespace ClearCanvas.ImageViewer
 
 		private IStudyRootStudyIdentifier GetStudyIdentifier(Study study)
 		{
-            //luojiang
+            
             //if (ReconcilePatientInfo)
             //{
             //    var studyIdentifier = study.GetIdentifier();
@@ -427,7 +427,7 @@ namespace ClearCanvas.ImageViewer
 		{
 			IImageSet existing = GetImageSet(study.StudyInstanceUid);
 
-            //luojiang
+           
             //if (existing != null)
             //{
             //    var descriptor = (IDicomImageSetDescriptor)existing.Descriptor;
