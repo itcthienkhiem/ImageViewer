@@ -471,9 +471,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CaptureImageTool\CaptureImageTool.csproj">
+      <Project>{13E62362-5D00-418F-83FF-99B2699746D7}</Project>
+      <Name>CaptureImageTool</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Common\ClearCanvas.Common.csproj">
       <Project>{F6EAD428-E6CF-4DF6-B2F3-D33D532C5343}</Project>
       <Name>ClearCanvas.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Controls\WinForms\ClearCanvas.Controls.WinForms.csproj">
+      <Project>{A5B36F78-7CA7-4C46-ABD7-E8DF1517B64C}</Project>
+      <Name>ClearCanvas.Controls.WinForms</Name>
     </ProjectReference>
     <ProjectReference Include="..\Utilities\Manifest\ClearCanvas.Utilities.Manifest.csproj">
       <Project>{E2F1A5D4-73A4-4BA6-AA5A-87BBDEC727F8}</Project>

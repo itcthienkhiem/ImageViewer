@@ -634,7 +634,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Export to Image 的本地化字符串。
+        ///   查找类似 导出图像 的本地化字符串。
         /// </summary>
         internal static string TooltipExportToImage {
             get {
@@ -643,7 +643,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Export to Video 的本地化字符串。
+        ///   查找类似 导出视频 的本地化字符串。
         /// </summary>
         internal static string TooltipExportToVideo {
             get {

@@ -286,10 +286,10 @@
     <value>Delete Selected</value>
   </data>
   <data name="TooltipExportToImage" xml:space="preserve">
-    <value>Export to Image</value>
+    <value>导出图像</value>
   </data>
   <data name="TooltipExportToVideo" xml:space="preserve">
-    <value>Export to Video</value>
+    <value>导出视频</value>
   </data>
   <data name="TooltipShowClipboard" xml:space="preserve">
     <value>Show Clipboard</value>
