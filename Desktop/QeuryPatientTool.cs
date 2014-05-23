@@ -14,7 +14,10 @@ using System.Data.SqlClient;
 using Global.Data;
 using Global.FtpSocketClient;
 using ClearCanvas.Controls.WinForms.Native;
-
+ 
+using System.Windows.Forms;
+using System.ComponentModel;
+using Microsoft.Win32;
  
 namespace ClearCanvas.Desktop
 {
@@ -27,6 +30,10 @@ namespace ClearCanvas.Desktop
     {   
         public const int WM_SNDRIS = USER + 1004;
         public const int USER = 0x0400;
+        int noofscreens = 0;
+        Form1[] grabwindow;
+        Screen[] screens;
+        RegistryKey key;
 
         public void QueryPatient()
         {
@@ -35,49 +42,71 @@ namespace ClearCanvas.Desktop
 
         public void ScreenCapture()
         {
+            screens = Screen.AllScreens;
+            noofscreens = screens.Length; 
+            grabwindow = new Form1[noofscreens];
+
             try
             {
-                System.Threading.Thread.Sleep(30);
-                CaptureImageTool capture = new CaptureImageTool();//截图的工具
+                System.Threading.Thread.Sleep(100);
+                int i = 0;
 
-                if (capture.ShowDialog() == DialogResult.OK)
+                foreach (var screen in System.Windows.Forms.Screen.AllScreens)
                 {
-                    Image image = capture.Image;//截取的图片
-                    //开始发送给
-                    ClassFtpSocketClient sk = new ClassFtpSocketClient();
-                    string ImagePath = GetRemoteFilePath();
-                    string ImageId = GetMaxIDFormImageBack();
-                    string sqlstr = string.Format("insert into imageback(imgid,id,imagepath,flag,modulename) values('{0}','{1}','{2}','1','{3}')",
-                    ImageId, GlobalData.RunParams.AccessionNumber, ImagePath, GlobalData.RunParams.RunMode);
-                    SqlCommand sqlCmd = new SqlCommand();
-                    sqlCmd.Connection = GlobalData.MainConn.ChangeType();
-                    sqlCmd.CommandText = sqlstr;
-                    sqlCmd.ExecuteNonQuery();
-
-                    string JpegFile = GetRemoteFilePath() + ImageId + ".jpg";
-
-                    Image tmpImage = capture.Image;
-                    System.IO.Stream mStream = new System.IO.MemoryStream();
-                    tmpImage.Save(mStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-                    sk.PutFileIntoFtpServer(GlobalData.RunParams.RemoteIP,
-                                                          GlobalData.RunParams.RemotePort,
-                                                          JpegFile, mStream);
-                    mStream.Dispose();
-                    IntPtr WINDOW_HANDLER = new IntPtr(Convert.ToInt32(GlobalData.RunParams.CallerHwnd));
-                    if ((int)WINDOW_HANDLER == 0)
-                    {
-
-                    }
-                    else
-                    {
-                        User32.SendMessage(WINDOW_HANDLER, WM_SNDRIS, 0, new IntPtr(0));
-                    }
+                    grabwindow[i] = new Form1("捕捉屏幕图像 " + (i + 1).ToString(), screen.Bounds.X, screen.Bounds.Y, screen.Bounds.Width, screen.Bounds.Height, i);
+                    grabwindow[i].HandleMsg = smallscreengrab;
+                    grabwindow[i].Show();
+                    i++;
                 }
             }
             catch (Exception ex)
             {
                 Platform.Log(LogLevel.Error, ex.ToString());
             }
+        }
+
+        public void smallscreengrab(int sc, int x, int y, int x1, int y1) // grab part of screen
+        {
+            for (int j = 0; j < noofscreens; j++) { grabwindow[j].Close(); grabwindow[j].Dispose(); }
+            int finalx, finaly, finalwidth, finalheight;
+            int X1 = Math.Min(x, x1), X2 = Math.Max(x, x1), Y1 = Math.Min(y, y1), Y2 = Math.Max(y, y1);
+            finalx = X1 + screens[sc].Bounds.X;
+            finaly = Y1 + screens[sc].Bounds.Y;
+            finalwidth = X2 - X1 + 1;
+            finalheight = Y2 - Y1 + 1;
+
+            Image image = capture_class.CaptureScreentoClipboard(finalx, finaly, finalwidth, finalheight);
+            //开始发送给
+            ClassFtpSocketClient sk = new ClassFtpSocketClient();
+            string ImagePath = GetRemoteFilePath();
+            string ImageId = GetMaxIDFormImageBack();
+            string sqlstr = string.Format("insert into imageback(imgid,id,imagepath,flag,modulename) values('{0}','{1}','{2}','1','{3}')",
+            ImageId, GlobalData.RunParams.AccessionNumber, ImagePath, GlobalData.RunParams.RunMode);
+            SqlCommand sqlCmd = new SqlCommand();
+            sqlCmd.Connection = GlobalData.MainConn.ChangeType();
+            sqlCmd.CommandText = sqlstr;
+            sqlCmd.ExecuteNonQuery();
+
+            string JpegFile = GetRemoteFilePath() + ImageId + ".jpg";
+
+            Image tmpImage = image;
+            System.IO.Stream mStream = new System.IO.MemoryStream();
+            tmpImage.Save(mStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+            sk.PutFileIntoFtpServer(GlobalData.RunParams.RemoteIP,
+                                                  GlobalData.RunParams.RemotePort,
+                                                  JpegFile, mStream);
+            mStream.Dispose();
+            image.Dispose();
+            IntPtr WINDOW_HANDLER = new IntPtr(Convert.ToInt32(GlobalData.RunParams.CallerHwnd));
+            if ((int)WINDOW_HANDLER == 0)
+            {
+
+            }
+            else
+            {
+                User32.SendMessage(WINDOW_HANDLER, WM_SNDRIS, 0, new IntPtr(0));
+            }
+
         }
 
         private string GetMaxIDFormImageBack()

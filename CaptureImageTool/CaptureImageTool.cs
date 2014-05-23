@@ -870,9 +870,10 @@ namespace CSharpWin
             drawToolsControl.Visible = false;
             colorSelector.Visible = false;
             textBox.Visible = false;
+
             Bounds = Screen.GetBounds(this);
             BackgroundImage = GetDestopImage();
-
+            
             TopMost = true;
             ShowInTaskbar = false;
             FormBorderStyle = FormBorderStyle.None;

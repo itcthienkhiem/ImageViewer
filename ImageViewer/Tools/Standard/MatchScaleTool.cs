@@ -106,6 +106,7 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 			IImageSpatialTransform transform = GetImageTransform(image);
 			if (transform == null)
 				return false;
+            return true;
 
 			//mustn't be rotated at a non-right angle to the viewport.
 			if (transform.RotationXY % 90 != 0)
