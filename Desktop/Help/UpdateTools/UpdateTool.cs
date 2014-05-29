@@ -33,8 +33,8 @@ using ClearCanvas.Common;
 
 namespace ClearCanvas.Desktop.Help.UpdateTools
 {
-	[MenuAction("checkForUpdates", "global-menus/MenuHelp/MenuCheckForUpdates", "CheckForUpdates")]
-	[GroupHint("checkForUpdates", "Application.Help.Updates")]
+    //[MenuAction("checkForUpdates", "global-menus/MenuHelp/MenuCheckForUpdates", "CheckForUpdates")]
+    //[GroupHint("checkForUpdates", "Application.Help.Updates")]
 
 	[Common.ExtensionOf(typeof(DesktopToolExtensionPoint))]
 	public class UpdateTool : Tool<IDesktopToolContext>
