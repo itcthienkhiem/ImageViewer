@@ -72,7 +72,11 @@ namespace ClearCanvas.ImageViewer.AnnotationProviders.Dicom
 					(
 						"Dicom.Patient.PatientId",
 						resolver,
-						delegate(Frame frame) { return frame.ParentImageSop.PatientId; },
+						delegate(Frame frame) {
+                            if (frame == null)
+                                return "";
+                            return frame.ParentImageSop.PatientId; 
+                        },
 						DicomDataFormatHelper.RawStringFormat
 					)
 				);
@@ -83,7 +87,9 @@ namespace ClearCanvas.ImageViewer.AnnotationProviders.Dicom
 					(
 						"Dicom.Patient.PatientsBirthDate",
 						resolver,
-						delegate(Frame frame) { return frame.ParentImageSop.PatientsBirthDate; },
+						delegate(Frame frame) { if (frame == null)
+                                return "";
+                            return frame.ParentImageSop.PatientId;  },
 						DicomDataFormatHelper.DateFormat
 					)
 				);
@@ -105,7 +111,10 @@ namespace ClearCanvas.ImageViewer.AnnotationProviders.Dicom
 					(
 						"Dicom.Patient.PatientsName",
 						resolver,
-						delegate(Frame frame) { return frame.ParentImageSop.PatientsName; },
+						delegate(Frame frame) {
+                            if (frame == null)
+                                return null;
+                            return frame.ParentImageSop.PatientsName; },
 						DicomDataFormatHelper.PersonNameFormatter
 					)
 				);
@@ -116,7 +125,10 @@ namespace ClearCanvas.ImageViewer.AnnotationProviders.Dicom
 					(
 						"Dicom.Patient.PatientsSex",
 						resolver,
-						delegate(Frame frame) { return frame.ParentImageSop.PatientsSex; },
+						delegate(Frame frame) {
+                            if (frame == null)
+                                return "";
+                            return frame.ParentImageSop.PatientsSex; },
 						DicomDataFormatHelper.RawStringFormat
 					)
 				);
@@ -127,7 +139,10 @@ namespace ClearCanvas.ImageViewer.AnnotationProviders.Dicom
 					(
 						"Dicom.Patient.ResponsiblePerson",
 						resolver,
-						delegate(Frame frame) { return frame.ParentImageSop.ResponsiblePerson; },
+						delegate(Frame frame) {
+                            if (frame == null)
+                                return null;
+                            return frame.ParentImageSop.ResponsiblePerson; },
 						DicomDataFormatHelper.PersonNameFormatter
 					)
 				);
@@ -138,7 +153,10 @@ namespace ClearCanvas.ImageViewer.AnnotationProviders.Dicom
 					(
 						"Dicom.Patient.ResponsibleOrganization",
 						resolver,
-						delegate(Frame frame) { return frame.ParentImageSop.ResponsibleOrganization; },
+						delegate(Frame frame) {
+                            if (frame == null)
+                                return "";
+                            return frame.ParentImageSop.ResponsibleOrganization; },
 						DicomDataFormatHelper.RawStringFormat
 					)
 				);

@@ -306,7 +306,16 @@ namespace ClearCanvas.ImageViewer
 					if (imageSetIndex == logicalWorkspace.ImageSets.Count)
 						break;
 				}
-
+                //if (imageBox.Occpyed  == true)
+                //{
+                //    displaySetIndex++;
+                //    continue;
+                //}
+                //if (imageBox.DisplaySet != null &&  (imageBox.DisplaySet.Description == logicalWorkspace.ImageSets[imageSetIndex].DisplaySets[displaySetIndex].Description))
+                //{
+                //    displaySetIndex++;
+                //    continue;
+                //}
 				imageBox.DisplaySet = logicalWorkspace.ImageSets[imageSetIndex].DisplaySets[displaySetIndex].CreateFreshCopy();
 				displaySetIndex++;
 			}

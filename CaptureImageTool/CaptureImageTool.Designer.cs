@@ -120,7 +120,7 @@
             // 
             // colorSelector
             // 
-            this.colorSelector.Location = new System.Drawing.Point(48, 171);
+            this.colorSelector.Location = new System.Drawing.Point(12, 189);
             this.colorSelector.Name = "colorSelector";
             this.colorSelector.Padding = new System.Windows.Forms.Padding(2);
             this.colorSelector.Size = new System.Drawing.Size(189, 38);
@@ -128,7 +128,7 @@
             // 
             // drawToolsControl
             // 
-            this.drawToolsControl.Location = new System.Drawing.Point(2, 94);
+            this.drawToolsControl.Location = new System.Drawing.Point(2, 118);
             this.drawToolsControl.Name = "drawToolsControl";
             this.drawToolsControl.Padding = new System.Windows.Forms.Padding(2);
             this.drawToolsControl.Size = new System.Drawing.Size(224, 29);

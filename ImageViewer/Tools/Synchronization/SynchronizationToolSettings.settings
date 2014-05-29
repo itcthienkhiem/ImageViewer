@@ -8,5 +8,8 @@
     <Setting Name="ParallelPlanesToleranceAngle" Description="Maximum angle difference, in degrees, between two planes for synchronization tools to treat the planes as parallel." Type="System.Single" Scope="User">
       <Value Profile="(Default)">10</Value>
     </Setting>
+    <Setting Name="ShowCrossReferenceLines" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -133,6 +133,15 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization {
         }
         
         /// <summary>
+        ///   查找类似 显示交叉定位线 的本地化字符串。
+        /// </summary>
+        internal static string ShowCrossReferenceLines {
+            get {
+                return ResourceManager.GetString("ShowCrossReferenceLines", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 显示1，2定位线 的本地化字符串。
         /// </summary>
         internal static string ShowFirstAndLastReferenceLines {

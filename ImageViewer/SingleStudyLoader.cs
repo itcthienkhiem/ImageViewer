@@ -126,10 +126,8 @@ namespace ClearCanvas.ImageViewer
 							DisposeSops(sops);
 							return;
 						}
-
 						_sops = sops;
 					}
-
 					OnSopsLoaded();
 				}
 				catch (Exception e)

@@ -54,6 +54,7 @@ namespace ClearCanvas.ImageViewer
 		private RectangleF _normalizedRectangle;
 		private bool _selected = false;
 		private bool _enabled = true;
+        private bool _occupied = false;
 		private int _rows;
 		private int _columns;
 		private static int _borderWidth = 2;
@@ -471,6 +472,12 @@ namespace ClearCanvas.ImageViewer
 			get { return _parentPhysicalWorkspace.Enabled ? _enabled : false; }
 			set { _enabled = value; }
 		}
+
+        public  bool Occpyed 
+        {
+            get { return _occupied; }
+            set { _occupied = value; }
+        }
 
 		public ExtensionData ExtensionData { get; private set; }
 

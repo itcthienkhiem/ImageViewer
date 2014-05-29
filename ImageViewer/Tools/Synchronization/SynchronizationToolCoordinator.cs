@@ -160,7 +160,6 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
                 //the presentation image selected event will fire and take care of this.
                 return;
             }
-
             _referenceLineTool.RefreshAllReferenceLines();
             Draw(_referenceLineTool.GetImagesToRedraw());
         }

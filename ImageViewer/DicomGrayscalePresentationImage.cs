@@ -188,7 +188,13 @@ namespace ClearCanvas.ImageViewer
 		/// </summary>
 		public Frame Frame
 		{
-			get { return _frameReference.Frame; }
+			get {
+                if (_frameReference != null && _frameReference.Frame != null)
+                    return _frameReference.Frame;
+                else
+                    return null;
+             
+                }
 		}
 
 		#endregion

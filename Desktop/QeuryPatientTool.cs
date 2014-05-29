@@ -33,7 +33,7 @@ namespace ClearCanvas.Desktop
         int noofscreens = 0;
         Form1[] grabwindow;
         Screen[] screens;
-        RegistryKey key;
+      
 
         public void QueryPatient()
         {
@@ -100,13 +100,11 @@ namespace ClearCanvas.Desktop
             IntPtr WINDOW_HANDLER = new IntPtr(Convert.ToInt32(GlobalData.RunParams.CallerHwnd));
             if ((int)WINDOW_HANDLER == 0)
             {
-
             }
             else
             {
                 User32.SendMessage(WINDOW_HANDLER, WM_SNDRIS, 0, new IntPtr(0));
             }
-
         }
 
         private string GetMaxIDFormImageBack()

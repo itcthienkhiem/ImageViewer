@@ -141,6 +141,9 @@
   <data name="PrefixSpatialLocatorTool" xml:space="preserve">
     <value>三维定点</value>
   </data>
+  <data name="ShowCrossReferenceLines" xml:space="preserve">
+    <value>显示交叉定位线</value>
+  </data>
   <data name="ShowFirstAndLastReferenceLines" xml:space="preserve">
     <value>显示1，2定位线</value>
   </data>

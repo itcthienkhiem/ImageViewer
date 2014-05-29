@@ -168,6 +168,8 @@ namespace ClearCanvas.ImageViewer
 		/// </summary>
 		bool Enabled { get; set; }
 
+        bool Occpyed { get; set; }
+
 		/// <summary>
 		/// A place for extensions to store custom data about the tile.
 		/// </summary>

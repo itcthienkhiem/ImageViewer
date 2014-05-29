@@ -43,15 +43,13 @@ namespace CSharpWin
         private void InitializeComponent(string cursor_text, int xstart, int ystart, int xwidth, int ywidth, int scn)
         {
             screennumber = scn;
-           
-
             // Set Mouse cursor based on screen grab or Area Grab
             if (cursor_text.Length != 0)  //text string cursor for area select forms
             {
                 Bitmap bitmap = new Bitmap(230, 25);
                 Graphics g = Graphics.FromImage(bitmap);
                 using (Font f = new Font("Arial", 15))
-                g.DrawString(cursor_text, f, Brushes.Red, 0, 0);
+                    g.DrawString(cursor_text, f, Brushes.Red, 0, 0);
                 Pen pen = new Pen(Color.Red);
                 g.DrawRectangle(pen, 0, 0, bitmap.Width - 1, bitmap.Height - 1);
                 pen.Dispose();
@@ -85,35 +83,28 @@ namespace CSharpWin
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.OnMouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.OnMouseMove);
             this.ResumeLayout(false);
+            
         }
-
-       
-       
+        
         private void OnMouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
         {
-       
-            
             switch (e.Button)
             {
-       case MouseButtons.Left:
+            case MouseButtons.Left:
             mousedown = 1;
             xMouse = e.X; // first click position stored in xMouse,yMouse
             yMouse = e.Y;
             newX = xMouse;
             newY = yMouse;
-        
             Graphics gfx = CreateGraphics();
             Pen linePen = new Pen(Color.Black);
             linePen.Width = penwidth;
-
             gfx.DrawLine(linePen, xMouse, yMouse, xMouse,newY); // Draw rectangle, used rectangle function also but was giving errors
             gfx.DrawLine(linePen, xMouse, yMouse, newX, yMouse);
             gfx.DrawLine(linePen, newX, newY, newX, yMouse);
             gfx.DrawLine(linePen, newX, newY, xMouse, newY);
-
             linePen.Dispose();
             gfx.Dispose();
-                  
             break;
           
             case MouseButtons.None:
@@ -126,33 +117,33 @@ namespace CSharpWin
         private void OnMouseMove(object sender, System.Windows.Forms.MouseEventArgs e)
         {
             if (mousedown != 1) return; //check if the left button is pressed, if not return
-      
-          //  this.Cursor = new Cursor(Cursor.Current.Handle);
-       //     Cursor.Clip = new Rectangle(this.Location, this.ClientSize);  //limit cursor to this screen
 
-               Graphics gfx = CreateGraphics();
-           
-                 Pen erasePen = new Pen(Color.White);
-                 erasePen.Width = penwidth;
-         
-                 gfx.DrawLine(erasePen, xMouse, yMouse, xMouse, newY); //remove the old rectangle
-                 gfx.DrawLine(erasePen, xMouse, yMouse, newX, yMouse);
-                 gfx.DrawLine(erasePen, newX, newY, newX, yMouse);
-                 gfx.DrawLine(erasePen, newX, newY, xMouse, newY);
-          
-                Pen linePen = new Pen(Color.White);
-                linePen.Width = penwidth;
-                newX = e.X;
-                newY = e.Y;
-          
-               gfx.DrawLine(linePen, xMouse, yMouse, xMouse, newY); //draw new rectangle on the Form
-               gfx.DrawLine(linePen, xMouse, yMouse, newX, yMouse);
-               gfx.DrawLine(linePen, newX, newY, newX, yMouse);
-               gfx.DrawLine(linePen, newX, newY, xMouse, newY);
+            //  this.Cursor = new Cursor(Cursor.Current.Handle);
+            //     Cursor.Clip = new Rectangle(this.Location, this.ClientSize);  //limit cursor to this screen
 
-               erasePen.Dispose();
-               linePen.Dispose();
-               gfx.Dispose();
+            Graphics gfx = CreateGraphics();
+
+            Pen erasePen = new Pen(Color.White);
+            erasePen.Width = penwidth;
+
+            gfx.DrawLine(erasePen, xMouse, yMouse, xMouse, newY); //remove the old rectangle
+            gfx.DrawLine(erasePen, xMouse, yMouse, newX, yMouse);
+            gfx.DrawLine(erasePen, newX, newY, newX, yMouse);
+            gfx.DrawLine(erasePen, newX, newY, xMouse, newY);
+
+            Pen linePen = new Pen(Color.Black);
+            linePen.Width = penwidth;
+            newX = e.X;
+            newY = e.Y;
+
+            gfx.DrawLine(linePen, xMouse, yMouse, xMouse, newY); //draw new rectangle on the Form
+            gfx.DrawLine(linePen, xMouse, yMouse, newX, yMouse);
+            gfx.DrawLine(linePen, newX, newY, newX, yMouse);
+            gfx.DrawLine(linePen, newX, newY, xMouse, newY);
+
+            erasePen.Dispose();
+            linePen.Dispose();
+            gfx.Dispose();
 
         }
 
@@ -163,14 +154,12 @@ namespace CSharpWin
                 case MouseButtons.Left:
                     mousedown = 0;
                     //call the parent function to close child windows and grab screen
-                    //this._msgHandler(screennumber, xMouse, yMouse, newX, newY); 
+                    this._msgHandler(screennumber, xMouse, yMouse, newX, newY); 
                     break;
-
                 case MouseButtons.None:
                 default:
                 break;
             }
-
         }
 
         

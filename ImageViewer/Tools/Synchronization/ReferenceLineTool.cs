@@ -144,8 +144,16 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 					action.Checked = ShowFirstAndLastReferenceLines;
 					action.Label = SR.ShowFirstAndLastReferenceLines;
 					action.SetClickHandler(delegate { ToggleShowFirstAndLastReferenceLines(); });
+                    _dropDownMenuModel.InsertAction(action);
+                   
+                    ClickAction action2 = new ClickAction("showCrossReferenceLines",
+                        new ActionPath("reference-line-dropdown/ShowCrossReferenceLines", _resolver),
+                        ClickActionFlags.CheckAction, _resolver);
 
-					_dropDownMenuModel.InsertAction(action);
+                    action2.Checked = ShowCrossReferenceLines;
+                    action2.Label = SR.ShowCrossReferenceLines;
+                    action2.SetClickHandler(delegate { ToggleShowCrossReferenceLines(); });
+					_dropDownMenuModel.InsertAction(action2);
 				}
 
 				return _dropDownMenuModel;
@@ -168,6 +176,22 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 			}
 		}
 
+        public bool ShowCrossReferenceLines
+        {
+            get
+            {
+                return SynchronizationToolSettings.DefaultInstance.ShowCrossReferenceLines;
+            }
+            set
+            {
+                SynchronizationToolSettings.DefaultInstance.ShowCrossReferenceLines = value;
+                SynchronizationToolSettings.DefaultInstance.Save();
+
+                ClickAction showFirstAndLastAction = (ClickAction)((ActionNode)(ReferenceLineDropDownMenuModel.ChildNodes[1])).Action;
+                showFirstAndLastAction.Checked = ShowCrossReferenceLines;
+            }
+        }
+
 		public void Toggle()
 		{
 			Active = !Active;
@@ -182,6 +206,14 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 			RefreshAllReferenceLines();
 			_coordinator.OnRefreshedReferenceLines();
 		}
+
+        private void ToggleShowCrossReferenceLines()
+        {
+            ShowCrossReferenceLines = !ShowCrossReferenceLines;
+
+            RefreshAllReferenceLines();
+            _coordinator.OnRefreshedReferenceLines();
+        }
 
 		#endregion
 
@@ -301,24 +333,52 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 			}
 		}
 
-		private IEnumerable<ReferenceLine> GetAllReferenceLines(DicomImagePlane targetImagePlane)
-		{
-			ReferenceLine firstReferenceLine = null;
-			ReferenceLine lastReferenceLine = null;
-			if (ShowFirstAndLastReferenceLines)
-				GetFirstAndLastReferenceLines(targetImagePlane, out firstReferenceLine, out lastReferenceLine);
+        private IEnumerable<ReferenceLine> GetAllReferenceLines(DicomImagePlane targetImagePlane)
+        {
+            if (!ShowCrossReferenceLines)
+            {
+                ReferenceLine firstReferenceLine = null;
+                ReferenceLine lastReferenceLine = null;
+                if (ShowFirstAndLastReferenceLines)
+                    GetFirstAndLastReferenceLines(targetImagePlane, out firstReferenceLine, out lastReferenceLine);
 
-			if (firstReferenceLine != null)
-				yield return firstReferenceLine;
+                if (firstReferenceLine != null)
+                    yield return firstReferenceLine;
 
-			if (lastReferenceLine != null)
-				yield return lastReferenceLine;
+                if (lastReferenceLine != null)
+                    yield return lastReferenceLine;
 
-			//return 'current' last, so it draws on top of the others.
-			ReferenceLine currentReferenceLine = GetReferenceLine(_currentReferenceImagePlane, targetImagePlane);
-			if (currentReferenceLine != null)
-				yield return currentReferenceLine;
-		}
+                //return 'current' last, so it draws on top of the others.
+                ReferenceLine currentReferenceLine = GetReferenceLine(_currentReferenceImagePlane, targetImagePlane);
+                if (currentReferenceLine != null)
+                    yield return currentReferenceLine;
+
+            }
+            else
+            {
+                foreach (IPresentationImage currentImage in GetAllVisibleImages())
+                {
+                    _currentReferenceImagePlane = DicomImagePlane.FromImage(currentImage);
+                    if (_currentReferenceImagePlane == null)
+                        continue;
+                    ReferenceLine firstReferenceLine = null;
+                    ReferenceLine lastReferenceLine = null;
+                    if (ShowFirstAndLastReferenceLines)
+                        GetFirstAndLastReferenceLines(targetImagePlane, out firstReferenceLine, out lastReferenceLine);
+
+                    if (firstReferenceLine != null)
+                        yield return firstReferenceLine;
+
+                    if (lastReferenceLine != null)
+                        yield return lastReferenceLine;
+
+                    //return 'current' last, so it draws on top of the others.
+                    ReferenceLine currentReferenceLine = GetReferenceLine(_currentReferenceImagePlane, targetImagePlane);
+                    if (currentReferenceLine != null)
+                        yield return currentReferenceLine;
+                }
+            }
+        }
 
 		private void RefreshReferenceLines(IPresentationImage targetImage)
 		{
@@ -331,7 +391,6 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
                 ReferenceLineCompositeGraphic referenceLineCompositeGraphic = _coordinator.GetReferenceLineCompositeGraphic(targetImage);
                 if (referenceLineCompositeGraphic == null)
                     return;
-
                 bool showReferenceLines = this.Active && _currentReferenceImagePlane != null &&
                     _currentReferenceImagePlane.IsInSameFrameOfReference(targetImagePlane);
 
@@ -342,6 +401,7 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
                 }
 
                 int i = 0;
+                 
                 foreach (ReferenceLine referenceLine in GetAllReferenceLines(targetImagePlane))
                 {
                     ReferenceLineGraphic referenceLineGraphic = referenceLineCompositeGraphic[i++];
@@ -350,7 +410,6 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
                     referenceLineGraphic.Text = referenceLine.Label;
                     referenceLineGraphic.Visible = true;
                 }
-
                 // make any that aren't valid invisible.
                 for (int j = i; j < referenceLineCompositeGraphic.Graphics.Count; ++j)
                     referenceLineCompositeGraphic[j].Visible = false;
@@ -359,49 +418,66 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
             {
                 Platform.Log(LogLevel.Error, ex.ToString());
             }
-
 		}
 
-		private void SetCurrentReferencePlane()
-		{
-			if (CurrentReferenceImage == this.SelectedPresentationImage)
-				return;
 
-			_currentReferenceImagePlane = DicomImagePlane.FromImage(this.SelectedPresentationImage);
-			if (_currentReferenceImagePlane == null)
-				return;
+        private void SetCurrentReferencePlane(IPresentationImage image)
+        {
+            if (CurrentReferenceImage == this.SelectedPresentationImage)
+                return;
 
-			ReferenceLineCompositeGraphic referenceLineCompositeGraphic =
-				_coordinator.GetReferenceLineCompositeGraphic(CurrentReferenceImage);
+            _currentReferenceImagePlane = DicomImagePlane.FromImage(image);
+            if (_currentReferenceImagePlane == null)
+                return;
 
-			//Hide the current image's reference lines
-			if (referenceLineCompositeGraphic != null)
-				referenceLineCompositeGraphic.HideAllReferenceLines();
-		}
+            ReferenceLineCompositeGraphic referenceLineCompositeGraphic =
+                _coordinator.GetReferenceLineCompositeGraphic(CurrentReferenceImage);
+
+            //Hide the current image's reference lines
+
+            //if (referenceLineCompositeGraphic != null)
+            //    referenceLineCompositeGraphic.HideAllReferenceLines();
+        }
+
+        private void SetCurrentReferencePlane()
+        {
+            if (CurrentReferenceImage == this.SelectedPresentationImage)
+                return;
+
+            _currentReferenceImagePlane = DicomImagePlane.FromImage(this.SelectedPresentationImage);
+            if (_currentReferenceImagePlane == null)
+                return;
+
+            ReferenceLineCompositeGraphic referenceLineCompositeGraphic =
+                _coordinator.GetReferenceLineCompositeGraphic(CurrentReferenceImage);
+        }
+
 
 		#endregion
 
 		#region Internal Methods (for mediator)
+ 
 
-		internal void RefreshAllReferenceLines()
-		{
-			SetCurrentReferencePlane();
-
-			foreach (IPresentationImage targetImage in GetAllVisibleImages())
-			{
-				if (targetImage != CurrentReferenceImage)
-					RefreshReferenceLines(targetImage);
-			}
-		}
+        internal void RefreshAllReferenceLines()
+        {
+            foreach (IPresentationImage currentImage in GetAllVisibleImages())
+            {
+                SetCurrentReferencePlane(currentImage);
+                foreach (IPresentationImage targetImage in GetAllVisibleImages())
+                {
+                    RefreshReferenceLines(targetImage);
+                }
+            }
+        }
 
 		internal IEnumerable<IPresentationImage> GetImagesToRedraw()
 		{
-			foreach (IPresentationImage image in GetAllVisibleImages())
-			{
-				ReferenceLineCompositeGraphic graphic = _coordinator.GetReferenceLineCompositeGraphic(image);
-				if (graphic != null && graphic.Dirty)
-					yield return image;
-			}
+            foreach (IPresentationImage image in GetAllVisibleImages())
+            {
+                ReferenceLineCompositeGraphic graphic = _coordinator.GetReferenceLineCompositeGraphic(image);
+                if (graphic != null && graphic.Dirty)
+                    yield return image;
+            }
 		}
 
 		#endregion
