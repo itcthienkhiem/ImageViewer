@@ -44,7 +44,7 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement
    [DropDownButtonAction("activate", "global-toolbars/ToolbarMeasurement/ToolbarRuler", "Select", "MeasurementMenuModel")]
 
 	//[ButtonAction("activate", "global-toolbars/ToolbarMeasurement/ToolbarRuler", "Select", Flags = ClickActionFlags.CheckAction)]
-    //[CheckedStateObserver("activate", "Active", "ActivationChanged")]
+    [CheckedStateObserver("activate", "Active", "ActivationChanged")]
     [TooltipValueObserver("activate", "Tooltip", "TooltipChanged")]
     [MouseButtonIconSet("activate", "Icons.RulerToolSmall.png", "Icons.RulerToolMedium.png", "Icons.RulerToolLarge.png")]
     [GroupHint("activate", "Tools.Image.Annotations.Measurement.Roi.Linear")]

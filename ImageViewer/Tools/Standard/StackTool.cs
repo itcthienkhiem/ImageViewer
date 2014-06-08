@@ -390,8 +390,14 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
             }
             //MemorableUndoableCommand memorableCommand = new MemorableUndoableCommand(imageBox);
             //memorableCommand.BeginState = imageBox.CreateMemento();
-
+            
             imageBox.DisplaySet = parentImageSet.DisplaySets[sourceDisplaySetIndex].CreateFreshCopy();
+            if (direction < 0)
+            {
+                //imageBox.DisplaySet.TopLeftPresentationImageIndex =
+                imageBox.TopLeftPresentationImageIndex = imageBox.DisplaySet.PresentationImages.Count - 1;
+            }
+
             imageBox.Draw();
 
             //memorableCommand.EndState = imageBox.CreateMemento();

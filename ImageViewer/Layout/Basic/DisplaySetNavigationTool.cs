@@ -115,7 +115,7 @@ namespace ClearCanvas.ImageViewer.Layout.Basic
 				// this situation usually arises from dynamically generated alternate views of a display set which is part of an image set
 				return currentDisplaySet.ImageViewer != null ? currentDisplaySet.ImageViewer.LogicalWorkspace.ImageSets.SelectMany(ims => ims.DisplaySets).FirstOrDefault(ds => ds.Uid == currentDisplaySet.Uid) : null;
 			}
-
+           
 			return CollectionUtils.SelectFirst(currentDisplaySet.ParentImageSet.DisplaySets, displaySet => displaySet.Uid == currentDisplaySet.Uid);
 		}
 

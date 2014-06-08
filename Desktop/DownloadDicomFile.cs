@@ -90,7 +90,7 @@ namespace ClearCanvas.Desktop
                 sqlstr = string.Format(" select b.SeriesInstanceUID,b.SeriesNumber,a.AccessionNumber " +
                                                    " from studies a,series b " +
                                                    " where a.StudyInstanceUID=b.StudyInstanceUID " +
-                                                   " and a.AccessionNumber='{0}' order by SeriesInstanceUID ", accessionNum);
+                                                   " and a.AccessionNumber='{0}' order by SeriesNumber ", accessionNum);
                 sqlCommand = new SqlDataAdapter(sqlstr, GlobalData.MainConn.ChangeType());
                 sqlCommand.SelectCommand.CommandType = CommandType.Text;
                 SeriesReader = sqlCommand.SelectCommand.ExecuteReader();

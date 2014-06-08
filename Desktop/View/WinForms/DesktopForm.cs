@@ -371,6 +371,7 @@ namespace ClearCanvas.Desktop.View.WinForms
                 viewer.LogicalWorkspace.Clear();
                 viewer.ReAllocateStudyTree();
                 viewer.Layout();
+                //viewer.LayoutFirst();
                 viewer.LoadStudyFromFtp(this);
             } 
             else

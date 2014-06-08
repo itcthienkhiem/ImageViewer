@@ -59,118 +59,118 @@ namespace ClearCanvas.ImageViewer.Layout.Basic.View.WinForms
         /// </summary>
         private void InitializeComponent()
         {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LayoutConfigurationComponentControl));
-			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this._imageBoxLabelRows = new System.Windows.Forms.Label();
-			this._imageBoxRows = new ClearCanvas.Desktop.View.WinForms.NonEmptyNumericUpDown();
-			this._imageBoxLabelColumns = new System.Windows.Forms.Label();
-			this._imageBoxColumns = new ClearCanvas.Desktop.View.WinForms.NonEmptyNumericUpDown();
-			this.groupBox2 = new System.Windows.Forms.GroupBox();
-			this._tileLabelRows = new System.Windows.Forms.Label();
-			this._tileRows = new ClearCanvas.Desktop.View.WinForms.NonEmptyNumericUpDown();
-			this._tileLabelColumns = new System.Windows.Forms.Label();
-			this._tileColumns = new ClearCanvas.Desktop.View.WinForms.NonEmptyNumericUpDown();
-			this._modality = new System.Windows.Forms.ComboBox();
-			this.label1 = new System.Windows.Forms.Label();
-			this.groupBox1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this._imageBoxRows)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this._imageBoxColumns)).BeginInit();
-			this.groupBox2.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this._tileRows)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this._tileColumns)).BeginInit();
-			this.SuspendLayout();
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Controls.Add(this._imageBoxLabelRows);
-			this.groupBox1.Controls.Add(this._imageBoxRows);
-			this.groupBox1.Controls.Add(this._imageBoxLabelColumns);
-			this.groupBox1.Controls.Add(this._imageBoxColumns);
-			resources.ApplyResources(this.groupBox1, "groupBox1");
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.TabStop = false;
-			// 
-			// _imageBoxLabelRows
-			// 
-			resources.ApplyResources(this._imageBoxLabelRows, "_imageBoxLabelRows");
-			this._imageBoxLabelRows.Name = "_imageBoxLabelRows";
-			// 
-			// _imageBoxRows
-			// 
-			resources.ApplyResources(this._imageBoxRows, "_imageBoxRows");
-			this._imageBoxRows.Name = "_imageBoxRows";
-			// 
-			// _imageBoxLabelColumns
-			// 
-			resources.ApplyResources(this._imageBoxLabelColumns, "_imageBoxLabelColumns");
-			this._imageBoxLabelColumns.Name = "_imageBoxLabelColumns";
-			// 
-			// _imageBoxColumns
-			// 
-			resources.ApplyResources(this._imageBoxColumns, "_imageBoxColumns");
-			this._imageBoxColumns.Name = "_imageBoxColumns";
-			// 
-			// groupBox2
-			// 
-			this.groupBox2.Controls.Add(this._tileLabelRows);
-			this.groupBox2.Controls.Add(this._tileRows);
-			this.groupBox2.Controls.Add(this._tileLabelColumns);
-			this.groupBox2.Controls.Add(this._tileColumns);
-			resources.ApplyResources(this.groupBox2, "groupBox2");
-			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.TabStop = false;
-			// 
-			// _tileLabelRows
-			// 
-			resources.ApplyResources(this._tileLabelRows, "_tileLabelRows");
-			this._tileLabelRows.Name = "_tileLabelRows";
-			// 
-			// _tileRows
-			// 
-			resources.ApplyResources(this._tileRows, "_tileRows");
-			this._tileRows.Name = "_tileRows";
-			// 
-			// _tileLabelColumns
-			// 
-			resources.ApplyResources(this._tileLabelColumns, "_tileLabelColumns");
-			this._tileLabelColumns.Name = "_tileLabelColumns";
-			// 
-			// _tileColumns
-			// 
-			resources.ApplyResources(this._tileColumns, "_tileColumns");
-			this._tileColumns.Name = "_tileColumns";
-			// 
-			// _modality
-			// 
-			this._modality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this._modality.FormattingEnabled = true;
-			resources.ApplyResources(this._modality, "_modality");
-			this._modality.Name = "_modality";
-			// 
-			// label1
-			// 
-			resources.ApplyResources(this.label1, "label1");
-			this.label1.Name = "label1";
-			// 
-			// LayoutConfigurationComponentControl
-			// 
-			resources.ApplyResources(this, "$this");
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this._modality);
-			this.Controls.Add(this.label1);
-			this.Controls.Add(this.groupBox2);
-			this.Controls.Add(this.groupBox1);
-			this.Name = "LayoutConfigurationComponentControl";
-			this.groupBox1.ResumeLayout(false);
-			this.groupBox1.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this._imageBoxRows)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this._imageBoxColumns)).EndInit();
-			this.groupBox2.ResumeLayout(false);
-			this.groupBox2.PerformLayout();
-			((System.ComponentModel.ISupportInitialize)(this._tileRows)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this._tileColumns)).EndInit();
-			this.ResumeLayout(false);
-			this.PerformLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LayoutConfigurationComponentControl));
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this._imageBoxLabelRows = new System.Windows.Forms.Label();
+            this._imageBoxRows = new ClearCanvas.Desktop.View.WinForms.NonEmptyNumericUpDown();
+            this._imageBoxLabelColumns = new System.Windows.Forms.Label();
+            this._imageBoxColumns = new ClearCanvas.Desktop.View.WinForms.NonEmptyNumericUpDown();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this._tileLabelRows = new System.Windows.Forms.Label();
+            this._tileRows = new ClearCanvas.Desktop.View.WinForms.NonEmptyNumericUpDown();
+            this._tileLabelColumns = new System.Windows.Forms.Label();
+            this._tileColumns = new ClearCanvas.Desktop.View.WinForms.NonEmptyNumericUpDown();
+            this._modality = new System.Windows.Forms.ComboBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._imageBoxRows)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._imageBoxColumns)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._tileRows)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this._tileColumns)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this._imageBoxLabelRows);
+            this.groupBox1.Controls.Add(this._imageBoxRows);
+            this.groupBox1.Controls.Add(this._imageBoxLabelColumns);
+            this.groupBox1.Controls.Add(this._imageBoxColumns);
+            resources.ApplyResources(this.groupBox1, "groupBox1");
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.TabStop = false;
+            // 
+            // _imageBoxLabelRows
+            // 
+            resources.ApplyResources(this._imageBoxLabelRows, "_imageBoxLabelRows");
+            this._imageBoxLabelRows.Name = "_imageBoxLabelRows";
+            // 
+            // _imageBoxRows
+            // 
+            resources.ApplyResources(this._imageBoxRows, "_imageBoxRows");
+            this._imageBoxRows.Name = "_imageBoxRows";
+            // 
+            // _imageBoxLabelColumns
+            // 
+            resources.ApplyResources(this._imageBoxLabelColumns, "_imageBoxLabelColumns");
+            this._imageBoxLabelColumns.Name = "_imageBoxLabelColumns";
+            // 
+            // _imageBoxColumns
+            // 
+            resources.ApplyResources(this._imageBoxColumns, "_imageBoxColumns");
+            this._imageBoxColumns.Name = "_imageBoxColumns";
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this._tileLabelRows);
+            this.groupBox2.Controls.Add(this._tileRows);
+            this.groupBox2.Controls.Add(this._tileLabelColumns);
+            this.groupBox2.Controls.Add(this._tileColumns);
+            resources.ApplyResources(this.groupBox2, "groupBox2");
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.TabStop = false;
+            // 
+            // _tileLabelRows
+            // 
+            resources.ApplyResources(this._tileLabelRows, "_tileLabelRows");
+            this._tileLabelRows.Name = "_tileLabelRows";
+            // 
+            // _tileRows
+            // 
+            resources.ApplyResources(this._tileRows, "_tileRows");
+            this._tileRows.Name = "_tileRows";
+            // 
+            // _tileLabelColumns
+            // 
+            resources.ApplyResources(this._tileLabelColumns, "_tileLabelColumns");
+            this._tileLabelColumns.Name = "_tileLabelColumns";
+            // 
+            // _tileColumns
+            // 
+            resources.ApplyResources(this._tileColumns, "_tileColumns");
+            this._tileColumns.Name = "_tileColumns";
+            // 
+            // _modality
+            // 
+            this._modality.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this._modality.FormattingEnabled = true;
+            resources.ApplyResources(this._modality, "_modality");
+            this._modality.Name = "_modality";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
+            // LayoutConfigurationComponentControl
+            // 
+            resources.ApplyResources(this, "$this");
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this._modality);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox1);
+            this.Name = "LayoutConfigurationComponentControl";
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._imageBoxRows)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._imageBoxColumns)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this._tileRows)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this._tileColumns)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

@@ -67,7 +67,7 @@ namespace ClearCanvas.ImageViewer
 	{
 		private IImageViewer _imageViewer;
 		private bool _layoutCompleted;
-
+        private bool _lNeedLayout = true;
 		/// <summary>
 		/// Constructor.
 		/// </summary>
@@ -120,6 +120,9 @@ namespace ClearCanvas.ImageViewer
 		/// </summary>
 		public bool ReconcilePatientInfo { get; set; }
 
+        bool NeedLayOut { get { return _lNeedLayout; } set { _lNeedLayout = value; } }
+
+      
 		#endregion
 
 		#region ILayoutManager Members
@@ -163,6 +166,27 @@ namespace ClearCanvas.ImageViewer
 
 			//OnLayoutCompleted();
 		}
+
+        public virtual void LayoutFirst()
+        {
+            if (_layoutCompleted)
+                throw new InvalidOperationException("Layout has already been called.");
+
+            BuildLogicalWorkspace();
+
+            //ValidateLogicalWorkspace();
+            NeedLayOut = true;
+            LayoutAndFillPhysicalWorkspace();
+
+            // Now, only after showing the "primary study", sort the image sets according to study order. (yes, this calls SortStudies)
+
+            //SortImageSets();
+
+            ImageViewer.PhysicalWorkspace.Draw();
+            //ImageViewer.PhysicalWorkspace.SelectDefaultImageBox();
+
+            //OnLayoutCompleted();
+        }
 
 		/// <summary>
 		/// Called from <see cref="Layout"/> to signal that the layout is complete.
@@ -235,7 +259,12 @@ namespace ClearCanvas.ImageViewer
 		/// </remarks>
 		protected virtual void LayoutAndFillPhysicalWorkspace()
 		{
-			LayoutPhysicalWorkspace();
+            //if (NeedLayOut)
+            //{
+            //    LayoutPhysicalWorkspace();
+            //    NeedLayOut = false;
+            //}
+            LayoutPhysicalWorkspace();
 			FillPhysicalWorkspace();
 		}
 
@@ -306,17 +335,18 @@ namespace ClearCanvas.ImageViewer
 					if (imageSetIndex == logicalWorkspace.ImageSets.Count)
 						break;
 				}
-                //if (imageBox.Occpyed  == true)
+                //if (imageBox.Occpyed == true)
                 //{
                 //    displaySetIndex++;
                 //    continue;
                 //}
-                //if (imageBox.DisplaySet != null &&  (imageBox.DisplaySet.Description == logicalWorkspace.ImageSets[imageSetIndex].DisplaySets[displaySetIndex].Description))
+                //if (imageBox.DisplaySet != null && (imageBox.DisplaySet.Description == logicalWorkspace.ImageSets[imageSetIndex].DisplaySets[displaySetIndex].Description))
                 //{
                 //    displaySetIndex++;
                 //    continue;
                 //}
 				imageBox.DisplaySet = logicalWorkspace.ImageSets[imageSetIndex].DisplaySets[displaySetIndex].CreateFreshCopy();
+                //imageBox.Occpyed = true;
 				displaySetIndex++;
 			}
 		}

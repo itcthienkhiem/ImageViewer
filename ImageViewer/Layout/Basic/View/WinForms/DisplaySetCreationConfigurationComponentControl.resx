@@ -123,16 +123,16 @@
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="_createSingleImageDisplaySets.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 19</value>
+    <value>15, 18</value>
   </data>
   <data name="_createSingleImageDisplaySets.Size" type="System.Drawing.Size, System.Drawing">
-    <value>175, 17</value>
+    <value>120, 16</value>
   </data>
   <data name="_createSingleImageDisplaySets.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="_createSingleImageDisplaySets.Text" xml:space="preserve">
-    <value>Create single image display sets</value>
+    <value>创建单个图像序列</value>
   </data>
   <metadata name="_tooltip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>17, 17</value>
@@ -153,13 +153,13 @@
     <value>2</value>
   </data>
   <data name="_modality.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 19</value>
+    <value>15, 18</value>
   </data>
   <data name="_modality.MaxDropDownItems" type="System.Int32, mscorlib">
     <value>25</value>
   </data>
   <data name="_modality.Size" type="System.Drawing.Size, System.Drawing">
-    <value>86, 21</value>
+    <value>86, 20</value>
   </data>
   <data name="_modality.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -183,13 +183,13 @@
     <value>12, 3</value>
   </data>
   <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
-    <value>46, 13</value>
+    <value>53, 12</value>
   </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>8</value>
   </data>
   <data name="label1.Text" xml:space="preserve">
-    <value>Modality</value>
+    <value>设备类型</value>
   </data>
   <data name="&gt;&gt;label1.Name" xml:space="preserve">
     <value>label1</value>
@@ -211,16 +211,16 @@
     <value>NoControl</value>
   </data>
   <data name="_showOriginalSeries.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 65</value>
+    <value>15, 60</value>
   </data>
   <data name="_showOriginalSeries.Size" type="System.Drawing.Size, System.Drawing">
-    <value>144, 17</value>
+    <value>96, 16</value>
   </data>
   <data name="_showOriginalSeries.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="_showOriginalSeries.Text" xml:space="preserve">
-    <value>Create series display sets</value>
+    <value>创建序列显示</value>
   </data>
   <data name="_showOriginalSeries.ToolTip" xml:space="preserve">
     <value>Create a display set for each series in the study; always applies unless overridden by another option.</value>
@@ -244,16 +244,16 @@
     <value>NoControl</value>
   </data>
   <data name="_createAllImagesDisplaySet.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 42</value>
+    <value>15, 39</value>
   </data>
   <data name="_createAllImagesDisplaySet.Size" type="System.Drawing.Size, System.Drawing">
-    <value>168, 17</value>
+    <value>132, 16</value>
   </data>
   <data name="_createAllImagesDisplaySet.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="_createAllImagesDisplaySet.Text" xml:space="preserve">
-    <value>Create "all images" display set</value>
+    <value>创建所有图像在序列</value>
   </data>
   <data name="_createAllImagesDisplaySet.ToolTip" xml:space="preserve">
     <value>Put all images in the study into a single display set.</value>
@@ -271,19 +271,19 @@
     <value>1</value>
   </data>
   <data name="_creationGroup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 46</value>
+    <value>15, 42</value>
   </data>
   <data name="_creationGroup.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 1</value>
   </data>
   <data name="_creationGroup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 101</value>
+    <value>205, 93</value>
   </data>
   <data name="_creationGroup.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="_creationGroup.Text" xml:space="preserve">
-    <value>General</value>
+    <value>通用</value>
   </data>
   <data name="&gt;&gt;_creationGroup.Name" xml:space="preserve">
     <value>_creationGroup</value>
@@ -301,16 +301,16 @@
     <value>True</value>
   </data>
   <data name="_invertImages.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 19</value>
+    <value>15, 18</value>
   </data>
   <data name="_invertImages.Size" type="System.Drawing.Size, System.Drawing">
-    <value>137, 17</value>
+    <value>96, 16</value>
   </data>
   <data name="_invertImages.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="_invertImages.Text" xml:space="preserve">
-    <value>Invert grayscale images</value>
+    <value>反转灰度图像</value>
   </data>
   <data name="_invertImages.ToolTip" xml:space="preserve">
     <value>Grayscale image polarity should be the opposite of whatever the default is for display of the image.</value>
@@ -328,13 +328,13 @@
     <value>0</value>
   </data>
   <data name="_presentationGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 151</value>
+    <value>15, 139</value>
   </data>
   <data name="_presentationGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 1</value>
   </data>
   <data name="_presentationGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 45</value>
+    <value>205, 42</value>
   </data>
   <data name="_presentationGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -361,19 +361,19 @@
     <value>NoControl</value>
   </data>
   <data name="_splitMixedMultiframeSeries.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 99</value>
+    <value>15, 91</value>
   </data>
   <data name="_splitMixedMultiframeSeries.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 1</value>
   </data>
   <data name="_splitMixedMultiframeSeries.Size" type="System.Drawing.Size, System.Drawing">
-    <value>159, 17</value>
+    <value>96, 16</value>
   </data>
   <data name="_splitMixedMultiframeSeries.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
   </data>
   <data name="_splitMixedMultiframeSeries.Text" xml:space="preserve">
-    <value>Split mixed multi-frame series</value>
+    <value>混合多帧序列</value>
   </data>
   <data name="_splitMixedMultiframeSeries.ToolTip" xml:space="preserve">
     <value>Split series that are a mixture of single images and/or multi-frame images into a display set for single images, and one per multi-frame.</value>
@@ -397,19 +397,19 @@
     <value>NoControl</value>
   </data>
   <data name="_showOriginalMixedMultiframeSeries.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 118</value>
+    <value>25, 109</value>
   </data>
   <data name="_showOriginalMixedMultiframeSeries.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>1, 1, 1, 1</value>
   </data>
   <data name="_showOriginalMixedMultiframeSeries.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 17</value>
+    <value>96, 16</value>
   </data>
   <data name="_showOriginalMixedMultiframeSeries.TabIndex" type="System.Int32, mscorlib">
     <value>5</value>
   </data>
   <data name="_showOriginalMixedMultiframeSeries.Text" xml:space="preserve">
-    <value>Show original series</value>
+    <value>显示原始序列</value>
   </data>
   <data name="_showOriginalMixedMultiframeSeries.ToolTip" xml:space="preserve">
     <value>When a mixed multi-frame series has been split, still create a display set for the original series. Original series is never shown unless this is checked, regardless of other options.</value>
@@ -433,19 +433,19 @@
     <value>NoControl</value>
   </data>
   <data name="_splitEchos.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 19</value>
+    <value>15, 18</value>
   </data>
   <data name="_splitEchos.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 1</value>
   </data>
   <data name="_splitEchos.Size" type="System.Drawing.Size, System.Drawing">
-    <value>127, 17</value>
+    <value>96, 16</value>
   </data>
   <data name="_splitEchos.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>
   <data name="_splitEchos.Text" xml:space="preserve">
-    <value>Split multi-echo series</value>
+    <value>分开多个序列</value>
   </data>
   <data name="_splitEchos.ToolTip" xml:space="preserve">
     <value>Split multi-echo series into a display set per-echo.</value>
@@ -469,19 +469,19 @@
     <value>NoControl</value>
   </data>
   <data name="_showOriginalMultiEchoSeries.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 38</value>
+    <value>25, 35</value>
   </data>
   <data name="_showOriginalMultiEchoSeries.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>1, 1, 1, 1</value>
   </data>
   <data name="_showOriginalMultiEchoSeries.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 17</value>
+    <value>96, 16</value>
   </data>
   <data name="_showOriginalMultiEchoSeries.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
   </data>
   <data name="_showOriginalMultiEchoSeries.Text" xml:space="preserve">
-    <value>Show original series</value>
+    <value>显示原始序列</value>
   </data>
   <data name="_showOriginalMultiEchoSeries.ToolTip" xml:space="preserve">
     <value>When an echo series has been split, still create a display set for the original series. Original series is never shown unless this is checked, regardless of other options.</value>
@@ -502,7 +502,7 @@
     <value>True</value>
   </data>
   <data name="_overlaysPanel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>6, 14</value>
+    <value>6, 13</value>
   </data>
   <data name="_overlaysPanel.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>1, 1, 1, 2</value>
@@ -511,7 +511,7 @@
     <value>2, 2, 2, 2</value>
   </data>
   <data name="_overlaysPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>404, 71</value>
+    <value>404, 66</value>
   </data>
   <data name="_overlaysPanel.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -529,7 +529,7 @@
     <value>0</value>
   </data>
   <data name="_selectedOverlaysGroupBox.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 200</value>
+    <value>15, 185</value>
   </data>
   <data name="_selectedOverlaysGroupBox.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 0</value>
@@ -538,7 +538,7 @@
     <value>3, 0, 3, 3</value>
   </data>
   <data name="_selectedOverlaysGroupBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>416, 90</value>
+    <value>416, 83</value>
   </data>
   <data name="_selectedOverlaysGroupBox.TabIndex" type="System.Int32, mscorlib">
     <value>4</value>
@@ -568,19 +568,19 @@
     <value>NoControl</value>
   </data>
   <data name="_showOriginalMultiStackSeries.Location" type="System.Drawing.Point, System.Drawing">
-    <value>25, 78</value>
+    <value>25, 72</value>
   </data>
   <data name="_showOriginalMultiStackSeries.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>1, 1, 1, 1</value>
   </data>
   <data name="_showOriginalMultiStackSeries.Size" type="System.Drawing.Size, System.Drawing">
-    <value>119, 17</value>
+    <value>96, 16</value>
   </data>
   <data name="_showOriginalMultiStackSeries.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
   </data>
   <data name="_showOriginalMultiStackSeries.Text" xml:space="preserve">
-    <value>Show original series</value>
+    <value>显示原始序列</value>
   </data>
   <data name="_showOriginalMultiStackSeries.ToolTip" xml:space="preserve">
     <value>When a multi-stack series has been split, still create a display set for the original series. Original series is never shown unless this is checked, regardless of other options.</value>
@@ -604,19 +604,19 @@
     <value>NoControl</value>
   </data>
   <data name="_splitStacks.Location" type="System.Drawing.Point, System.Drawing">
-    <value>15, 59</value>
+    <value>15, 54</value>
   </data>
   <data name="_splitStacks.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 1</value>
   </data>
   <data name="_splitStacks.Size" type="System.Drawing.Size, System.Drawing">
-    <value>129, 17</value>
+    <value>84, 16</value>
   </data>
   <data name="_splitStacks.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="_splitStacks.Text" xml:space="preserve">
-    <value>Split multi-stack series</value>
+    <value>栈序列分开</value>
   </data>
   <data name="_splitStacks.ToolTip" xml:space="preserve">
     <value>Split multi-stack series into a single display set per stack.</value>
@@ -634,19 +634,19 @@
     <value>1</value>
   </data>
   <data name="_splittingGroup.Location" type="System.Drawing.Point, System.Drawing">
-    <value>226, 46</value>
+    <value>226, 42</value>
   </data>
   <data name="_splittingGroup.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>3, 3, 3, 1</value>
   </data>
   <data name="_splittingGroup.Size" type="System.Drawing.Size, System.Drawing">
-    <value>205, 150</value>
+    <value>205, 138</value>
   </data>
   <data name="_splittingGroup.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
   <data name="_splittingGroup.Text" xml:space="preserve">
-    <value>Series Splitting</value>
+    <value>序列分开</value>
   </data>
   <data name="&gt;&gt;_splittingGroup.Name" xml:space="preserve">
     <value>_splittingGroup</value>
@@ -664,10 +664,10 @@
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+    <value>6, 12</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>446, 296</value>
+    <value>446, 273</value>
   </data>
   <data name="&gt;&gt;_tooltip.Name" xml:space="preserve">
     <value>_tooltip</value>

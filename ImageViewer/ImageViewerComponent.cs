@@ -707,6 +707,22 @@ namespace ClearCanvas.ImageViewer
 			_priorStudyLoader.Start();
 		}
 
+
+        /// <summary>
+        /// Lays out the images in the <see cref="ImageViewerComponent"/> using
+        /// the current layout manager.
+        /// </summary>
+        /// <remarks>
+        /// Immediately after <see cref="ILayoutManager.Layout"/> is called, the
+        /// <see cref="PriorStudyLoader"/> then starts searching for priors
+        /// and adding them to the <see cref="StudyTree"/>.
+        /// </remarks>
+        public void LayoutFirst()
+        {
+            this.LayoutManager.LayoutFirst();
+            _priorStudyLoader.Start();
+        }
+
 		/// <summary>
 		/// Queries for studies matching a specified set of query parameters.
 		/// </summary>

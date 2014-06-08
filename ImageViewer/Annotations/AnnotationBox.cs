@@ -149,6 +149,7 @@ namespace ClearCanvas.ImageViewer.Annotations
 		/// <param name="presentationImage">The presentation image.</param>
 		public string GetAnnotationText(IPresentationImage presentationImage)
 		{
+         
 			if (_annotationItem == null)
 				return string.Empty;
 

@@ -37,6 +37,8 @@ namespace ClearCanvas.ImageViewer
 	/// </remarks>
 	public interface ILayoutManager : IDisposable
 	{
+       
+
 		/// <summary>
 		/// Sets the owning <see cref="IImageViewer"/>.
 		/// </summary>
@@ -51,5 +53,8 @@ namespace ClearCanvas.ImageViewer
 		/// first displayed, or anytime when <see cref="IImageViewer.Layout"/> is called.
 		/// </remarks>
 		void Layout();
+        void LayoutFirst();
+
+       
 	}
 }

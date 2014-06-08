@@ -174,13 +174,13 @@ Please choose another Server Group Name.</value>
 Streaming Image Port: {1}</value>
   </data>
   <data name="LabelContextMenu" xml:space="preserve">
-    <value>Context Menu</value>
+    <value>右键弹出菜单</value>
   </data>
   <data name="LabelMainMenu" xml:space="preserve">
-    <value>Main Menu</value>
+    <value>主菜单</value>
   </data>
   <data name="LabelToolbar" xml:space="preserve">
-    <value>Toolbar</value>
+    <value>工具栏</value>
   </data>
   <data name="LinkLabelStartLocalService" xml:space="preserve">
     <value>Start Local Service</value>
@@ -201,16 +201,16 @@ Streaming Image Port: {1}</value>
     <value>Add server group</value>
   </data>
   <data name="MenuCustomizeActionModels" xml:space="preserve">
-    <value>&amp;Customize...</value>
+    <value>&amp;菜单定制</value>
   </data>
   <data name="MenuDelete" xml:space="preserve">
-    <value>Delete</value>
+    <value>删除</value>
   </data>
   <data name="MenuEdit" xml:space="preserve">
-    <value>Edit</value>
+    <value>编辑</value>
   </data>
   <data name="MenuSharedConfiguration" xml:space="preserve">
-    <value>System Configuration</value>
+    <value>系统参数配置</value>
   </data>
   <data name="MenuVerify" xml:space="preserve">
     <value>Verify</value>

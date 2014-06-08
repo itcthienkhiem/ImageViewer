@@ -203,15 +203,21 @@ namespace ClearCanvas.ImageViewer
 
 		private void ExpandTo(IImageSetTreeItem item)
 		{
-			ImageSetTreeGroupItem parent = item.Parent;
+            try
+            {
+                ImageSetTreeGroupItem parent = item.Parent;
 
-			while (parent != _internalTreeRoot)
-			{
-				parent.IsExpanded = true;
-				parent = parent.Parent;
-			}
+                while (parent != _internalTreeRoot)
+                {
+                    parent.IsExpanded = true;
+                    parent = parent.Parent;
+                }
 
-			_internalTreeRoot.IsExpanded = true;
+                _internalTreeRoot.IsExpanded = true;
+            }
+            catch (Exception)
+            {
+            }
 		}
 
 		#endregion

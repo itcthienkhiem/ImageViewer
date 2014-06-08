@@ -23,13 +23,14 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization.View.WinForms {
 		/// the contents of this method with the code editor.
 		/// </summary>
 		private void InitializeComponent() {
+            this.components = new System.ComponentModel.Container();
             System.Windows.Forms.FlowLayoutPanel _flowSynchroTools;
             System.Windows.Forms.Label _lblToleranceAngle;
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SynchronizationToolConfigurationComponentControl));
             System.Windows.Forms.Label _lblToleranceUnits;
             this._pnlToleranceAngleControl = new System.Windows.Forms.Panel();
             this._txtToleranceAngle = new System.Windows.Forms.TextBox();
-            this._errorProvider = new System.Windows.Forms.ErrorProvider();
+            this._errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
             _flowSynchroTools = new System.Windows.Forms.FlowLayoutPanel();
             _lblToleranceAngle = new System.Windows.Forms.Label();
             _lblToleranceUnits = new System.Windows.Forms.Label();

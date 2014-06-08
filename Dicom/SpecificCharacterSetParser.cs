@@ -154,7 +154,10 @@ namespace ClearCanvas.Dicom
 
         public static string GetIsomorphicString(byte[] rawBytes)
         {
-            return Encoding.GetEncoding(IsomorphicCodePage).GetString(rawBytes);
+            //return Encoding.GetEncoding(IsomorphicCodePage).GetString(rawBytes);
+            Encoding UTF8 = Encoding.UTF8;
+            Encoding GB2312 = Encoding.GetEncoding("GB2312");
+            return UTF8.GetString(Encoding.Convert(GB2312, UTF8, rawBytes));
         }
 
         public static byte[] GetIsomorphicBytes(string rawBytesEncodedAsString)
