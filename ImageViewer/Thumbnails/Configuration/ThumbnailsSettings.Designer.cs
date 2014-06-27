@@ -39,5 +39,17 @@ namespace ClearCanvas.ImageViewer.Thumbnails.Configuration {
                 this["AutoOpenThumbnails"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool position {
+            get {
+                return ((bool)(this["position"]));
+            }
+            set {
+                this["position"] = value;
+            }
+        }
     }
 }

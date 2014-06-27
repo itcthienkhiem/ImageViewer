@@ -55,6 +55,7 @@ namespace ClearCanvas.ImageViewer
 		private bool _selected = false;
 		private bool _enabled = true;
         private bool _occupied = false;
+        private bool _ReferenceLine = false;
 		private int _rows;
 		private int _columns;
 		private static int _borderWidth = 2;
@@ -477,6 +478,12 @@ namespace ClearCanvas.ImageViewer
         {
             get { return _occupied; }
             set { _occupied = value; }
+        }
+
+        public bool ShowReferenceLine
+        {
+            get { return _ReferenceLine; }
+            set { _ReferenceLine = value; }
         }
 
 		public ExtensionData ExtensionData { get; private set; }

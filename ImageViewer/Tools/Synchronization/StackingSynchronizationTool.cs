@@ -222,8 +222,8 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 			SynchronizeActive = !SynchronizeActive;
 			if (SynchronizeActive)
 			{
-				SynchronizeAllImageBoxes();
-				_coordinator.OnSynchronizedImageBoxes();
+				//SynchronizeAllImageBoxes();
+				//_coordinator.OnSynchronizedImageBoxes();
 			}
 		}
 

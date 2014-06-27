@@ -170,6 +170,9 @@ namespace ClearCanvas.ImageViewer
 
         bool Occpyed { get; set; }
 
+        bool ShowReferenceLine { get; set;}
+
+
 		/// <summary>
 		/// A place for extensions to store custom data about the tile.
 		/// </summary>

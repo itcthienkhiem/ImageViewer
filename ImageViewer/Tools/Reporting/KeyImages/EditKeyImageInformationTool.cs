@@ -31,10 +31,10 @@ using ClearCanvas.ImageViewer.Clipboard;
 
 namespace ClearCanvas.ImageViewer.Tools.Reporting.KeyImages
 {
-	[ButtonAction("edit", KeyImageClipboardComponent.ToolbarSite + "/ToolbarEditKeyImageInformation", "Edit")]
-	[Tooltip("edit", "TooltipEditKeyImageInformation")]
-	[IconSet("edit", "Icons.EditKeyImageInformationToolSmall.png", "Icons.EditKeyImageInformationToolMedium.png", "Icons.EditKeyImageInformationToolLarge.png")]
-	[EnabledStateObserver("edit", "Enabled", "EnabledChanged")]
+    //[ButtonAction("edit", KeyImageClipboardComponent.ToolbarSite + "/ToolbarEditKeyImageInformation", "Edit")]
+    //[Tooltip("edit", "TooltipEditKeyImageInformation")]
+    //[IconSet("edit", "Icons.EditKeyImageInformationToolSmall.png", "Icons.EditKeyImageInformationToolMedium.png", "Icons.EditKeyImageInformationToolLarge.png")]
+    //[EnabledStateObserver("edit", "Enabled", "EnabledChanged")]
 	//
 	[ExtensionOf(typeof (KeyImageClipboardComponentToolExtensionPoint))]
 	internal class EditKeyImageInformationTool : Tool<IClipboardToolContext>

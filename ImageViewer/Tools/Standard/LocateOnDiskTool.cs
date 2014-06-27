@@ -40,9 +40,9 @@ using ClearCanvas.ImageViewer.StudyManagement;
 
 namespace ClearCanvas.ImageViewer.Tools.Standard
 {
-	[MenuAction("activate", "global-menus/MenuTools/MenuUtilities/MenuLocateOnDisk", "Activate")]
-	[Tooltip("activate", "TooltipLocateOnDisk")]
-	[EnabledStateObserver("activate", "Enabled", "EnabledChanged")]
+    //[MenuAction("activate", "global-menus/MenuTools/MenuUtilities/MenuLocateOnDisk", "Activate")]
+    //[Tooltip("activate", "TooltipLocateOnDisk")]
+    //[EnabledStateObserver("activate", "Enabled", "EnabledChanged")]
     [ExtensionOf(typeof(ImageViewerToolExtensionPoint))]
     public class LocateOnDiskTool : ImageViewerTool
     {

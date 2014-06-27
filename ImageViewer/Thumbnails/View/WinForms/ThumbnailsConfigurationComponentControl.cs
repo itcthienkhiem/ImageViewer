@@ -34,6 +34,7 @@ namespace ClearCanvas.ImageViewer.Thumbnails.View.WinForms
 			InitializeComponent();
 
             _chkAutoOpenThumbnails.DataBindings.Add(new Binding("Checked", component, "AutoOpenThumbnails", true, DataSourceUpdateMode.OnPropertyChanged));
+            _chkLeftThumbnails.DataBindings.Add(new Binding("Checked", component, "position", true, DataSourceUpdateMode.OnPropertyChanged));
 		}
 	}
 }

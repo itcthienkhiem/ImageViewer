@@ -637,7 +637,7 @@ namespace ClearCanvas.Desktop {
         }
         
         /// <summary>
-        ///   查找类似 Alerts 的本地化字符串。
+        ///   查找类似 警告信息 的本地化字符串。
         /// </summary>
         public static string MenuAlertViewer {
             get {
@@ -646,7 +646,7 @@ namespace ClearCanvas.Desktop {
         }
         
         /// <summary>
-        ///   查找类似 Close 的本地化字符串。
+        ///   查找类似 退出应用程序 的本地化字符串。
         /// </summary>
         public static string MenuCloseWindow {
             get {
@@ -655,7 +655,7 @@ namespace ClearCanvas.Desktop {
         }
         
         /// <summary>
-        ///   查找类似 Close Workspace 的本地化字符串。
+        ///   查找类似 关闭当前工作区 的本地化字符串。
         /// </summary>
         public static string MenuCloseWorkspace {
             get {
@@ -808,7 +808,7 @@ namespace ClearCanvas.Desktop {
         }
         
         /// <summary>
-        ///   查找类似 Utilities 的本地化字符串。
+        ///   查找类似 工具箱 的本地化字符串。
         /// </summary>
         public static string MenuUtilities {
             get {
@@ -1015,7 +1015,7 @@ namespace ClearCanvas.Desktop {
         }
         
         /// <summary>
-        ///   查找类似 Date Format 的本地化字符串。
+        ///   查找类似 时间日期格式 的本地化字符串。
         /// </summary>
         public static string TitleDateFormat {
             get {
@@ -1141,7 +1141,7 @@ namespace ClearCanvas.Desktop {
         }
         
         /// <summary>
-        ///   查找类似 Toolbar 的本地化字符串。
+        ///   查找类似 工具栏 的本地化字符串。
         /// </summary>
         public static string TitleToolbar {
             get {

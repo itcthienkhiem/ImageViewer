@@ -36,18 +36,18 @@ using ClearCanvas.ImageViewer.StudyManagement;
 
 namespace ClearCanvas.ImageViewer.Tools.Reporting.KeyImages
 {
-	[MenuAction("create", "imageviewer-contextmenu/MenuCreateKeyImage", "Create")]
-	[ButtonAction("create", "global-toolbars/ToolbarStandard/ToolbarCreateKeyImage", "Create", KeyStroke = XKeys.Space)]
-	[Tooltip("create", "TooltipCreateKeyImage")]
-	[IconSet("create", "Icons.CreateKeyImageToolSmall.png", "Icons.CreateKeyImageToolMedium.png", "Icons.CreateKeyImageToolLarge.png")]
-	[EnabledStateObserver("create", "Enabled", "EnabledChanged")]
-	[ViewerActionPermission("create", AuthorityTokens.Study.KeyImages)]
-	//
-	[ButtonAction("show", "global-toolbars/ToolbarStandard/ToolbarShowKeyImages", "Show")]
-	[Tooltip("show", "TooltipShowKeyImages")]
-	[IconSet("show", "Icons.ShowKeyImagesToolSmall.png", "Icons.ShowKeyImagesToolMedium.png", "Icons.ShowKeyImagesToolLarge.png")]
-	[EnabledStateObserver("show", "ShowEnabled", "ShowEnabledChanged")]
-	[ViewerActionPermission("show", AuthorityTokens.Study.KeyImages)]
+    //[MenuAction("create", "imageviewer-contextmenu/MenuCreateKeyImage", "Create")]
+    //[ButtonAction("create", "global-toolbars/ToolbarStandard/ToolbarCreateKeyImage", "Create", KeyStroke = XKeys.Space)]
+    //[Tooltip("create", "TooltipCreateKeyImage")]
+    //[IconSet("create", "Icons.CreateKeyImageToolSmall.png", "Icons.CreateKeyImageToolMedium.png", "Icons.CreateKeyImageToolLarge.png")]
+    //[EnabledStateObserver("create", "Enabled", "EnabledChanged")]
+    //[ViewerActionPermission("create", AuthorityTokens.Study.KeyImages)]
+    ////
+    //[ButtonAction("show", "global-toolbars/ToolbarStandard/ToolbarShowKeyImages", "Show")]
+    //[Tooltip("show", "TooltipShowKeyImages")]
+    //[IconSet("show", "Icons.ShowKeyImagesToolSmall.png", "Icons.ShowKeyImagesToolMedium.png", "Icons.ShowKeyImagesToolLarge.png")]
+    //[EnabledStateObserver("show", "ShowEnabled", "ShowEnabledChanged")]
+    //[ViewerActionPermission("show", AuthorityTokens.Study.KeyImages)]
 	//
 	[ExtensionOf(typeof (ImageViewerToolExtensionPoint))]
 	internal class KeyImageTool : ImageViewerTool

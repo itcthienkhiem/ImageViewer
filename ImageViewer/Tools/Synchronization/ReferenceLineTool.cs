@@ -38,6 +38,8 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 	[MenuAction("activate", "global-menus/MenuTools/MenuSynchronization/MenuReferenceLines", "Toggle", Flags = ClickActionFlags.CheckAction)]
 	[DropDownButtonAction("activate", "global-toolbars/ToolbarSynchronization/ToolbarReferenceLines", "Toggle", "ReferenceLineDropDownMenuModel", Flags = ClickActionFlags.CheckAction)]
 	[CheckedStateObserver("activate", "Active", "ActiveChanged")]
+    [EnabledStateObserver("activate", "Enabled", "EnabledChanged")]
+
 	[Tooltip("activate", "TooltipReferenceLines")]
 	[IconSet("activate", "Icons.CurrentReferenceLineToolSmall.png", "Icons.CurrentReferenceLineToolMedium.png", "Icons.CurrentReferenceLineToolLarge.png")]
 	[GroupHint("activate", "Tools.Image.Synchronization.ReferenceLines.Current")]
@@ -93,12 +95,18 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 			_coordinator = SynchronizationToolCoordinator.Get(base.ImageViewer);
 			_coordinator.SetReferenceLineTool(this);
 
+            Context.Viewer.EventBroker.ImageBoxSelected += OnImageBoxSelected;
+            Context.Viewer.EventBroker.DisplaySetSelected += OnDisplaySetSelected;
+	
 			base.ImageViewer.EventBroker.ImageDrawing += OnImageDrawing;
+
 		}
 
 		protected override void Dispose(bool disposing)
 		{
 			base.ImageViewer.EventBroker.ImageDrawing -= OnImageDrawing;
+            Context.Viewer.EventBroker.ImageBoxSelected -= OnImageBoxSelected;
+            Context.Viewer.EventBroker.DisplaySetSelected -= OnDisplaySetSelected;
 
 			_coordinator.Release();
 			_coordinator = null;
@@ -195,6 +203,9 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 		public void Toggle()
 		{
 			Active = !Active;
+            if (Context.Viewer.SelectedImageBox != null)
+                Context.Viewer.SelectedImageBox.ShowReferenceLine = Active;
+
 			RefreshAllReferenceLines();
 			_coordinator.OnRefreshedReferenceLines();
 		}
@@ -391,9 +402,11 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
                 ReferenceLineCompositeGraphic referenceLineCompositeGraphic = _coordinator.GetReferenceLineCompositeGraphic(targetImage);
                 if (referenceLineCompositeGraphic == null)
                     return;
-                bool showReferenceLines = this.Active && _currentReferenceImagePlane != null &&
-                    _currentReferenceImagePlane.IsInSameFrameOfReference(targetImagePlane);
+                //bool showReferenceLines = this.Active && _currentReferenceImagePlane != null &&
+                //    _currentReferenceImagePlane.IsInSameFrameOfReference(targetImagePlane);
 
+                bool showReferenceLines = targetImage.ParentDisplaySet.ImageBox.ShowReferenceLine && _currentReferenceImagePlane != null &&
+                    _currentReferenceImagePlane.IsInSameFrameOfReference(targetImagePlane);
                 if (!showReferenceLines)
                 {
                     referenceLineCompositeGraphic.HideAllReferenceLines();
@@ -463,6 +476,8 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
             foreach (IPresentationImage currentImage in GetAllVisibleImages())
             {
                 SetCurrentReferencePlane(currentImage);
+               
+
                 foreach (IPresentationImage targetImage in GetAllVisibleImages())
                 {
                     RefreshReferenceLines(targetImage);
@@ -479,6 +494,32 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
                     yield return image;
             }
 		}
+
+        protected override void OnPresentationImageSelected(object sender, PresentationImageSelectedEventArgs e)
+        {
+            if (e.SelectedPresentationImage != null)
+                UpdateEnabled(e.SelectedPresentationImage.ParentDisplaySet);
+            else
+                UpdateEnabled(null);
+        }
+
+        private void OnImageBoxSelected(object sender, ImageBoxSelectedEventArgs e)
+        {
+            if (e.SelectedImageBox.DisplaySet == null)
+                UpdateEnabled(null);
+
+        }
+
+        private void OnDisplaySetSelected(object sender, DisplaySetSelectedEventArgs e)
+        {
+            UpdateEnabled(e.SelectedDisplaySet);
+        }
+
+        private void UpdateEnabled(IDisplaySet selectedDisplaySet)
+        {
+            Enabled = selectedDisplaySet != null && selectedDisplaySet.PresentationImages.Count > 1;
+            Active = Context.Viewer.SelectedImageBox.ShowReferenceLine;
+        }
 
 		#endregion
 	}

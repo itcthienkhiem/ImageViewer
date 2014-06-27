@@ -31,9 +31,9 @@ using ClearCanvas.Desktop.Tools;
 namespace ClearCanvas.ImageViewer.Configuration
 {
 
-    [MenuAction("show", "global-menus/MenuTools/MenuSharedConfiguration", "Show")]
-    [Tooltip("show", "MenuOptions")]
-    [GroupHint("show", "Application.Configuration")]
+    //[MenuAction("show", "global-menus/MenuTools/MenuSharedConfiguration", "Show")]
+    //[Tooltip("show", "MenuOptions")]
+    //[GroupHint("show", "Application.Configuration")]
     [ExtensionOf(typeof(ClearCanvas.Desktop.DesktopToolExtensionPoint))]
     public class SharedConfigurationTool : Tool<IDesktopToolContext>
     {

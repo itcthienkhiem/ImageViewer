@@ -345,7 +345,8 @@ namespace ClearCanvas.ImageViewer
                 //    displaySetIndex++;
                 //    continue;
                 //}
-				imageBox.DisplaySet = logicalWorkspace.ImageSets[imageSetIndex].DisplaySets[displaySetIndex].CreateFreshCopy();
+               
+                imageBox.DisplaySet = logicalWorkspace.ImageSets[imageSetIndex].DisplaySets[displaySetIndex].CreateFreshCopy();
                 //imageBox.Occpyed = true;
 				displaySetIndex++;
 			}

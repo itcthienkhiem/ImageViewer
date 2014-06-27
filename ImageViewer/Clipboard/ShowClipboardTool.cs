@@ -128,7 +128,7 @@ namespace ClearCanvas.ImageViewer.Clipboard
 					this.Context.DesktopWindow,
 					clipboardComponent,
 					SR.TitleClipboard,
-					"Clipboard",
+					"ºÙ«–∞Â",
 					ShelfDisplayHint.DockLeft | ShelfDisplayHint.DockAutoHide);
 
 				_shelf.Closed += OnShelfClosed;

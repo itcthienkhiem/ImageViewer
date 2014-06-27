@@ -582,7 +582,7 @@ namespace ClearCanvas.ImageViewer.Configuration {
         }
         
         /// <summary>
-        ///   查找类似 Window Configuration 的本地化字符串。
+        ///   查找类似 窗口配置 的本地化字符串。
         /// </summary>
         internal static string MonitorConfiguration {
             get {

@@ -230,6 +230,15 @@ namespace ClearCanvas.ImageViewer.Thumbnails
 		internal static IShelf Launch(IDesktopWindow desktopWindow)
 		{
 			var component = new ThumbnailComponent(desktopWindow);
+
+            //
+            ClearCanvas.ImageViewer.Thumbnails.Configuration.ThumbnailsSettings setting = ClearCanvas.ImageViewer.Thumbnails.Configuration.ThumbnailsSettings.Default;
+            ShelfDisplayHint hint;
+            if (setting.position == true)
+                hint = ShelfDisplayHint.DockBottom;
+            else
+                hint = ShelfDisplayHint.DockLeft;
+
 			var shelf = LaunchAsShelf(
 				desktopWindow,
 				component,
@@ -237,7 +246,7 @@ namespace ClearCanvas.ImageViewer.Thumbnails
 				//"Thumbnails",
 				//ShelfDisplayHint.DockTop);
                 "Àı¬‘Õº",
-                ShelfDisplayHint.DockBottom);
+                 hint);
 
 			return shelf;
 		}

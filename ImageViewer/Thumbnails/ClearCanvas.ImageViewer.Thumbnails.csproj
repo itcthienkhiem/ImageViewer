@@ -135,6 +135,7 @@
     <None Include="Configuration\ThumbnailsSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>ThumbnailsSettings.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>

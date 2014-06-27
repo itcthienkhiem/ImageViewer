@@ -34,9 +34,9 @@ using ClearCanvas.Desktop.Actions;
 
 namespace ClearCanvas.ImageViewer.TestTools
 {
-	[MenuAction("show", "global-menus/MenuTools/MenuUtilities/Memory Analysis", "Show", KeyStroke = XKeys.Control | XKeys.M)]
-	[ButtonAction("show", "global-toolbars/ToolbarUtilities/Memory Analysis", "Show")]
-	[IconSet("show", "Icons.MemoryAnalysisToolSmall.png", "Icons.MemoryAnalysisToolMedium.png", "")]
+    //[MenuAction("show", "global-menus/MenuTools/MenuUtilities/Memory Analysis", "Show", KeyStroke = XKeys.Control | XKeys.M)]
+    //[ButtonAction("show", "global-toolbars/ToolbarUtilities/Memory Analysis", "Show")]
+    //[IconSet("show", "Icons.MemoryAnalysisToolSmall.png", "Icons.MemoryAnalysisToolMedium.png", "")]
 
 	[ExtensionOf(typeof(ClearCanvas.Desktop.DesktopToolExtensionPoint))]
 	public class MemoryAnalysisTool : Tool<ClearCanvas.Desktop.IDesktopToolContext>

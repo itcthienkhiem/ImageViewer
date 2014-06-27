@@ -178,7 +178,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Clipboard 的本地化字符串。
+        ///   查找类似 剪切版 的本地化字符串。
         /// </summary>
         internal static string MenuClipboard {
             get {
@@ -187,7 +187,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Copy Display Set to Clipboard 的本地化字符串。
+        ///   查找类似 复制序列图像到剪切板 的本地化字符串。
         /// </summary>
         internal static string MenuCopyDisplaySetToClipboard {
             get {
@@ -196,7 +196,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Copy Image to Clipboard 的本地化字符串。
+        ///   查找类似 复制图像到剪切板 的本地化字符串。
         /// </summary>
         internal static string MenuCopyImageToClipboard {
             get {
@@ -205,7 +205,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Copy Range of Images to Clipboard 的本地化字符串。
+        ///   查找类似 复制部分图像到剪切板 的本地化字符串。
         /// </summary>
         internal static string MenuCopySubsetToClipboard {
             get {
@@ -214,7 +214,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Delete All 的本地化字符串。
+        ///   查找类似 删除所有 的本地化字符串。
         /// </summary>
         internal static string MenuDeleteAllClipboardItems {
             get {
@@ -250,7 +250,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Clipboard 的本地化字符串。
+        ///   查找类似 剪切板 的本地化字符串。
         /// </summary>
         internal static string MenuShowClipboard {
             get {
@@ -508,7 +508,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Clipboard 的本地化字符串。
+        ///   查找类似 剪切板 的本地化字符串。
         /// </summary>
         internal static string TitleClipboard {
             get {
@@ -517,7 +517,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Copy Images to Clipboard 的本地化字符串。
+        ///   查找类似 拷贝图像到剪切板 的本地化字符串。
         /// </summary>
         internal static string TitleCopySubsetToClipboard {
             get {
@@ -535,7 +535,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Export Images 的本地化字符串。
+        ///   查找类似 导出图像 的本地化字符串。
         /// </summary>
         internal static string TitleExportImages {
             get {
@@ -571,7 +571,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Delete All 的本地化字符串。
+        ///   查找类似 删除所有 的本地化字符串。
         /// </summary>
         internal static string ToolbalDeleteAllClipboardItems {
             get {
@@ -580,7 +580,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Delete Selected 的本地化字符串。
+        ///   查找类似 删除选择 的本地化字符串。
         /// </summary>
         internal static string ToolbarDeleteClipboardItem {
             get {
@@ -589,7 +589,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Export to Image 的本地化字符串。
+        ///   查找类似 导出图像 的本地化字符串。
         /// </summary>
         internal static string ToolbarExportToImage {
             get {
@@ -607,7 +607,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Clipboard 的本地化字符串。
+        ///   查找类似 剪切板 的本地化字符串。
         /// </summary>
         internal static string ToolbarShowClipboard {
             get {
@@ -616,7 +616,7 @@ namespace ClearCanvas.ImageViewer.Clipboard {
         }
         
         /// <summary>
-        ///   查找类似 Delete All 的本地化字符串。
+        ///   查找类似 删除所有 的本地化字符串。
         /// </summary>
         internal static string TooltipDeleteAllClipboardItems {
             get {

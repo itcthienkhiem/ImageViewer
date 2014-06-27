@@ -148,19 +148,19 @@
     <value>Destination folder</value>
   </data>
   <data name="MenuClipboard" xml:space="preserve">
-    <value>Clipboard</value>
+    <value>剪切版</value>
   </data>
   <data name="MenuCopyDisplaySetToClipboard" xml:space="preserve">
-    <value>Copy Display Set to Clipboard</value>
+    <value>复制序列图像到剪切板</value>
   </data>
   <data name="MenuCopyImageToClipboard" xml:space="preserve">
-    <value>Copy Image to Clipboard</value>
+    <value>复制图像到剪切板</value>
   </data>
   <data name="MenuCopySubsetToClipboard" xml:space="preserve">
-    <value>Copy Range of Images to Clipboard</value>
+    <value>复制部分图像到剪切板</value>
   </data>
   <data name="MenuDeleteAllClipboardItems" xml:space="preserve">
-    <value>Delete All</value>
+    <value>删除所有</value>
   </data>
   <data name="MenuDeleteClipboardItem" xml:space="preserve">
     <value>Delete Selected</value>
@@ -172,7 +172,7 @@
     <value>Export to Video</value>
   </data>
   <data name="MenuShowClipboard" xml:space="preserve">
-    <value>Clipboard</value>
+    <value>剪切板</value>
   </data>
   <data name="MenuView" xml:space="preserve">
     <value>视图</value>
@@ -244,16 +244,16 @@
     <value>Advanced Options</value>
   </data>
   <data name="TitleClipboard" xml:space="preserve">
-    <value>Clipboard</value>
+    <value>剪切板</value>
   </data>
   <data name="TitleCopySubsetToClipboard" xml:space="preserve">
-    <value>Copy Images to Clipboard</value>
+    <value>拷贝图像到剪切板</value>
   </data>
   <data name="TitleCreatingVideo" xml:space="preserve">
     <value>Creating Video</value>
   </data>
   <data name="TitleExportImages" xml:space="preserve">
-    <value>Export Images</value>
+    <value>导出图像</value>
   </data>
   <data name="TitleExportingImages" xml:space="preserve">
     <value>Exporting Images</value>
@@ -265,22 +265,22 @@
     <value>Export to Video</value>
   </data>
   <data name="ToolbalDeleteAllClipboardItems" xml:space="preserve">
-    <value>Delete All</value>
+    <value>删除所有</value>
   </data>
   <data name="ToolbarDeleteClipboardItem" xml:space="preserve">
-    <value>Delete Selected</value>
+    <value>删除选择</value>
   </data>
   <data name="ToolbarExportToImage" xml:space="preserve">
-    <value>Export to Image</value>
+    <value>导出图像</value>
   </data>
   <data name="ToolbarExportToVideo" xml:space="preserve">
     <value>Export to Video</value>
   </data>
   <data name="ToolbarShowClipboard" xml:space="preserve">
-    <value>Clipboard</value>
+    <value>剪切板</value>
   </data>
   <data name="TooltipDeleteAllClipboardItems" xml:space="preserve">
-    <value>Delete All</value>
+    <value>删除所有</value>
   </data>
   <data name="TooltipDeleteClipboardItem" xml:space="preserve">
     <value>Delete Selected</value>

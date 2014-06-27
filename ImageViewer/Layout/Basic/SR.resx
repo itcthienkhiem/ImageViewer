@@ -231,10 +231,10 @@ PLEASE NOTE that you will NOT be notified of this problem again for as long as t
     <value>offline</value>
   </data>
   <data name="TitleDisplaySetCreationConfiguration" xml:space="preserve">
-    <value>Display Sets</value>
+    <value>图像序列设置</value>
   </data>
   <data name="TitleLayoutConfiguration" xml:space="preserve">
-    <value>Layout</value>
+    <value>窗格设置</value>
   </data>
   <data name="TitleLayoutManager" xml:space="preserve">
     <value>Layout Manager</value>

@@ -390,7 +390,7 @@ namespace ClearCanvas.ImageViewer.Layout.Basic {
         }
         
         /// <summary>
-        ///   查找类似 Display Sets 的本地化字符串。
+        ///   查找类似 图像序列设置 的本地化字符串。
         /// </summary>
         public static string TitleDisplaySetCreationConfiguration {
             get {
@@ -399,7 +399,7 @@ namespace ClearCanvas.ImageViewer.Layout.Basic {
         }
         
         /// <summary>
-        ///   查找类似 Layout 的本地化字符串。
+        ///   查找类似 窗格设置 的本地化字符串。
         /// </summary>
         public static string TitleLayoutConfiguration {
             get {

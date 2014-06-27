@@ -5,5 +5,8 @@
     <Setting Name="AutoOpenThumbnails" Description="Specifies whether or not to automatically open the thumbnail panel when the viewer opens." Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">True</Value>
     </Setting>
+    <Setting Name="position" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

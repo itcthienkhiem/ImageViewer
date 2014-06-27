@@ -250,10 +250,10 @@
     <value>关于</value>
   </data>
   <data name="MenuCloseWindow" xml:space="preserve">
-    <value>Close</value>
+    <value>退出应用程序</value>
   </data>
   <data name="MenuCloseWorkspace" xml:space="preserve">
-    <value>Close Workspace</value>
+    <value>关闭当前工作区</value>
   </data>
   <data name="MenuConfigureSettings" xml:space="preserve">
     <value>Settings Editor</value>
@@ -304,7 +304,7 @@
     <value>&amp;工具栏</value>
   </data>
   <data name="MenuUtilities" xml:space="preserve">
-    <value>Utilities</value>
+    <value>工具箱</value>
   </data>
   <data name="MessageConfirmCancelTask" xml:space="preserve">
     <value>The background task is still running.  Are you sure you want to cancel?</value>
@@ -358,7 +358,7 @@
     <value>Close Assistant</value>
   </data>
   <data name="TitleDateFormat" xml:space="preserve">
-    <value>Date Format</value>
+    <value>时间日期格式</value>
   </data>
   <data name="TitleDefaultValue" xml:space="preserve">
     <value>Default Value</value>
@@ -400,7 +400,7 @@
     <value>Settings Editor</value>
   </data>
   <data name="TitleToolbar" xml:space="preserve">
-    <value>Toolbar</value>
+    <value>工具栏</value>
   </data>
   <data name="TitleType" xml:space="preserve">
     <value>Type</value>
@@ -494,7 +494,7 @@ You can configure this item, but you do not have permission to use it.</value>
     <value>Time</value>
   </data>
   <data name="MenuAlertViewer" xml:space="preserve">
-    <value>Alerts</value>
+    <value>警告信息</value>
   </data>
   <data name="MenuView" xml:space="preserve">
     <value>视图窗口</value>

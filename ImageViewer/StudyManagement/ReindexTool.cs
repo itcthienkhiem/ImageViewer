@@ -31,9 +31,9 @@ using ClearCanvas.ImageViewer.Common.WorkItem;
 
 namespace ClearCanvas.ImageViewer.StudyManagement
 {
-    [MenuAction("reindex", "global-menus/MenuTools/MenuReindex", "Reindex")]
-    [ViewerActionPermissionAttribute("reindex", AuthorityTokens.Administration.ReIndex)]
-    [ExtensionOf(typeof(DesktopToolExtensionPoint))]
+    //[MenuAction("reindex", "global-menus/MenuTools/MenuReindex", "Reindex")]
+    //[ViewerActionPermissionAttribute("reindex", AuthorityTokens.Administration.ReIndex)]
+    //[ExtensionOf(typeof(DesktopToolExtensionPoint))]
     public class ReindexTool : Tool<IDesktopToolContext>
     {
         public override IActionSet Actions

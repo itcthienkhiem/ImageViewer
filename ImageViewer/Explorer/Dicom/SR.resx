@@ -291,7 +291,7 @@ Are you sure you want to continue?</value>
     <value>DICOM</value>
   </data>
   <data name="PathExplorer" xml:space="preserve">
-    <value>Explorer</value>
+    <value>浏览</value>
   </data>
   <data name="TitleDicomExplorer" xml:space="preserve">
     <value>DICOM</value>

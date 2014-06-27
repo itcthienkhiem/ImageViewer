@@ -214,7 +214,7 @@
     <value>4</value>
   </data>
   <data name="_cancelButton.Text" xml:space="preserve">
-    <value>Cancel</value>
+    <value>取消</value>
   </data>
   <data name="&gt;&gt;_cancelButton.Name" xml:space="preserve">
     <value>_cancelButton</value>
@@ -241,7 +241,7 @@
     <value>3</value>
   </data>
   <data name="_okButton.Text" xml:space="preserve">
-    <value>OK</value>
+    <value>确定</value>
   </data>
   <data name="&gt;&gt;_okButton.Name" xml:space="preserve">
     <value>_okButton</value>
@@ -268,7 +268,7 @@
     <value>2</value>
   </data>
   <data name="_applyButton.Text" xml:space="preserve">
-    <value>Apply</value>
+    <value>应用</value>
   </data>
   <data name="&gt;&gt;_applyButton.Name" xml:space="preserve">
     <value>_applyButton</value>
@@ -295,7 +295,7 @@
     <value>1</value>
   </data>
   <data name="_nextButton.Text" xml:space="preserve">
-    <value>Next &gt;</value>
+    <value>下一个</value>
   </data>
   <data name="&gt;&gt;_nextButton.Name" xml:space="preserve">
     <value>_nextButton</value>
@@ -322,7 +322,7 @@
     <value>0</value>
   </data>
   <data name="_backButton.Text" xml:space="preserve">
-    <value>&lt; Previous</value>
+    <value>前一个</value>
   </data>
   <data name="&gt;&gt;_backButton.Name" xml:space="preserve">
     <value>_backButton</value>

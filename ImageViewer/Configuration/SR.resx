@@ -291,7 +291,7 @@ Streaming Image Port: {1}</value>
     <value>Failed to stop the local service. See the logs for more details.</value>
   </data>
   <data name="MonitorConfiguration" xml:space="preserve">
-    <value>Window Configuration</value>
+    <value>窗口配置</value>
   </data>
   <data name="MyServersTitle" xml:space="preserve">
     <value>My Servers</value>

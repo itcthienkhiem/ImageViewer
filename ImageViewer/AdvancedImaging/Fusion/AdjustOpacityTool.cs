@@ -31,16 +31,16 @@ using ClearCanvas.ImageViewer.InputManagement;
 
 namespace ClearCanvas.ImageViewer.AdvancedImaging.Fusion
 {
-	[MenuAction("activate", "imageviewer-contextmenu/MenuAdjustOpacity", "Select", Flags = ClickActionFlags.CheckAction)]
-	[MenuAction("activate", "global-menus/MenuTools/MenuStandard/MenuAdjustOpacity", "Select", Flags = ClickActionFlags.CheckAction)]
-	[ButtonAction("activate", "global-toolbars/ToolbarStandard/ToolbarAdjustOpacity", "Select", Flags = ClickActionFlags.CheckAction)]
-	[CheckedStateObserver("activate", "Active", "ActivationChanged")]
-	[TooltipValueObserver("activate", "Tooltip", "TooltipChanged")]
-	[GroupHint("activate", "Tools.Image.Manipulation.Overlays.Opacity")]
-	[MouseButtonIconSet("activate", "Icons.AdjustOpacityToolSmall.png", "Icons.AdjustOpacityToolMedium.png", "Icons.AdjustOpacityToolLarge.png")]
-    [ViewerActionPermissionAttribute("activate", AuthorityTokens.ViewerClinical)]
-    [MouseToolButton(XMouseButtons.Right, false)]
-	[ExtensionOf(typeof (ImageViewerToolExtensionPoint))]
+    //[MenuAction("activate", "imageviewer-contextmenu/MenuAdjustOpacity", "Select", Flags = ClickActionFlags.CheckAction)]
+    //[MenuAction("activate", "global-menus/MenuTools/MenuStandard/MenuAdjustOpacity", "Select", Flags = ClickActionFlags.CheckAction)]
+    //[ButtonAction("activate", "global-toolbars/ToolbarStandard/ToolbarAdjustOpacity", "Select", Flags = ClickActionFlags.CheckAction)]
+    //[CheckedStateObserver("activate", "Active", "ActivationChanged")]
+    //[TooltipValueObserver("activate", "Tooltip", "TooltipChanged")]
+    //[GroupHint("activate", "Tools.Image.Manipulation.Overlays.Opacity")]
+    //[MouseButtonIconSet("activate", "Icons.AdjustOpacityToolSmall.png", "Icons.AdjustOpacityToolMedium.png", "Icons.AdjustOpacityToolLarge.png")]
+    //[ViewerActionPermissionAttribute("activate", AuthorityTokens.ViewerClinical)]
+    //[MouseToolButton(XMouseButtons.Right, false)]
+    //[ExtensionOf(typeof (ImageViewerToolExtensionPoint))]
 	public class AdjustOpacityTool : MouseImageViewerTool
 	{
 		private readonly LayerOpacityOperation _operation;

@@ -37,7 +37,7 @@ using ClearCanvas.Desktop.Tools;
 
 namespace ClearCanvas.Desktop.Configuration.Tools
 {
-	[MenuAction("configure", "global-menus/MenuTools/MenuUtilities/Configure Action Model", "Configure")]
+	//[MenuAction("configure", "global-menus/MenuTools/MenuUtilities/Configure Action Model", "Configure")]
 	[ExtensionOf(typeof (DesktopToolExtensionPoint))]
 	public sealed class ActionModelsTool : Tool<IDesktopToolContext>
 	{

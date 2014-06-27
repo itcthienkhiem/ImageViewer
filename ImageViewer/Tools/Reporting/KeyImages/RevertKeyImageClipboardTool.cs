@@ -34,14 +34,14 @@ using ClearCanvas.ImageViewer.Clipboard;
 
 namespace ClearCanvas.ImageViewer.Tools.Reporting.KeyImages
 {
-	[ButtonAction("revert", KeyImageClipboardComponent.ToolbarSite + "/ToolbarRevertKeyImage", "Revert")]
-	[ButtonAction("revert", KeyImageClipboardComponent.MenuSite + "/MenuRevertKeyImage", "Revert")]
-	[IconSet("revert", "Icons.RevertToolSmall.png", "Icons.RevertToolMedium.png", "Icons.RevertToolLarge.png")]
-	[EnabledStateObserver("revert", "CanRevert", "ActionsChanged")]
-	//
-	[ButtonAction("revertAll", KeyImageClipboardComponent.ToolbarSite + "/ToolbarRevertAllKeyImages", "RevertAll")]
-	[IconSet("revertAll", "Icons.RevertAllToolSmall.png", "Icons.RevertAllToolMedium.png", "Icons.RevertAllToolLarge.png")]
-	[EnabledStateObserver("revertAll", "CanRevertAll", "ActionsChanged")]
+    //[ButtonAction("revert", KeyImageClipboardComponent.ToolbarSite + "/ToolbarRevertKeyImage", "Revert")]
+    //[ButtonAction("revert", KeyImageClipboardComponent.MenuSite + "/MenuRevertKeyImage", "Revert")]
+    //[IconSet("revert", "Icons.RevertToolSmall.png", "Icons.RevertToolMedium.png", "Icons.RevertToolLarge.png")]
+    //[EnabledStateObserver("revert", "CanRevert", "ActionsChanged")]
+    ////
+    //[ButtonAction("revertAll", KeyImageClipboardComponent.ToolbarSite + "/ToolbarRevertAllKeyImages", "RevertAll")]
+    //[IconSet("revertAll", "Icons.RevertAllToolSmall.png", "Icons.RevertAllToolMedium.png", "Icons.RevertAllToolLarge.png")]
+    //[EnabledStateObserver("revertAll", "CanRevertAll", "ActionsChanged")]
 	//
 	[ExtensionOf(typeof (KeyImageClipboardComponentToolExtensionPoint))]
 	internal class RevertKeyImageClipboardTool : Tool<IClipboardToolContext>

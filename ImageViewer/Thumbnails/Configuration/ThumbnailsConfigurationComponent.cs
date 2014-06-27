@@ -38,6 +38,7 @@ namespace ClearCanvas.ImageViewer.Thumbnails.Configuration
 
 		private ThumbnailsSettings _settings;
 		private bool _autoOpenThumbnails;
+        private bool _position;
 
 		public ThumbnailsConfigurationComponent() {}
 
@@ -51,9 +52,24 @@ namespace ClearCanvas.ImageViewer.Thumbnails.Configuration
 					_autoOpenThumbnails = value;
 					this.Modified = true;
 					this.NotifyPropertyChanged("AutoOpenThumbnails");
+                    
 				}
 			}
 		}
+
+        public bool position
+        {
+            get { return _position; }
+            set
+            {
+                if (_position != value)
+                {
+                    _position = value;
+                    this.Modified = true;
+                    this.NotifyPropertyChanged("position");
+                }
+            }
+        }
 
 		public override void Start()
 		{
@@ -61,11 +77,13 @@ namespace ClearCanvas.ImageViewer.Thumbnails.Configuration
 
 			_settings = ThumbnailsSettings.Default;
 			_autoOpenThumbnails = _settings.AutoOpenThumbnails;
+            _position = _settings.position;
 		}
 
 		public override void Save()
 		{
 			_settings.AutoOpenThumbnails = _autoOpenThumbnails;
+            _settings.position = _position;
 			_settings.Save();
 		}
 
