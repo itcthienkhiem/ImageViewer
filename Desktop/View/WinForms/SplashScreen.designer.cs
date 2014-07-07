@@ -129,7 +129,7 @@ namespace ClearCanvas.Desktop.View.WinForms
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.ClientSize = new System.Drawing.Size(719, 386);
+            this.ClientSize = new System.Drawing.Size(750, 403);
             this.ControlBox = false;
             this.Controls.Add(this._manifest);
             this.Controls.Add(this._license);

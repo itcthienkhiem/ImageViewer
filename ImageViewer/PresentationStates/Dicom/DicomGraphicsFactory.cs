@@ -137,7 +137,8 @@ namespace ClearCanvas.ImageViewer.PresentationStates.Dicom
 			if (failedOverlays)
 			{
 				// add an error graphic if any overlays are not being displayed due to deserialization errors.
-				overlayPlaneGraphics.Add(new ErrorOverlayPlaneGraphic(SR.MessageErrorDisplayingOverlays));
+                //暂时不用显示
+				//overlayPlaneGraphics.Add(new ErrorOverlayPlaneGraphic(SR.MessageErrorDisplayingOverlays));
 			}
 
 			return overlayPlaneGraphics;

@@ -31,8 +31,8 @@ using System;
 
 namespace ClearCanvas.Desktop.Help
 {
-	[MenuAction("showAbout", "global-menus/MenuHelp/MenuAbout", "ShowAbout")]
-	[GroupHint("showAbout", "Application.Help.About")]
+    //[MenuAction("showAbout", "global-menus/MenuHelp/MenuAbout", "ShowAbout")]
+    //[GroupHint("showAbout", "Application.Help.About")]
 
 	[MenuAction("showWebsite", "global-menus/MenuHelp/MenuWebsite", "ShowWebsite")]
 	[GroupHint("showWebsite", "Application.Help.Website")]

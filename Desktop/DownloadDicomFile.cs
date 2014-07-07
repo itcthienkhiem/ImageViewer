@@ -17,6 +17,7 @@ namespace ClearCanvas.Desktop
     {
         public List<string> m_files = null;
         public delegate void ShowMedicalViewDelegate(List<string> list);
+        private int m_count = 0;
         public bool GetPatientRisInfo(string sRisID, string PatientID, string Modality, string StudyDate, string RunMode, out RisTags ristag)
         {
             bool bSucc = false;
@@ -186,46 +187,55 @@ namespace ClearCanvas.Desktop
             return;
         }
 
-        public  bool DownloadDicomImagesFromInfo(string sPatientID, string sModality, string sStudyDate, string accessionNum, RisTags ristag)
+        public  bool DownloadDicomImagesFromInfo(string sPatientID, string sModality, string sStudyDate)
         {
             string lRemotefile;
             string lLocalfile;
             List<ArrayList> list = new List<ArrayList>();
+            List<string> listFiles = new List<string>();
 
             if (m_files == null)
                 m_files = new List<string>();
 
-            GetDownloadFileName(sPatientID, sModality, sStudyDate, accessionNum, ref list);
-            for (int i = 0; i < list.Count; i++)
+            foreach (string accessionNum in GlobalData.RunParams.listAccessionNumber)
             {
-                List<string> listFiles = new List<string>();
-                ArrayList l_list = list[i];
-
-                foreach (Object str in l_list)
+                GetDownloadFileName(sPatientID, sModality, sStudyDate, accessionNum, ref list);
+                for (int i = 0; i < list.Count; i++)
                 {
-                    lRemotefile = (string)str;
-                    if (GlobalData.RunParams.ImageSaveLocal == "1")
+                    ArrayList l_list = list[i];
+
+                    foreach (Object str in l_list)
                     {
-                        lLocalfile = GlobalData.DcmLocalPath + lRemotefile;
+                        lRemotefile = (string)str;
+                        if (GlobalData.RunParams.ImageSaveLocal == "1")
+                        {
+                            lLocalfile = GlobalData.DcmLocalPath + lRemotefile;
+                        }
+                        else
+                        {
+                            string strTemp = "";
+                            int rlex = lRemotefile.LastIndexOf("\\");
+                            if (rlex > 0)
+                                strTemp = lRemotefile.Substring(rlex + 1);
+                            lLocalfile = GlobalData.DcmFilesPath + strTemp;
+                        }
+                        bool bExistsDicomFile = System.IO.File.Exists(lLocalfile) ? true : GetDicomFileFromServer(lRemotefile, lLocalfile);
+                        if (bExistsDicomFile)
+                        {
+                            //m_files.Add(lLocalfile);
+                            listFiles.Add(lLocalfile);
+                        }
                     }
-                    else
+                    m_count++;
+                    if (m_count >4)
                     {
-                        string strTemp = "";
-                        int rlex = lRemotefile.LastIndexOf("\\");
-                        if (rlex > 0)
-                            strTemp = lRemotefile.Substring(rlex + 1);
-                        lLocalfile = GlobalData.DcmFilesPath + strTemp;
+                        //listFilesOld = listFiles;
+                        continue;
                     }
-                    bool bExistsDicomFile = System.IO.File.Exists(lLocalfile) ? true : GetDicomFileFromServer(lRemotefile, lLocalfile);
-                    if (bExistsDicomFile)
-                    {
-                        //m_files.Add(lLocalfile);
-                        listFiles.Add(lLocalfile);
-                    }
+                    ProcessDownLoadFile(listFiles);
                 }
-                //
-                ProcessDownLoadFile(listFiles);
             }
+            if (m_count > 4) ProcessDownLoadFile(listFiles);
             return true;
         }
 
@@ -279,20 +289,16 @@ namespace ClearCanvas.Desktop
         public void DownloadImages()
         {
             //GlobalData.RunParams = GlobalData.AnalyzeMainNextCall();
+            m_count = 0;
             try
             {
-                foreach (string str in GlobalData.RunParams.listAccessionNumber)
+                if (GlobalData.MainConn.ChangeType().State == ConnectionState.Broken)
                 {
-                    if (GlobalData.MainConn.ChangeType().State == ConnectionState.Broken)
-                    {
-                        GlobalData.MainConn.Close();
-                        ConnectDataBase();
-                    }
-                    RisTags ristag;
-                    GetPatientRisInfo(str, GlobalData.RunParams.PatientID,
-                        GlobalData.RunParams.Modality, GlobalData.RunParams.StudyDate, GlobalData.RunParams.RunMode, out ristag);
-                    DownloadDicomImagesFromInfo(GlobalData.RunParams.PatientID, GlobalData.RunParams.Modality, GlobalData.RunParams.StudyDate, str, ristag);
+                    GlobalData.MainConn.Close();
+                    ConnectDataBase();
                 }
+                DownloadDicomImagesFromInfo(GlobalData.RunParams.PatientID, GlobalData.RunParams.Modality, GlobalData.RunParams.StudyDate);
+
             }
             catch (Exception ex)
             {

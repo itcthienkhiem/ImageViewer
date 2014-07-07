@@ -38,7 +38,7 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 	[MenuAction("activate", "global-menus/MenuTools/MenuSynchronization/MenuReferenceLines", "Toggle", Flags = ClickActionFlags.CheckAction)]
 	[DropDownButtonAction("activate", "global-toolbars/ToolbarSynchronization/ToolbarReferenceLines", "Toggle", "ReferenceLineDropDownMenuModel", Flags = ClickActionFlags.CheckAction)]
 	[CheckedStateObserver("activate", "Active", "ActiveChanged")]
-    [EnabledStateObserver("activate", "Enabled", "EnabledChanged")]
+    //[EnabledStateObserver("activate", "Enabled", "EnabledChanged")]
 
 	[Tooltip("activate", "TooltipReferenceLines")]
 	[IconSet("activate", "Icons.CurrentReferenceLineToolSmall.png", "Icons.CurrentReferenceLineToolMedium.png", "Icons.CurrentReferenceLineToolLarge.png")]

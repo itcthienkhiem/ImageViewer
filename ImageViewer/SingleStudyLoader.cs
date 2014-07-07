@@ -409,7 +409,7 @@ namespace ClearCanvas.ImageViewer
         public class MyStudyLoader : DownloadDicomFile
         {
             private readonly ImageViewerComponent _viewer;
-
+            private readonly object _syncLock = new object();
             public MyStudyLoader(ImageViewerComponent view)
             {
                 this._viewer = view;
@@ -417,14 +417,21 @@ namespace ClearCanvas.ImageViewer
 
             public override void ProcessDownLoadFile(List<string> list)
             {
+                bool cancelled;
+
+                lock (_syncLock)
+                {
+                    _viewer.LoadImages(list.ToArray(), null, out cancelled);
+                }
                 _viewer.ParentForm.BeginInvoke(new ShowMedicalViewDelegate(ShowMedicalView), list);
             }
 
             public void ShowMedicalView(List<string> list)
             {
-                bool cancelled;
-                _viewer.LoadImages(list.ToArray(), null, out cancelled);
-                _viewer.Layout();
+                lock (_syncLock)
+                {
+                    _viewer.Layout();
+                }
             }
         }
 	}

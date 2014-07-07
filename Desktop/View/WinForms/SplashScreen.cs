@@ -185,7 +185,8 @@ namespace ClearCanvas.Desktop.View.WinForms
 
 			// Initialize the version text to the executing assembly's
 			_version.Text = String.Format(SplashScreenSettings.Default.VersionTextFormat, ProductInformation.GetVersion(true, true, true));
-			_copyright.Text = ProductInformation.Copyright;
+			//_copyright.Text = ProductInformation.Copyright;
+            _copyright.Text = " 2014  Inc. All rights reserved.";
 			_license.Text = ProductInformation.License;
 
 			// Make the window completely transparent
