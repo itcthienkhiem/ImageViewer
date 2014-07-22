@@ -26,18 +26,21 @@ using System;
 using System.Windows.Forms;
 using ClearCanvas.Common;
 using ClearCanvas.Desktop.View.WinForms;
-using Global.Data;
+
+using System.Data.OracleClient;
 
 namespace ClearCanvas.Desktop.Executable
 {
 	internal class Program
 	{
+
 		/// <summary>
 		/// The main entry point for the application.
 		/// </summary>
 		[STAThread]
 		private static void Main(string[] args)
 		{
+            //testOracle();
          	//Always at least try to let our application code handle the exception.
 			//Setting this to "catch" means the Application.ThreadException event
 			//will fire first, essentially causing the app to crash right away and shut down.

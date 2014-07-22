@@ -1071,6 +1071,15 @@ namespace ClearCanvas.ImageViewer.Tools.Standard {
         }
         
         /// <summary>
+        ///   查找类似 所有图像 的本地化字符串。
+        /// </summary>
+        internal static string MenuPrintChooseDisplaySetAll {
+            get {
+                return ResourceManager.GetString("MenuPrintChooseDisplaySetAll", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 选择单张图 的本地化字符串。
         /// </summary>
         internal static string MenuPrintChooseOne {

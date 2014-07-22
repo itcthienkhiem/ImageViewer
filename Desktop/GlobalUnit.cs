@@ -9,6 +9,7 @@ using System.Text;
 using System.Collections;
 using System.Collections.Specialized;
 using System.Data.SqlClient;
+using System.Data.OracleClient;
 using System.Collections.Generic;
 
 namespace Global.Data
@@ -55,6 +56,7 @@ namespace Global.Data
         public string DBName;
         public string DBUser;
         public string DBPwd;
+        public string DBType;
     }
 
     public struct FormPosition
@@ -223,6 +225,8 @@ namespace Global.Data
                 DBParams.DBName = inifile.ReadString("DataBase", "DBName", "RIS451");
                 DBParams.DBUser = inifile.ReadString("DataBase", "DBUser", "sa");
                 DBParams.DBPwd = inifile.ReadString("DataBase", "DBPwd", "masterkey");
+                DBParams.DBType = inifile.ReadString("DataBase", "DBTYPE", "");
+
                 //本地影像路径                
                 DcmLocalPath = inifile.ReadString("System", "AVIPath", @"D:\Images");                
                 if (ReCallOwner)
@@ -639,20 +643,38 @@ namespace Global.Data
     public class Conn
     {
         private SqlConnection myConn;
+        private OracleConnection oracleConn;
         private string ServerStr;
         static string server;
         static string uid;
         static string pwd;
         static string database;
+
+        static bool b_IsOracle;
         public Conn()
         {
-            ServerStr = "server=" + server + ";uid=" + uid + ";password=" + pwd + ";database=" + database;
-            myConn = new SqlConnection(ServerStr);
+            if (GlobalData.DBParams.DBType == "oracle" || GlobalData.DBParams.DBType == "ORACLE")
+            {
+                //ServerStr = "server=" + server + ";uid=" + uid + ";password=" + pwd + ";database=" + database;
+                string oracleString = "Data Source=(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST=" + server + ")(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=" + database + ")));User Id=" + uid + ";Password=" + pwd;
+                oracleConn = new OracleConnection(ServerStr);
+                b_IsOracle = true;
+            }
+            else
+            {
+                b_IsOracle = false;
+                ServerStr = "server=" + server + ";uid=" + uid + ";password=" + pwd + ";database=" + database;
+                myConn = new SqlConnection(ServerStr);
+            }
         }
         public void Open()
         {
-            myConn.Open();
+            if (b_IsOracle)
+                oracleConn.Open();
+            else
+                myConn.Open();
         }
+        
         public int tOpen()
         {
             try
@@ -667,14 +689,24 @@ namespace Global.Data
         }
         public void Close()
         {
-            myConn.Close();
+            if (b_IsOracle)
+                oracleConn.Close();
+            else
+                myConn.Close();
         }
         /// 把自义类转化为SqlConnection类 
         /// SqlConnection 
         public SqlConnection ChangeType()
         {
             return myConn;
+
         }
+
+        public OracleConnection ChangeTypeOracle()
+        {
+            return oracleConn;
+        }
+
         public static void setServer(string Server)
         {
             server = Server;
@@ -690,6 +722,11 @@ namespace Global.Data
         public static void setDatabase(string Database)
         {
             database = Database;
+        }
+
+        public static bool isOracle()
+        {
+            return b_IsOracle;
         }
     }
 }

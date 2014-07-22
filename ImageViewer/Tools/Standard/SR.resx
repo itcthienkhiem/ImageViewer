@@ -801,4 +801,7 @@ Please check the log for more details.</value>
   <data name="CDROM" xml:space="preserve">
     <value>光盘写入</value>
   </data>
+  <data name="MenuPrintChooseDisplaySetAll" xml:space="preserve">
+    <value>所有图像</value>
+  </data>
 </root>

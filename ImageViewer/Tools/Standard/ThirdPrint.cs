@@ -26,6 +26,7 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
     //[ButtonAction("open", "global-toolbars/ToolbarMpr/ToolbarThirdPrint", "LaunchPrint")]
     [MenuAction("openOne", "imageviewer-contextmenu/MenuThirdPrint/MenuPrintChooseOne", "LaunchOnePrint")]
     [MenuAction("open", "imageviewer-contextmenu/MenuThirdPrint/MenuPrintChooseDisplaySet", "LaunchPrint")]
+    [MenuAction("openAll", "imageviewer-contextmenu/MenuThirdPrint/MenuPrintChooseDisplaySetAll", "LaunchPrintAll")]
     [KeyboardAction("DicomPrint", "imageviewer-keyboard/ToolsStandardPrint/DicomPrint", "LaunchOnePrint", KeyStroke = XKeys.Control | XKeys.PrintScreen)]
     //[MenuAction("open", "global-menus/MenuTools/MenuThirdPrint", "LaunchPrint")]
     //[IconSet("open", "Icons.PrintTool.png", "Icons.PrintTool.png", "Icons.PrintTool.png")]
@@ -90,6 +91,21 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
             LanchThirdPrint(strFiles);
         }
 
+        public void LaunchPrintAll()
+        { 
+            string strFiles = "";
+          
+            foreach (IPresentationImage image in  GetAllVisibleImages())
+            {
+                if (image is IImageSopProvider)
+                {
+                    Sop sop = ((IImageSopProvider)image).Sop;
+                    strFiles += sop.SopInstanceUid + ";";
+                }
+            }
+            LanchThirdPrint(strFiles);
+        }
+
         private void LanchThirdPrint(string strFiles)
         {
             string lDicomFile = System.Windows.Forms.Application.StartupPath + @"\Third\EFilm.ini";
@@ -117,6 +133,23 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
             catch (Exception ex)
             {
                 Platform.Log(LogLevel.Error, ex.ToString());
+            }
+        }
+
+        private IEnumerable<IPresentationImage> GetAllVisibleImages()
+        {
+            foreach (IImageSet imageSet in Context.Viewer.LogicalWorkspace.ImageSets)
+            {
+                foreach (IDisplaySet displaySet in imageSet.DisplaySets)
+                {
+                    foreach (IPresentationImage image in displaySet.PresentationImages)
+                    {
+                        if (image is IImageSopProvider)
+                        {
+                            yield return image;
+                        }
+                    }
+                }
             }
         }
 

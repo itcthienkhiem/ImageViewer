@@ -338,6 +338,8 @@ namespace ClearCanvas.Desktop.View.WinForms
                     //System.Windows.Forms.MessageBox.Show("received ok...");
                     Mytest();
                     break;
+                case WM_PRINTDICOM:
+                    break;
                 case WM_RISCLOSE:
                     Close();
                     break;
@@ -371,7 +373,6 @@ namespace ClearCanvas.Desktop.View.WinForms
                 viewer.LogicalWorkspace.Clear();
                 viewer.ReAllocateStudyTree();
                 viewer.Layout();
-                //viewer.LayoutFirst();
                 viewer.LoadStudyFromFtp(this);
             } 
             else
