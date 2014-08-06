@@ -68,6 +68,8 @@ namespace ClearCanvas.Desktop.View.WinForms
 			_listView.DragOver += OnItemDragOver;
 			_listView.DragLeave += OnItemDragLeave;
 			_listView.DragDrop += OnItemDragDrop;
+            //_listView.SelectedIndexChanged +=new EventHandler(_listView_SelectedIndexChanged);
+            //_listView.SelectedIndexChanged +=new EventHandler(_listView_SelectedIndexChanged);
             _listView.MouseClick += new MouseEventHandler(_listView_MouseClick);
 
 			_toolStrip.Visible = false;
@@ -358,6 +360,17 @@ namespace ClearCanvas.Desktop.View.WinForms
 
 		private void OnSelectionChanged(object sender, ListViewItemSelectionChangedEventArgs e)
 		{
+            foreach (ListViewItem item in _listView.Items)
+            {
+                if (item.Selected)
+                {
+                    item.BackColor = Color.LightSteelBlue;
+                }
+                else
+                {
+                    item.BackColor = Color.Black;
+                }
+            }
 			EventsHelper.Fire(_selectionChanged, this, EventArgs.Empty);
 		}
 
@@ -366,11 +379,11 @@ namespace ClearCanvas.Desktop.View.WinForms
             try
             {
                 ListViewItem item = _listView.SelectedItems[0];
+                item.BackColor = Color.LightSteelBlue;
                 var galleryItem = (IGalleryItem)item.Tag;
                 ClearCanvas.ImageViewer.IDisplaySet displaySet = (ClearCanvas.ImageViewer.IDisplaySet) galleryItem.Item;
                 ClearCanvas.ImageViewer.ImageViewerComponent viewer = null;
                 DesktopWindow desktopWindow = null;
-              
                 foreach (DesktopWindow window in Application.DesktopWindows)
                 {
                     foreach (Workspace space in window.Workspaces)
@@ -385,13 +398,17 @@ namespace ClearCanvas.Desktop.View.WinForms
                 if (viewer != null)
                 {
                     viewer.SelectedImageBox.DisplaySet = displaySet.CreateFreshCopy();
+                   
                     viewer.SelectedImageBox.Draw();
                 }
+               
             }
             catch (Exception)
             {
             }
         }
+
+       
 
 		private ListViewItem ExtractListViewItem(IDataObject dataObject)
 		{
@@ -570,5 +587,19 @@ namespace ClearCanvas.Desktop.View.WinForms
 				return ((ListViewItem) x).Index - ((ListViewItem) y).Index;
 			}
 		}
+
+        public void isDisplaySetChoose(ClearCanvas.ImageViewer.IDisplaySet displaySet)
+        {
+            foreach (ListViewItem item in _listView.Items)
+            {
+                var galleryItem = (IGalleryItem)item.Tag;
+
+                if (displaySet.Uid == ((ClearCanvas.ImageViewer.IDisplaySet)galleryItem.Item).Uid)
+                {
+                    item.Selected = true;
+                    return;
+                }
+            }
+        }
 	}
 }

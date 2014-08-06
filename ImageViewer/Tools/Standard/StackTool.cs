@@ -31,8 +31,12 @@ using ClearCanvas.ImageViewer.Automation;
 using ClearCanvas.ImageViewer.BaseTools;
 using ClearCanvas.ImageViewer.InputManagement;
 using ClearCanvas.ImageViewer.StudyManagement;
+using ClearCanvas.Desktop.View.WinForms;
 
 using ClearCanvas.Common.Utilities;
+
+using Global.Data;
+
 
 namespace ClearCanvas.ImageViewer.Tools.Standard
 {
@@ -95,6 +99,7 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 		{
 			base.OnPresentationImageSelected(sender, e);
 			UpdateCheckState();
+            thumbileChanged(e.SelectedPresentationImage.ParentDisplaySet);
 		}
 
 		private static string GetActionKey(ImageComparerList.Item item)
@@ -241,6 +246,7 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 			CaptureBeginState(imageBox);
 			AdvanceImage(-imageBox.Tiles.Count, imageBox);
 			CaptureEndState();
+            GlobalData.direct = 1;
 			//No draw - AdvanceImage has already done it.
 		}
 
@@ -256,14 +262,22 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 			CaptureBeginState(imageBox);
 			AdvanceImage(+imageBox.Tiles.Count, imageBox);
 			CaptureEndState();
+            GlobalData.direct = -1;
 			//No draw - AdvanceImage has already done it.
 		}
 
 		//private static void AdvanceImage(int increment, IImageBox selectedImageBox)
         private  void AdvanceImage(int increment, IImageBox selectedImageBox)
 		{
+
+            if (increment > 0)
+                GlobalData.direct = 1;
+            else
+                GlobalData.direct = -1;
+
 			int prevTopLeftPresentationImageIndex = selectedImageBox.TopLeftPresentationImageIndex;
 			selectedImageBox.TopLeftPresentationImageIndex += increment;
+
 
             if (selectedImageBox.TopLeftPresentationImageIndex != prevTopLeftPresentationImageIndex)
                 selectedImageBox.Draw();
@@ -296,10 +310,12 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
                 if (increment > 0)
                 {
                     AdvanceDisplaySet(1);
+                  
                 }
                 else
                 {
                     AdvanceDisplaySet(-1);
+                    
                 }
             }
 		}
@@ -394,9 +410,10 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
             imageBox.DisplaySet = parentImageSet.DisplaySets[sourceDisplaySetIndex].CreateFreshCopy();
             if (direction < 0)
             {
-                //imageBox.DisplaySet.TopLeftPresentationImageIndex =
                 imageBox.TopLeftPresentationImageIndex = imageBox.DisplaySet.PresentationImages.Count - 1;
             }
+
+            thumbileChanged(imageBox.DisplaySet);
 
             imageBox.Draw();
 
@@ -405,6 +422,18 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
             //DrawableUndoableCommand historyCommand = new DrawableUndoableCommand(imageBox);
             //historyCommand.Enqueue(memorableCommand);
             //base.Context.Viewer.CommandHistory.AddCommand(historyCommand);
+        }
+
+        public void thumbileChanged(IDisplaySet displayset)
+        {
+
+            DesktopWindow desktopWindow = (DesktopWindow)base.Context.DesktopWindow;
+            DesktopWindowView windowview = (ClearCanvas.Desktop.View.WinForms.DesktopWindowView)desktopWindow.DesktopWindowView;
+            Crownwood.DotNetMagic.Docking.Content content = windowview.DesktopForm.DockingManager.Contents["缩略图"];
+            if (content == null)
+                return;
+            ClearCanvas.ImageViewer.Thumbnails.View.WinForms.ThumbnailComponentControl ctrol = (ClearCanvas.ImageViewer.Thumbnails.View.WinForms.ThumbnailComponentControl)content.Control;
+            ctrol.getGallaryView().isDisplaySetChoose(displayset);
         }
 
 		public override bool Start(IMouseInformation mouseInformation)
@@ -420,7 +449,6 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
                     return false;
 
                 CaptureBeginState(mouseInformation.Tile.ParentImageBox);
-
             }
             catch 
             {

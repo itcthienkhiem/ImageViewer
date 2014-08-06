@@ -35,6 +35,11 @@ namespace ClearCanvas.ImageViewer.Thumbnails.View.WinForms
     /// </summary>
     public partial class ThumbnailComponentControl : ApplicationComponentUserControl
     {
+        public GalleryView getGallaryView()
+        {
+            return _galleryView;
+        }
+
         private ThumbnailComponent _component;
 
         /// <summary>

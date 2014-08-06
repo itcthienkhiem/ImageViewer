@@ -432,7 +432,6 @@ namespace ClearCanvas.Desktop
             }
             catch (Exception ex)
             {
-
                 
             }
         }

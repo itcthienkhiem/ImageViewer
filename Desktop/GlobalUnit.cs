@@ -100,7 +100,7 @@ namespace Global.Data
         public static DBConnection DBParams;//数据库连接
         public static FormPosition PosParams;//界面位置
         public static bool ReCallOwner = false;//重新开新窗口
-
+        public static int direct = 0; //
         public static int SeriesRows = 1;
         public static int SeriesColumns = 2;
         public static int ImageRows = 2;

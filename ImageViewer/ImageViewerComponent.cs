@@ -41,6 +41,11 @@ using System.Collections.Generic;
 using System.Threading;
 using Global.Data;
 
+using System.Collections.Generic;
+using System.Text;
+using System.Reflection;
+
+
 namespace ClearCanvas.ImageViewer
 {
 
@@ -272,8 +277,20 @@ namespace ClearCanvas.ImageViewer
             this.backgroundWorker = new BackgroundWorker();
             this.backgroundWorker.WorkerSupportsCancellation = true;
             this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker_DoWork);
-         
+            
 		}
+
+        public void PrintFilm()
+        {
+            foreach (ITool tool in _toolSet.Tools)
+            {
+                string strname = tool.GetType().FullName;
+                if (strname == "ClearCanvas.ImageViewer.Tools.Standard.ThirdPrintTool")
+                {
+                    
+                }
+            }
+        }
 
 		/// <summary>
 		/// Override of <see cref="ApplicationComponent.Stop"/>

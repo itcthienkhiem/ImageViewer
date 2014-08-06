@@ -134,8 +134,7 @@ namespace ClearCanvas.Desktop
         private DesktopWindow _selectedWindow;
         private Workspace _selectedWorkspace;
         private Shelf _selectedShelf;
-
-
+   
         /// <summary>
         /// Constructor
         /// </summary>
@@ -167,6 +166,7 @@ namespace ClearCanvas.Desktop
             
             // add newer events to the top of the list
             _events.Sort(new TableSortParams(_events.Columns[0], false));
+            
         }
 
         public override void Start()

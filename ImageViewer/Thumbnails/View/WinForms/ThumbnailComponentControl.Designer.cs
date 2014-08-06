@@ -107,6 +107,7 @@ namespace ClearCanvas.ImageViewer.Thumbnails.View.WinForms
             this._galleryView.ImageSize = new System.Drawing.Size(100, 100);
             this._galleryView.MaxDescriptionLines = 0;
             this._galleryView.MultiSelect = false;
+            
             this._galleryView.Name = "_galleryView";
             this._galleryView.TileMode = false;
             // 

@@ -31,6 +31,7 @@ using ClearCanvas.Desktop;
 using ClearCanvas.Desktop.Actions;
 using ClearCanvas.ImageViewer.BaseTools;
 using ClearCanvas.ImageViewer.Mathematics;
+using Global.Data;
 
 namespace ClearCanvas.ImageViewer.Tools.Synchronization
 {
@@ -368,15 +369,23 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 			DicomImagePlane targetImagePlane = GetClosestParallelImagePlane(referenceImagePlane, targetImagePlanes);
 			if (targetImagePlane == null)
 				return;
+            // Original
+            int lastIndex = targetImageBox.TopLeftPresentationImageIndex;
+            //targetImageBox.TopLeftPresentationImage = targetImagePlane.SourceImage;
 
-			int lastIndex = targetImageBox.TopLeftPresentationImageIndex;
-			targetImageBox.TopLeftPresentationImage = targetImagePlane.SourceImage;
+            //if (lastIndex != targetImageBox.TopLeftPresentationImageIndex)
+            //{
+            //    if (!_imageBoxesToDraw.Contains(targetImageBox))
+            //        _imageBoxesToDraw.Add(targetImageBox);
+            //}
+            if (GlobalData.direct > 0)
+                targetImageBox.TopLeftPresentationImageIndex = lastIndex + 1;
+            else if (GlobalData.direct < 0)
+                targetImageBox.TopLeftPresentationImageIndex = lastIndex - 1;
 
-			if (lastIndex != targetImageBox.TopLeftPresentationImageIndex)
-			{
-				if (!_imageBoxesToDraw.Contains(targetImageBox))
-					_imageBoxesToDraw.Add(targetImageBox);
-			}
+            if (!_imageBoxesToDraw.Contains(targetImageBox))
+                _imageBoxesToDraw.Add(targetImageBox);               
+
 		}
 
 		private void SynchronizeAllImageBoxes()
