@@ -345,6 +345,7 @@ namespace ClearCanvas.Desktop
                             lLocalfile = GlobalData.DcmFilesPath + strTemp;
                         }
                         bool bExistsDicomFile = System.IO.File.Exists(lLocalfile) ? true : GetDicomFileFromServer(lRemotefile, lLocalfile);
+                        //bool bExistsDicomFile =  GetDicomFileFromServer(lRemotefile, lLocalfile);
                         if (bExistsDicomFile)
                         {
                             //m_files.Add(lLocalfile);
@@ -428,7 +429,6 @@ namespace ClearCanvas.Desktop
                     ConnectDataBase();
                 }
                 DownloadDicomImagesFromInfo(GlobalData.RunParams.PatientID, GlobalData.RunParams.Modality, GlobalData.RunParams.StudyDate);
-
             }
             catch (Exception ex)
             {

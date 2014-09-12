@@ -225,7 +225,9 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 			{
 				//SynchronizeAllImageBoxes();
 				//_coordinator.OnSynchronizedImageBoxes();
-			}
+			} 
+            
+            GlobalData.direct = 0;
 		}
 
 		private void ToggleLinkStudies()
@@ -382,7 +384,7 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
                 targetImageBox.TopLeftPresentationImageIndex = lastIndex + 1;
             else if (GlobalData.direct < 0)
                 targetImageBox.TopLeftPresentationImageIndex = lastIndex - 1;
-
+         
             if (!_imageBoxesToDraw.Contains(targetImageBox))
                 _imageBoxesToDraw.Add(targetImageBox);               
 
@@ -414,6 +416,8 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 			//Synchronize with the selected.
 			foreach (IImageBox targetImageBox in GetTargetImageBoxes(selectedImageBox))
 				SynchronizeImageBox(selectedImageBox, targetImageBox);
+
+            GlobalData.direct = 0;
 		}
 
 		private void SynchronizeNewDisplaySet(IDisplaySet newDisplaySet)
@@ -442,6 +446,49 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 			}
 		}
 
+        private IPresentationImage ReferenceImage
+        {
+            get { return base.ImageViewer.SelectedPresentationImage; }
+        }
+
+        //public void Apply(IPresentationImage image)
+        //{
+        //    if (image == ReferenceImage)
+        //        return;
+
+        //    //Turn off scale to fit and start with scale=1, then adjust it.
+        //    //We do this because images that have been "scaled to fit", but have not been shown yet,
+        //    //have no client rectangle and their scale is often very small.  This is safer
+        //    //and could produce a more accurate result.
+        //    IImageSpatialTransform matchTransform = GetImageTransform(image);
+        //    matchTransform.ScaleToFit = false;
+        //    matchTransform.Scale = 1;
+
+        //    //get the displayed width (in mm) for the same size display rectangle in the image to be matched.
+        //    float matchDisplayedWidth = GetDisplayedWidth(image, _referenceDisplayRectangle);
+        //    float rescaleAmount = matchDisplayedWidth / _referenceDisplayedWidth;
+
+        //    matchTransform.Scale *= rescaleAmount;
+            
+        //    //ISpatialTransform transform = (ISpatialTransform)_operation.GetOriginator(image);
+        //    matchTransform.TranslationX = this.SelectedSpatialTransformProvider.SpatialTransform.TranslationX;
+        //    matchTransform.TranslationY = this.SelectedSpatialTransformProvider.SpatialTransform.TranslationY;
+
+        //    IVoiLutLinear selectedLut = (IVoiLutLinear)this.SelectedVoiLutProvider.VoiLutManager.VoiLut;
+
+        //    IVoiLutProvider provider = ((IVoiLutProvider)image);
+        //    if (!(provider.VoiLutManager.VoiLut is IBasicVoiLutLinear))
+        //    {
+        //        BasicVoiLutLinear installLut = new BasicVoiLutLinear(selectedLut.WindowWidth, selectedLut.WindowCenter);
+        //        provider.VoiLutManager.InstallVoiLut(installLut);
+        //    }
+
+        //    IBasicVoiLutLinear lut = (IBasicVoiLutLinear)provider.VoiLutManager.VoiLut;
+        //    lut.WindowWidth = selectedLut.WindowWidth;
+        //    lut.WindowCenter = selectedLut.WindowCenter;
+
+        //}
+
 		#endregion
 
 		#region Internal Methods (for mediator)
@@ -457,6 +504,7 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 
 			foreach (IImageBox targetImageBox in GetTargetImageBoxes(selectedImageBox))
 				SynchronizeImageBox(selectedImageBox, targetImageBox);
+            GlobalData.direct = 0;
 		}
 
 		internal IEnumerable<IImageBox> GetImageBoxesToDraw()

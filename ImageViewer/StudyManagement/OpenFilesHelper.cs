@@ -182,10 +182,10 @@ namespace ClearCanvas.ImageViewer.StudyManagement
             }
             catch (Exception e)
             {
-                if (!HandleErrors)
-                    throw;
+                //if (!HandleErrors)
+                //    throw;
 
-                ExceptionHandler.Report(e, SR.MessageFailedToOpenImages, desktopWindow);
+                //ExceptionHandler.Report(e, SR.MessageFailedToOpenImages, desktopWindow);
             }
 
             if (UserCancelled || (!AnySopsLoaded(viewer) && !AllowEmptyViewer))

@@ -33,6 +33,7 @@ using ClearCanvas.ImageViewer.Imaging;
 using ClearCanvas.ImageViewer.InputManagement;
 using ClearCanvas.ImageViewer.Layout;
 using ClearCanvas.ImageViewer.Tools.Standard.Configuration;
+using ClearCanvas.ImageViewer.Graphics;
 
 namespace ClearCanvas.ImageViewer.Tools.Standard
 {
@@ -130,7 +131,19 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 					historyCommand.Name = SR.CommandWindowLevel;
 					Context.Viewer.CommandHistory.AddCommand(historyCommand);
 				}
+               
 			}
+            if (GetCheckedSync() == true)
+            {
+                var historyCommand2 = new DrawableUndoableOperationCommand<IPresentationImage>(this._operation, GetAllImages());
+                historyCommand2.Execute();
+
+                if (historyCommand2.Count > 0)
+                {
+                    historyCommand2.Name = SR.CommandMatchScale;
+                    base.ImageViewer.CommandHistory.AddCommand(historyCommand2);
+                }
+            }
 		}
 
 		private void IncrementWindowWidth()
@@ -226,7 +239,26 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 			IBasicVoiLutLinear lut = (IBasicVoiLutLinear) provider.VoiLutManager.VoiLut;
 			lut.WindowWidth = selectedLut.WindowWidth;
 			lut.WindowCenter = selectedLut.WindowCenter;
+            if (GetCheckedSync() == false)
+                return;
+            //
+            IImageSpatialTransform transform = GetImageTransform(image);
+            IImageSpatialTransform referenceTransform = (IImageSpatialTransform)this.SelectedSpatialTransformProvider.SpatialTransform;
+
+            transform.Scale = referenceTransform.Scale;
+            transform.ScaleToFit = referenceTransform.ScaleToFit;
+            transform.TranslationX = this.SelectedSpatialTransformProvider.SpatialTransform.TranslationX;
+            transform.TranslationY = this.SelectedSpatialTransformProvider.SpatialTransform.TranslationY;
+
 		}
+
+        private static IImageSpatialTransform GetImageTransform(IPresentationImage image)
+        {
+            if (image != null && image is ISpatialTransformProvider)
+                return ((ISpatialTransformProvider)image).SpatialTransform as IImageSpatialTransform;
+
+            return null;
+        }
 
 		public override bool Start(IMouseInformation mouseInformation)
 		{
@@ -241,7 +273,21 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 		{
 			base.Track(mouseInformation);
 
+            IVoiLutManager manager = SelectedVoiLutProvider.VoiLutManager;
+
+            IVoiLutLinear linearLut = manager.VoiLut as IVoiLutLinear;
+            IBasicVoiLutLinear standardLut = linearLut as IBasicVoiLutLinear;
+            if (standardLut == null)
+            {
+                BasicVoiLutLinear installLut = new BasicVoiLutLinear(linearLut.WindowWidth, linearLut.WindowCenter);
+                manager.InstallVoiLut(installLut);
+            }
+            standardLut = manager.VoiLut as IBasicVoiLutLinear; 
+
 			double sensitivity = CurrentSensitivity;
+            if ((Math.Abs(standardLut.WindowCenter) + Math.Abs(standardLut.WindowWidth)) < 1000)
+                sensitivity = 1.0;
+
 			IncrementWindow(DeltaX*sensitivity, DeltaY*sensitivity);
 
 			return true;

@@ -1175,6 +1175,16 @@ namespace ClearCanvas.ImageViewer
                  _form = form;
             if (backgroundWorker.IsBusy)
             {
+                //try
+                //{
+                //    backgroundWorker.CancelAsync();
+                     
+                //}
+                //catch (Exception ex)
+                //{
+
+                //}
+                
                 return;
             }
             GlobalData.RunParams = GlobalData.AnalyzeMainNextCall();

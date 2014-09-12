@@ -49,6 +49,7 @@ namespace ClearCanvas.Desktop.View.WinForms
 		private event EventHandler _selectionChanged;
 		private bool _suppressGalleryChangeEvents = false;
 		private bool _dragOutside = false;
+        private string strUid = "";
 
 		public GalleryView()
 		{
@@ -593,10 +594,12 @@ namespace ClearCanvas.Desktop.View.WinForms
             foreach (ListViewItem item in _listView.Items)
             {
                 var galleryItem = (IGalleryItem)item.Tag;
-
+                if (strUid == displaySet.Uid)
+                    return;
                 if (displaySet.Uid == ((ClearCanvas.ImageViewer.IDisplaySet)galleryItem.Item).Uid)
                 {
                     item.Selected = true;
+                    strUid = displaySet.Uid;
                     return;
                 }
             }

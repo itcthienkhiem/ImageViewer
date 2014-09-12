@@ -32,6 +32,8 @@ using ClearCanvas.ImageViewer.BaseTools;
 using ClearCanvas.ImageViewer.Graphics;
 using ClearCanvas.ImageViewer.Mathematics;
 using ClearCanvas.ImageViewer.StudyManagement;
+using ClearCanvas.ImageViewer.Tools.Standard.Configuration;
+using ClearCanvas.ImageViewer.Imaging;
 
 namespace ClearCanvas.ImageViewer.Tools.Standard
 {
@@ -85,6 +87,7 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 
 			var historyCommand = new DrawableUndoableOperationCommand<IPresentationImage>(this, GetAllImages());
 			historyCommand.Execute();
+             
 			if (historyCommand.Count > 0)
 			{
 				historyCommand.Name = SR.CommandMatchScale;
@@ -159,6 +162,24 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 			float rescaleAmount = matchDisplayedWidth / _referenceDisplayedWidth;
 
 			matchTransform.Scale *= rescaleAmount;
+            
+            //ISpatialTransform transform = (ISpatialTransform)_operation.GetOriginator(image);
+            matchTransform.TranslationX = this.SelectedSpatialTransformProvider.SpatialTransform.TranslationX;
+            matchTransform.TranslationY = this.SelectedSpatialTransformProvider.SpatialTransform.TranslationY;
+
+            IVoiLutLinear selectedLut = (IVoiLutLinear)this.SelectedVoiLutProvider.VoiLutManager.VoiLut;
+
+            IVoiLutProvider provider = ((IVoiLutProvider)image);
+            if (!(provider.VoiLutManager.VoiLut is IBasicVoiLutLinear))
+            {
+                BasicVoiLutLinear installLut = new BasicVoiLutLinear(selectedLut.WindowWidth, selectedLut.WindowCenter);
+                provider.VoiLutManager.InstallVoiLut(installLut);
+            }
+
+            IBasicVoiLutLinear lut = (IBasicVoiLutLinear)provider.VoiLutManager.VoiLut;
+            lut.WindowWidth = selectedLut.WindowWidth;
+            lut.WindowCenter = selectedLut.WindowCenter;
+
 		}
 
 		#endregion
@@ -215,6 +236,8 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 
 			return null;
 		}
+
+      
 
 		private static Frame GetFrame(IPresentationImage image)
 		{

@@ -121,8 +121,18 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 				historyCommand.Name = SR.CommandPan;
 				this.Context.Viewer.CommandHistory.AddCommand(historyCommand);
 			}
-
 			_memorableCommand = null;
+            if (GetCheckedSync() == true)
+            {
+                var historyCommand2 = new DrawableUndoableOperationCommand<IPresentationImage>(this._operation, GetAllImages());
+                historyCommand2.Execute();
+
+                if (historyCommand2.Count > 0)
+                {
+                    historyCommand2.Name = SR.CommandMatchScale;
+                    base.ImageViewer.CommandHistory.AddCommand(historyCommand2);
+                }
+            }
 		}
 
 		private void PanLeft()
@@ -208,9 +218,28 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 
 		public void Apply(IPresentationImage image)
 		{
-			ISpatialTransform transform = (ISpatialTransform)_operation.GetOriginator(image);
+            IImageSpatialTransform transform = (IImageSpatialTransform)_operation.GetOriginator(image);
 			transform.TranslationX = this.SelectedSpatialTransformProvider.SpatialTransform.TranslationX;
 			transform.TranslationY = this.SelectedSpatialTransformProvider.SpatialTransform.TranslationY;
+            if (GetCheckedSync() == false)
+                return;
+            //
+            IVoiLutLinear selectedLut = (IVoiLutLinear)this.SelectedVoiLutProvider.VoiLutManager.VoiLut;
+
+            IVoiLutProvider provider = ((IVoiLutProvider)image);
+            if (!(provider.VoiLutManager.VoiLut is IBasicVoiLutLinear))
+            {
+                BasicVoiLutLinear installLut = new BasicVoiLutLinear(selectedLut.WindowWidth, selectedLut.WindowCenter);
+                provider.VoiLutManager.InstallVoiLut(installLut);
+            }
+
+            IBasicVoiLutLinear lut = (IBasicVoiLutLinear)provider.VoiLutManager.VoiLut;
+            lut.WindowWidth = selectedLut.WindowWidth;
+            lut.WindowCenter = selectedLut.WindowCenter;
+            //
+            IImageSpatialTransform referenceTransform = (IImageSpatialTransform)this.SelectedSpatialTransformProvider.SpatialTransform;
+            transform.Scale = referenceTransform.Scale;
+            transform.ScaleToFit = referenceTransform.ScaleToFit;
 		}
 	}
 }

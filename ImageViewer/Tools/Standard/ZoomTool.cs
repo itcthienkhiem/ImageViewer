@@ -32,6 +32,8 @@ using ClearCanvas.ImageViewer.Graphics;
 using ClearCanvas.ImageViewer.InputManagement;
 using ClearCanvas.ImageViewer.Layout;
 using ClearCanvas.ImageViewer.Tools.Standard.Configuration;
+using ClearCanvas.ImageViewer.Imaging;
+
 
 namespace ClearCanvas.ImageViewer.Tools.Standard
 {
@@ -147,8 +149,19 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 				historyCommand.Name = SR.CommandZoom;
 				this.Context.Viewer.CommandHistory.AddCommand(historyCommand);
 			}
-
+           
 			_memorableCommand = null;
+            if (GetCheckedSync() == true)
+            {
+                var historyCommand2 = new DrawableUndoableOperationCommand<IPresentationImage>(this._operation, GetAllImages());
+                historyCommand2.Execute();
+
+                if (historyCommand2.Count > 0)
+                {
+                    historyCommand2.Name = SR.CommandMatchScale;
+                    base.ImageViewer.CommandHistory.AddCommand(historyCommand);
+                }
+            }
 		}
 
 		private void ZoomIn()
@@ -320,14 +333,38 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 			IncrementScale(increment);
 		}
 
+        
 		public void Apply(IPresentationImage image)
 		{
+           
 			IImageSpatialTransform transform = (IImageSpatialTransform) _operation.GetOriginator(image);
 			IImageSpatialTransform referenceTransform = (IImageSpatialTransform) this.SelectedSpatialTransformProvider.SpatialTransform;
 
 			transform.Scale = referenceTransform.Scale;
 			transform.ScaleToFit = referenceTransform.ScaleToFit;
+
+            if (GetCheckedSync() == false)
+                return;
+            //
+            IVoiLutLinear selectedLut = (IVoiLutLinear)this.SelectedVoiLutProvider.VoiLutManager.VoiLut;
+
+            IVoiLutProvider provider = ((IVoiLutProvider)image);
+            if (!(provider.VoiLutManager.VoiLut is IBasicVoiLutLinear))
+            {
+                BasicVoiLutLinear installLut = new BasicVoiLutLinear(selectedLut.WindowWidth, selectedLut.WindowCenter);
+                provider.VoiLutManager.InstallVoiLut(installLut);
+            }
+
+            IBasicVoiLutLinear lut = (IBasicVoiLutLinear)provider.VoiLutManager.VoiLut;
+            lut.WindowWidth = selectedLut.WindowWidth;
+            lut.WindowCenter = selectedLut.WindowCenter;
+            //
+            transform.TranslationX = this.SelectedSpatialTransformProvider.SpatialTransform.TranslationX;
+            transform.TranslationY = this.SelectedSpatialTransformProvider.SpatialTransform.TranslationY;
+
 		}
+
+   
 
 		#region IZoom Members
 

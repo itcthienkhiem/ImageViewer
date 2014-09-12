@@ -29,6 +29,9 @@ using ClearCanvas.Desktop;
 using ClearCanvas.Desktop.Actions;
 using ClearCanvas.Desktop.Tools;
 using ClearCanvas.ImageViewer.InputManagement;
+using ClearCanvas.ImageViewer;
+using System.Collections.Generic;
+
 
 namespace ClearCanvas.ImageViewer.BaseTools
 {
@@ -690,5 +693,55 @@ namespace ClearCanvas.ImageViewer.BaseTools
 		}
 
 		#endregion
+
+        #region added for the mouse sync
+
+        /// <summary>
+        /// Gets the cursor token associated with the tool.
+        /// </summary>
+        /// <param name="point">The point in destination (view) coordinates.</param>
+        /// <returns>a <see cref="CursorToken"/> object that is used to construct the cursor in the view.</returns>
+        public bool GetCheckedSync()
+        {
+            ImageViewerComponent view = this.ImageViewer as ImageViewerComponent;
+            ActionModelNode node = view.ToolbarModel;
+
+            ActionModelNode tempNode = null;
+            IAction[] action = null;
+            foreach (ActionModelNode tempnode in node.ChildNodes)
+            {
+                if (tempnode.PathSegment.ResourceKey == "ToolbarSynchronizeStacking")
+                {
+                    tempNode = tempnode;
+                    break;
+                }
+            }
+            if (tempNode != null)
+            {
+                action = tempNode.GetActionsInOrder();
+            }
+            if ((action != null))
+            {
+                ButtonAction ac = action[0] as ButtonAction;
+                return ac.Checked;
+
+            }
+            return false;
+        }
+
+        public IEnumerable<IPresentationImage> GetAllImages()
+        {
+            foreach (IImageBox imageBox in base.ImageViewer.PhysicalWorkspace.ImageBoxes)
+            {
+                if (imageBox.DisplaySet == null)
+                    continue;
+
+                foreach (IPresentationImage image in imageBox.DisplaySet.PresentationImages)
+                    yield return image;
+            }
+        }
+
+
+        #endregion
 	}
 }
