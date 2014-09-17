@@ -31,6 +31,8 @@ using ClearCanvas.Desktop;
 using ClearCanvas.Desktop.Actions;
 using ClearCanvas.ImageViewer.BaseTools;
 using ClearCanvas.ImageViewer.Mathematics;
+using ClearCanvas.ImageViewer.StudyManagement;
+
 
 namespace ClearCanvas.ImageViewer.Tools.Synchronization
 {
@@ -261,11 +263,20 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 			{
 				foreach (ITile tile in imageBox.Tiles)
 				{
-					if (tile.PresentationImage != null)
-						yield return tile.PresentationImage;
+                    if (tile.PresentationImage == null)
+                        continue;
+                    Frame frame = DicomImagePlane.GetFrame(tile.PresentationImage);
+                    if (frame != null)
+                    {
+                        if (frame.ImageType.IndexOf("SECONDARY") != -1)
+                            continue;
+                    }
+					yield return tile.PresentationImage;
 				}
 			}
 		}
+
+        
 
 		private IEnumerable<DicomImagePlane> GetPlanesParallelToReferencePlane()
 		{
@@ -372,6 +383,9 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
                     _currentReferenceImagePlane = DicomImagePlane.FromImage(currentImage);
                     if (_currentReferenceImagePlane == null)
                         continue;
+                    //
+                    if (_currentReferenceImagePlane.IsInSameFrameOfReference(targetImagePlane) == false)
+                        continue;
                     ReferenceLine firstReferenceLine = null;
                     ReferenceLine lastReferenceLine = null;
                     if (ShowFirstAndLastReferenceLines)
@@ -424,8 +438,10 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
                     referenceLineGraphic.Visible = true;
                 }
                 // make any that aren't valid invisible.
+              
                 for (int j = i; j < referenceLineCompositeGraphic.Graphics.Count; ++j)
                     referenceLineCompositeGraphic[j].Visible = false;
+               
             } 
             catch (Exception ex)
             {

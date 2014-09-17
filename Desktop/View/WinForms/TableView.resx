@@ -136,30 +136,20 @@
   <metadata name="_toolStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 0</value>
   </metadata>
-  <data name="_toolStrip.Location" type="System.Drawing.Point, System.Drawing">
-    <value>0, 0</value>
+  <data name="_sortAscendingButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 22</value>
   </data>
-  <data name="_toolStrip.Size" type="System.Drawing.Size, System.Drawing">
-    <value>540, 25</value>
+  <data name="_sortAscendingButton.Text" xml:space="preserve">
+    <value>Sort Ascending</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="_toolStrip.TabIndex" type="System.Int32, mscorlib">
-    <value>1</value>
+  <data name="_sortDescendingButton.Size" type="System.Drawing.Size, System.Drawing">
+    <value>160, 22</value>
   </data>
-  <data name="_toolStrip.Text" xml:space="preserve">
-    <value>toolStrip1</value>
+  <data name="_sortDescendingButton.Text" xml:space="preserve">
+    <value>Sort Descending</value>
   </data>
-  <data name="&gt;&gt;_toolStrip.Name" xml:space="preserve">
-    <value>_toolStrip</value>
-  </data>
-  <data name="&gt;&gt;_toolStrip.Type" xml:space="preserve">
-    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;_toolStrip.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;_toolStrip.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="_sortSeparator.Size" type="System.Drawing.Size, System.Drawing">
+    <value>157, 6</value>
   </data>
   <data name="_sortButton.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
@@ -185,23 +175,9 @@
   <data name="_sortButton.Text" xml:space="preserve">
     <value>Sort By</value>
   </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="_sortButton.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
-  </data>
-  <data name="_sortAscendingButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 22</value>
-  </data>
-  <data name="_sortAscendingButton.Text" xml:space="preserve">
-    <value>Sort Ascending</value>
-  </data>
-  <data name="_sortDescendingButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>160, 22</value>
-  </data>
-  <data name="_sortDescendingButton.Text" xml:space="preserve">
-    <value>Sort Descending</value>
-  </data>
-  <data name="_sortSeparator.Size" type="System.Drawing.Size, System.Drawing">
-    <value>157, 6</value>
   </data>
   <data name="_filterLabel.Size" type="System.Drawing.Size, System.Drawing">
     <value>47, 22</value>
@@ -240,9 +216,39 @@
   <data name="_clearFilterButton.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
+  <data name="_toolStrip.Location" type="System.Drawing.Point, System.Drawing">
+    <value>0, 0</value>
+  </data>
+  <data name="_toolStrip.Size" type="System.Drawing.Size, System.Drawing">
+    <value>540, 25</value>
+  </data>
+  <data name="_toolStrip.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="_toolStrip.Text" xml:space="preserve">
+    <value>toolStrip1</value>
+  </data>
+  <data name="&gt;&gt;_toolStrip.Name" xml:space="preserve">
+    <value>_toolStrip</value>
+  </data>
+  <data name="&gt;&gt;_toolStrip.Type" xml:space="preserve">
+    <value>System.Windows.Forms.ToolStrip, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;_toolStrip.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;_toolStrip.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
   <metadata name="_statusStrip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>0, 206</value>
   </metadata>
+  <data name="_statusLabel.Size" type="System.Drawing.Size, System.Drawing">
+    <value>525, 15</value>
+  </data>
+  <data name="_statusLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
+    <value>MiddleLeft</value>
+  </data>
   <data name="_statusStrip.Location" type="System.Drawing.Point, System.Drawing">
     <value>0, 0</value>
   </data>
@@ -269,12 +275,6 @@
   </data>
   <data name="&gt;&gt;_statusStrip.ZOrder" xml:space="preserve">
     <value>2</value>
-  </data>
-  <data name="_statusLabel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>525, 15</value>
-  </data>
-  <data name="_statusLabel.TextAlign" type="System.Drawing.ContentAlignment, System.Drawing">
-    <value>MiddleLeft</value>
   </data>
   <data name="_dataGridView.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Fill</value>
