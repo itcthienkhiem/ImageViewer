@@ -265,13 +265,7 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 				{
                     if (tile.PresentationImage == null)
                         continue;
-                    Frame frame = DicomImagePlane.GetFrame(tile.PresentationImage);
-                    if (frame != null)
-                    {
-                        if (frame.ImageType.IndexOf("SECONDARY") != -1)
-                            continue;
-                    }
-					yield return tile.PresentationImage;
+                  	yield return tile.PresentationImage;
 				}
 			}
 		}
@@ -419,8 +413,7 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
                 //bool showReferenceLines = this.Active && _currentReferenceImagePlane != null &&
                 //    _currentReferenceImagePlane.IsInSameFrameOfReference(targetImagePlane);
 
-                bool showReferenceLines = targetImage.ParentDisplaySet.ImageBox.ShowReferenceLine && _currentReferenceImagePlane != null &&
-                    _currentReferenceImagePlane.IsInSameFrameOfReference(targetImagePlane);
+                bool showReferenceLines = targetImage.ParentDisplaySet.ImageBox.ShowReferenceLine;
                 if (!showReferenceLines)
                 {
                     referenceLineCompositeGraphic.HideAllReferenceLines();

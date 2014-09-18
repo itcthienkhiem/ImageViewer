@@ -161,6 +161,7 @@ namespace ClearCanvas.ImageViewer
 
         private System.ComponentModel.BackgroundWorker backgroundWorker = null;
         private System.Windows.Forms.Form _form = null;
+        private ActionModelNode toolbarAction = null;
 		#endregion
 
 		/// <summary>
@@ -700,8 +701,14 @@ namespace ClearCanvas.ImageViewer
 		{
 			get
 			{
-				IActionSet actions = _toolSet.Actions.Select(_toolbarFilter.Evaluate);
-				return ActionModelRoot.CreateModel(GlobalActionsNamespace, "global-toolbars", actions);
+                if (toolbarAction == null)
+                {
+                    IActionSet actions = _toolSet.Actions.Select(_toolbarFilter.Evaluate);
+                    toolbarAction =   ActionModelRoot.CreateModel(GlobalActionsNamespace, "global-toolbars", actions);
+                    return toolbarAction;
+                }
+                else
+                    return toolbarAction;
 			}
 		}
 

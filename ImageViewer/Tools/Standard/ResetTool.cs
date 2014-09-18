@@ -29,6 +29,8 @@ using ClearCanvas.ImageViewer.BaseTools;
 using ClearCanvas.ImageViewer.Graphics;
 using ClearCanvas.ImageViewer.Graphics3D;
 using ClearCanvas.ImageViewer.Tools.Standard.Configuration;
+using ClearCanvas.ImageViewer.Imaging;
+using ClearCanvas.ImageViewer.Tools.Standard.PresetVoiLuts.Operations;
 
 namespace ClearCanvas.ImageViewer.Tools.Standard
 {
@@ -69,6 +71,17 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 				historyCommand.Name = SR.CommandReset;
 				Context.Viewer.CommandHistory.AddCommand(historyCommand);
 			}
+            if (GetCheckedSync() == true)
+            {
+                var historyCommand2 = new DrawableUndoableOperationCommand<IPresentationImage>(this._operation, GetAllImages());
+                historyCommand2.Execute();
+
+                if (historyCommand2.Count > 0)
+                {
+                    historyCommand2.Name = SR.CommandMatchScale;
+                    base.ImageViewer.CommandHistory.AddCommand(historyCommand);
+                }
+            }
 		}
 
 		public void Apply(IPresentationImage image)
@@ -97,6 +110,12 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 				transform3D.FlipXY = false;
 				transform3D.Rotation = null;
 			}
+
+            var applicator = AutoVoiLutApplicator.Create(image);
+            if (applicator == null)
+                return;
+
+            applicator.ApplyNextLut();
 		}
 
 		private class ResetImageOperation : BasicImageOperation

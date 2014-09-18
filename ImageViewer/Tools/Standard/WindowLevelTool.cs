@@ -249,7 +249,6 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
             transform.ScaleToFit = referenceTransform.ScaleToFit;
             transform.TranslationX = this.SelectedSpatialTransformProvider.SpatialTransform.TranslationX;
             transform.TranslationY = this.SelectedSpatialTransformProvider.SpatialTransform.TranslationY;
-
 		}
 
         private static IImageSpatialTransform GetImageTransform(IPresentationImage image)
@@ -296,9 +295,7 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 		public override bool Stop(IMouseInformation mouseInformation)
 		{
 			base.Stop(mouseInformation);
-
 			CaptureEndState();
-
 			return false;
 		}
 

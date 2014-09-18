@@ -37,15 +37,17 @@ using ClearCanvas.ImageViewer.StudyManagement;
 
 namespace ClearCanvas.ImageViewer.Explorer.Dicom
 {
-	[ButtonAction("activate", "dicomstudybrowser-toolbar/ToolbarSendStudy", "SendStudy")]
-	[MenuAction("activate", "dicomstudybrowser-contextmenu/MenuSendStudy", "SendStudy")]
-    [ActionFormerly("activate", "ClearCanvas.ImageViewer.Services.Tools.SendStudyTool:activate")]
-    [EnabledStateObserver("activate", "Enabled", "EnabledChanged")]
-    [VisibleStateObserver("activate", "Visible", "VisibleChanged")]
-    [Tooltip("activate", "TooltipSendStudy")]
-	[IconSet("activate", "Icons.SendStudyToolSmall.png", "Icons.SendStudyToolSmall.png", "Icons.SendStudyToolSmall.png")]
+    
+    [MenuAction("activateqq", "global-menus/ ”Õº/∑¢ÀÕ", "SendStudy")]
+	//[ButtonAction("activate", "dicomstudybrowser-toolbar/ToolbarSendStudy", "SendStudy")]
+	//[MenuAction("activate", "dicomstudybrowser-contextmenu/MenuSendStudy", "SendStudy")]
+    //[ActionFormerly("activateqq", "ClearCanvas.ImageViewer.Services.Tools.SendStudyTool:activate")]
+    //[EnabledStateObserver("activateqq", "Enabled", "EnabledChanged")]
+    //[VisibleStateObserver("activateqq", "Visible", "VisibleChanged")]
+    //[Tooltip("activateqq", "TooltipSendStudy")]
+    //[IconSet("activateqq", "Icons.SendStudyToolSmall.png", "Icons.SendStudyToolSmall.png", "Icons.SendStudyToolSmall.png")]
 
-    [ViewerActionPermission("activate", ImageViewer.AuthorityTokens.Study.Send)]
+    //[ViewerActionPermission("activate", ImageViewer.AuthorityTokens.Study.Send)]
 
 	[ExtensionOf(typeof(StudyBrowserToolExtensionPoint))]
     public class SendStudyTool : StudyBrowserTool
