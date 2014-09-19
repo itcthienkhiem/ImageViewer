@@ -26,6 +26,9 @@ using ClearCanvas.Common;
 using ClearCanvas.Desktop;
 using ClearCanvas.Desktop.Actions;
 using ClearCanvas.Desktop.Tools;
+using ClearCanvas.Common.Utilities;
+using System.Collections.Generic;
+using System.IO;
 
 namespace ClearCanvas.ImageViewer.Utilities.StudyFilters.CoreTools
 {
@@ -36,7 +39,6 @@ namespace ClearCanvas.ImageViewer.Utilities.StudyFilters.CoreTools
 	public class LaunchStudyFiltersTool : Tool<IDesktopToolContext>
 	{
 		private string _lastFolder = string.Empty;
-
 		public void Open()
 		{
 			SelectFolderDialogCreationArgs args = new SelectFolderDialogCreationArgs();
@@ -49,16 +51,32 @@ namespace ClearCanvas.ImageViewer.Utilities.StudyFilters.CoreTools
 			{
 				_lastFolder = result.FileName;
 
-				StudyFilterComponent component = new StudyFilterComponent();
-				component.BulkOperationsMode = true;
+                string[] file = Directory.GetFiles(_lastFolder, "*.*", SearchOption.AllDirectories);
 
-				if (component.Load(base.Context.DesktopWindow, true, result.FileName))
-				{
-					component.Refresh(true);
-					base.Context.DesktopWindow.Workspaces.AddNew(component, SR.StudyFilters);
-				}
+                ClearCanvas.ImageViewer.ImageViewerComponent viewer = null;
+                DesktopWindow desktopWindow = null;
+                List<string> _filenames = new List<string>();
 
-				component.BulkOperationsMode = false;
+                foreach (DesktopWindow window in Application.DesktopWindows)
+                {
+                    foreach (Workspace space in window.Workspaces)
+                    {
+                        if (space.Title == "imageview")
+                        {
+                            desktopWindow = window;
+                            viewer = space.Component as ClearCanvas.ImageViewer.ImageViewerComponent;
+                        }
+                    }
+                }
+                if (viewer != null)
+                {
+                    viewer.PhysicalWorkspace.Clear();
+                    viewer.LogicalWorkspace.Clear();
+                    viewer.ReAllocateStudyTree();
+                    viewer.Layout();
+                    viewer.LoadImages(file);
+                    viewer.Layout();
+                }
 			}
 		}
 	}

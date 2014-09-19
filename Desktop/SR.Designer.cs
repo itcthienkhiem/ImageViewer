@@ -799,6 +799,15 @@ namespace ClearCanvas.Desktop {
         }
         
         /// <summary>
+        ///   查找类似 图像发送 的本地化字符串。
+        /// </summary>
+        public static string MenuSend {
+            get {
+                return ResourceManager.GetString("MenuSend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 &amp;工具栏 的本地化字符串。
         /// </summary>
         public static string MenuTools {

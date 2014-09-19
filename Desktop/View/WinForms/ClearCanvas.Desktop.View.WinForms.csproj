@@ -257,6 +257,12 @@
       <DependentUpon>QueryPatientControl.cs</DependentUpon>
     </Compile>
     <Compile Include="QueryPatientView.cs" />
+    <Compile Include="SendPatientControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="SendPatientControl.Designer.cs">
+      <DependentUpon>SendPatientControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="SliderBar.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -587,6 +593,9 @@
     <EmbeddedResource Include="QueryPatientControl.resx">
       <DependentUpon>QueryPatientControl.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="SendPatientControl.resx">
+      <DependentUpon>SendPatientControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="SimpleComponentContainerControl.resx">
       <SubType>Designer</SubType>
       <DependentUpon>SimpleComponentContainerControl.cs</DependentUpon>
@@ -665,6 +674,10 @@
     <ProjectReference Include="..\..\..\Common\ClearCanvas.Common.csproj">
       <Project>{F6EAD428-E6CF-4DF6-B2F3-D33D532C5343}</Project>
       <Name>ClearCanvas.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Dicom\ClearCanvas.Dicom.csproj">
+      <Project>{AD9ECE2B-8268-4115-8DC8-860FBD011FFF}</Project>
+      <Name>ClearCanvas.Dicom</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\..\ImageViewer\ClearCanvas.ImageViewer.csproj">
       <Project>{85100D3E-471C-47C9-9687-ABF25F617ED7}</Project>

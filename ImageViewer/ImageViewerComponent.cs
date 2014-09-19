@@ -1176,22 +1176,14 @@ namespace ClearCanvas.ImageViewer
             get { return _form; }
         }
 
+       
+
         public void LoadStudyFromFtp(System.Windows.Forms.Form  form)
         {
             if (_form == null)
                  _form = form;
             if (backgroundWorker.IsBusy)
-            {
-                //try
-                //{
-                //    backgroundWorker.CancelAsync();
-                     
-                //}
-                //catch (Exception ex)
-                //{
-
-                //}
-                
+            { 
                 return;
             }
             GlobalData.RunParams = GlobalData.AnalyzeMainNextCall();

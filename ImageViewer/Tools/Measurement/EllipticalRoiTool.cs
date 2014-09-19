@@ -80,8 +80,9 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement
 
 		protected override IGraphic CreateGraphic()
 		{
-			return new BoundableResizeControlGraphic(new BoundableStretchControlGraphic(new MoveControlGraphic(new EllipsePrimitive())));
-		}
+			//return new BoundableResizeControlGraphic(new BoundableStretchControlGraphic(new MoveControlGraphic(new EllipsePrimitive())));
+            return new  BoundableStretchControlGraphic(new MoveControlGraphic(new EllipsePrimitive()));
+        }
     }
 
     #region Oto

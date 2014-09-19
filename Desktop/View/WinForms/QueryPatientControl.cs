@@ -52,6 +52,7 @@ namespace ClearCanvas.Desktop.View.WinForms
                 }
                 GlobalData.RunParams.listAccessionNumber = l_list.ToArray();
                 ClearCanvas.ImageViewer.ImageViewerComponent viewer = null;
+              
                 DesktopWindow desktopWindow = null;
                 List<string> _filenames = new List<string>();
 

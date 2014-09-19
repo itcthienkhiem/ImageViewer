@@ -112,23 +112,26 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="mscorlib" name="mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="_presetVoiLuts.ColumnHeaderTooltip" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
+  </data>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="_tableLayoutPanel.ColumnCount" type="System.Int32, mscorlib">
     <value>2</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="_comboModality.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
     <value>Left</value>
   </data>
   <data name="_comboModality.LabelText" xml:space="preserve">
     <value>Modality</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="_comboModality.Location" type="System.Drawing.Point, System.Drawing">
     <value>6, 6</value>
   </data>
@@ -136,7 +139,7 @@
     <value>6, 6, 6, 6</value>
   </data>
   <data name="_comboModality.Size" type="System.Drawing.Size, System.Drawing">
-    <value>110, 48</value>
+    <value>110, 44</value>
   </data>
   <data name="_comboModality.TabIndex" type="System.Int32, mscorlib">
     <value>1</value>
@@ -160,13 +163,13 @@
     <value>Add Preset Type</value>
   </data>
   <data name="_comboAddPreset.Location" type="System.Drawing.Point, System.Drawing">
-    <value>2, 258</value>
+    <value>2, 239</value>
   </data>
   <data name="_comboAddPreset.Margin" type="System.Windows.Forms.Padding, System.Windows.Forms">
     <value>2, 2, 2, 2</value>
   </data>
   <data name="_comboAddPreset.Size" type="System.Drawing.Size, System.Drawing">
-    <value>256, 41</value>
+    <value>256, 38</value>
   </data>
   <data name="_comboAddPreset.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -187,10 +190,10 @@
     <value>Bottom, Right</value>
   </data>
   <data name="_addPresetButton.Location" type="System.Drawing.Point, System.Drawing">
-    <value>263, 275</value>
+    <value>263, 255</value>
   </data>
   <data name="_addPresetButton.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 23</value>
+    <value>75, 21</value>
   </data>
   <data name="_addPresetButton.TabIndex" type="System.Int32, mscorlib">
     <value>3</value>
@@ -202,7 +205,7 @@
     <value>_addPresetButton</value>
   </data>
   <data name="&gt;&gt;_addPresetButton.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;_addPresetButton.Parent" xml:space="preserve">
     <value>_tableLayoutPanel</value>
@@ -220,7 +223,7 @@
     <value>3</value>
   </data>
   <data name="_tableLayoutPanel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>341, 300</value>
+    <value>341, 277</value>
   </data>
   <data name="_tableLayoutPanel.TabIndex" type="System.Int32, mscorlib">
     <value>2</value>
@@ -229,7 +232,7 @@
     <value>_tableLayoutPanel</value>
   </data>
   <data name="&gt;&gt;_tableLayoutPanel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Windows.Forms.TableLayoutPanel, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;_tableLayoutPanel.Parent" xml:space="preserve">
     <value>$this</value>
@@ -244,10 +247,13 @@
     <value>Fill</value>
   </data>
   <data name="_presetVoiLuts.Location" type="System.Drawing.Point, System.Drawing">
-    <value>3, 63</value>
+    <value>3, 59</value>
   </data>
   <data name="_presetVoiLuts.Size" type="System.Drawing.Size, System.Drawing">
-    <value>335, 190</value>
+    <value>335, 175</value>
+  </data>
+  <data name="_presetVoiLuts.SortButtonTooltip" type="System.Resources.ResXNullRef, System.Windows.Forms">
+    <value />
   </data>
   <data name="_presetVoiLuts.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -264,17 +270,17 @@
   <data name="&gt;&gt;_presetVoiLuts.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 13</value>
+    <value>6, 12</value>
   </data>
   <data name="$this.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>341, 300</value>
+    <value>341, 277</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>PresetVoiLutConfigurationComponentControl</value>

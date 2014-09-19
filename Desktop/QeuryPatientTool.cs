@@ -23,6 +23,7 @@ namespace ClearCanvas.Desktop
 {
     [MenuAction("QueryPatient", "global-menus/视图/影像查找", "QueryPatient")]
     [MenuAction("ScreenCapture", "global-menus/视图/截屏", "ScreenCapture")]
+    [MenuAction("SendPatient", "global-menus/视图/MenuSend", "SendPatient")]
     [KeyboardAction("ScreenCapture", "global-menus/视图/截屏", "ScreenCapture", KeyStroke = XKeys.Control | XKeys.X)]
   
     [ExtensionOf(typeof(DesktopToolExtensionPoint))]
@@ -38,6 +39,11 @@ namespace ClearCanvas.Desktop
         public void QueryPatient()
         {
             ApplicationComponent.LaunchAsDialog(this.Context.DesktopWindow, new QueryPatientComponent(), "查询提取病人影像");
+        }
+
+        public void SendPatient()
+        {
+            ApplicationComponent.LaunchAsDialog(this.Context.DesktopWindow, new SendPatientComponent(), "发送病人影像");
         }
 
         public void ScreenCapture()
@@ -140,6 +146,32 @@ namespace ClearCanvas.Desktop
 
     [AssociateView(typeof(QueryPatientComponentViewExtensionPoint))]
     public class QueryPatientComponent : ApplicationComponent
+    {
+
+        public override void Start()
+        {
+            base.Start();
+        }
+
+        /// <summary>
+        /// Does nothing unless the task has completed; closes the progress dialog.
+        /// </summary>
+        public override void Stop()
+        {
+            base.Stop();
+        }
+        // your component code here
+
+    }
+
+
+    [ExtensionPoint]
+    public sealed class SendPatientComponentViewExtensionPoint : ExtensionPoint<IApplicationComponentView>
+    {
+    }
+
+    [AssociateView(typeof(SendPatientComponentViewExtensionPoint))]
+    public class SendPatientComponent : ApplicationComponent
     {
 
         public override void Start()

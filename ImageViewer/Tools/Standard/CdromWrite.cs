@@ -20,8 +20,6 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
     {
         public void WriteCD()
         {
-            string lFilename = "";
-
             string strBurnPath = System.Windows.Forms.Application.StartupPath + "\\Nero\\";
             DirectoryInfo Dir = new DirectoryInfo(strBurnPath);
             string strImagePath = strBurnPath + "\\Images\\";

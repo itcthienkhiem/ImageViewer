@@ -39,4 +39,34 @@ namespace ClearCanvas.Desktop.View.WinForms
             }
         }
     }
+
+    [ExtensionOf(typeof(SendPatientComponentViewExtensionPoint))]
+    public class SendPatientView : WinFormsView, IApplicationComponentView
+    {
+        private SendPatientComponent _component;
+        private SendPatientControl _control;
+
+        public SendPatientView()
+        {
+        }
+
+        #region IApplicationComponentView Members
+        public void SetComponent(IApplicationComponent component)
+        {
+            _component = (SendPatientComponent)component;
+        }
+        #endregion
+
+        public override object GuiElement
+        {
+            get
+            {
+                if (_control == null)
+                {
+                    _control = new SendPatientControl(_component);
+                }
+                return _control;
+            }
+        }
+    }
 }
