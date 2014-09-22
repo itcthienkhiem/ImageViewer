@@ -206,7 +206,7 @@ namespace ClearCanvas.ImageViewer.BaseTools
             IAction[] action = null;
             foreach (ActionModelNode tempnode in node.ChildNodes)
             {
-                if (tempnode.PathSegment.ResourceKey == "ToolbarSynchronizeStacking")
+                if (tempnode.PathSegment.ResourceKey == "ToolbarSynchronizeStackingLinkStudies")
                 {
                     tempNode = tempnode;
                     break;

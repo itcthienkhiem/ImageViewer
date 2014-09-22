@@ -45,11 +45,13 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 
 	[MenuAction("linkStudies", "imageviewer-contextmenu/MenuSynchronizeStackingLinkStudies", "ToggleLinkStudies", InitiallyAvailable = false)]
 	[MenuAction("linkStudies", "global-menus/MenuTools/MenuSynchronization/MenuSynchronizeStackingLinkStudies", "ToggleLinkStudies")]
-	[ButtonAction("linkStudies", "global-toolbars/ToolbarSynchronization/ToolbarSynchronizeStackingLinkStudies", "ToggleLinkStudies")]
-	[EnabledStateObserver("linkStudies", "LinkStudiesEnabled", "LinkStudiesEnabledChanged")]
-	[LabelValueObserver("linkStudies", "LinkStudiesLabel", "StudiesLinkedChanged")]
-	[IconSetObserver("linkStudies", "LinkStudiesIconSet", "StudiesLinkedChanged")]
-	[TooltipValueObserver("linkStudies", "LinkStudiesTooltip", "StudiesLinkedChanged")]
+    [ButtonAction("linkStudies", "global-toolbars/ToolbarSynchronization/ToolbarSynchronizeStackingLinkStudies", "ToggleLinkStudies")]
+	//[EnabledStateObserver("linkStudies", "LinkStudiesEnabled", "LinkStudiesEnabledChanged")]
+    [IconSet("linkStudies", "Icons.LinkStudiesToolSmall.png", "Icons.LinkStudiesToolMedium.png", "Icons.LinkStudiesToolLarge.png")]
+    [CheckedStateObserver("linkStudies", "LinkStudiesActive", "LinkStudiesActiveChanged")]
+	//[LabelValueObserver("linkStudies", "LinkStudiesLabel", "StudiesLinkedChanged")]
+	//[IconSetObserver("linkStudies", "LinkStudiesIconSet", "StudiesLinkedChanged")]
+	//[TooltipValueObserver("linkStudies", "LinkStudiesTooltip", "StudiesLinkedChanged")]
 	[GroupHint("linkStudies", "Tools.Image.Manipulation.Stacking.LinkStudies")]
 
 	[ExtensionOf(typeof(ImageViewerToolExtensionPoint))]
@@ -75,7 +77,9 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 		private bool _deferSynchronizeUntilDisplaySetChanged;
 
 		private readonly List<IImageBox> _imageBoxesToDraw = new List<IImageBox>();
-		
+
+        private bool _studiesLinkedActive;
+        private event EventHandler _studiesLinkedActiveChanged;
 		#endregion
 
 		public StackingSynchronizationTool()
@@ -143,6 +147,26 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 			add { _synchronizeActiveChanged += value; }
 			remove { _synchronizeActiveChanged -= value; }
 		}
+
+        public bool LinkStudiesActive
+        {
+            get { return _studiesLinkedActive; }
+            set
+            {
+                if (_studiesLinkedActive == value)
+                    return;
+
+                _studiesLinkedActive = value;
+                EventsHelper.Fire(_studiesLinkedActiveChanged, this, EventArgs.Empty);
+            }
+        }
+
+        public event EventHandler LinkStudiesActiveChanged
+        {
+            add { _studiesLinkedActiveChanged += value; }
+            remove { _studiesLinkedActiveChanged -= value; }
+        }
+
 
 		public bool LinkStudiesEnabled
 		{
@@ -232,13 +256,14 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 
 		private void ToggleLinkStudies()
 		{
-			StudiesLinked = !StudiesLinked;
-			if (StudiesLinked)
-			{
-				CalibrateFrameOfReferenceForVisibleImageBoxes();
-				SynchronizeAllImageBoxes(); 
-				_coordinator.OnSynchronizedImageBoxes();
-			}
+            LinkStudiesActive = !LinkStudiesActive;
+            //StudiesLinked = !StudiesLinked;
+            //if (StudiesLinked)
+            //{
+            //    CalibrateFrameOfReferenceForVisibleImageBoxes();
+            //    SynchronizeAllImageBoxes(); 
+            //    _coordinator.OnSynchronizedImageBoxes();
+            //}
 		}
 
 		#endregion

@@ -166,7 +166,7 @@
     <value>序列同步</value>
   </data>
   <data name="ToolbarSynchronizeStackingLinkStudies" xml:space="preserve">
-    <value>不同序列同步</value>
+    <value>移动缩放同步</value>
   </data>
   <data name="TooltipReferenceLines" xml:space="preserve">
     <value>定位线</value>

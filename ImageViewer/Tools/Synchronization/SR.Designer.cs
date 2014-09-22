@@ -205,7 +205,7 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization {
         }
         
         /// <summary>
-        ///   查找类似 不同序列同步 的本地化字符串。
+        ///   查找类似 移动缩放同步 的本地化字符串。
         /// </summary>
         internal static string ToolbarSynchronizeStackingLinkStudies {
             get {
