@@ -706,8 +706,6 @@ namespace ClearCanvas.Desktop
                         Quit(false);
                     }
                 };
-
-
             // start message pump - this will block until _guiToolkit.Terminate() is called
             _guiToolkit.Run();
 		}

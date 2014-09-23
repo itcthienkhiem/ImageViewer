@@ -162,6 +162,7 @@ namespace ClearCanvas.ImageViewer
         private System.ComponentModel.BackgroundWorker backgroundWorker = null;
         private System.Windows.Forms.Form _form = null;
         private ActionModelNode toolbarAction = null;
+        private string[] strFileNames = null;
 		#endregion
 
 		/// <summary>
@@ -889,7 +890,7 @@ namespace ClearCanvas.ImageViewer
 		public void LoadImages(string[] files, IDesktopWindow desktop, out bool cancelled)
 		{
 			Platform.CheckForNullReference(files, "files");
-
+            strFileNames = files;
 			using (LocalSopLoader loader = new LocalSopLoader(this))
 			{
 				loader.Load(files, desktop, out cancelled);
@@ -1211,6 +1212,12 @@ namespace ClearCanvas.ImageViewer
         {
             foreach (ITool tool in set.Tools)
                 _shortcutManager.RegisterImageViewerTool(tool);
+        }
+
+        public IEnumerable<string> getCurrentFiles()
+        {
+            foreach (string strFile in strFileNames)
+                yield return strFile;
         }
 	}
 }

@@ -39,6 +39,7 @@ namespace ClearCanvas.ImageViewer.Utilities.StudyFilters.CoreTools
 	public class LaunchStudyFiltersTool : Tool<IDesktopToolContext>
 	{
 		private string _lastFolder = string.Empty;
+        public static string[] fileName = null;
 		public void Open()
 		{
 			SelectFolderDialogCreationArgs args = new SelectFolderDialogCreationArgs();
@@ -52,11 +53,12 @@ namespace ClearCanvas.ImageViewer.Utilities.StudyFilters.CoreTools
 				_lastFolder = result.FileName;
 
                 string[] file = Directory.GetFiles(_lastFolder, "*.*", SearchOption.AllDirectories);
+                fileName = file;
 
                 ClearCanvas.ImageViewer.ImageViewerComponent viewer = null;
                 DesktopWindow desktopWindow = null;
                 List<string> _filenames = new List<string>();
-
+                
                 foreach (DesktopWindow window in Application.DesktopWindows)
                 {
                     foreach (Workspace space in window.Workspaces)

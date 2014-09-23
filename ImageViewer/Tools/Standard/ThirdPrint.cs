@@ -17,8 +17,8 @@ using ClearCanvas.ImageViewer.Graphics;
 using ClearCanvas.ImageViewer.Tools.Standard.Configuration;
 using ClearCanvas.ImageViewer.StudyManagement;
 using System.IO;
-
 using Global.Data;
+
 
 namespace ClearCanvas.ImageViewer.Tools.Standard
 {

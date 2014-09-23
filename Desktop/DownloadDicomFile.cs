@@ -95,7 +95,7 @@ namespace ClearCanvas.Desktop
             SqlDataAdapter sqlCommand;
             SqlDataReader SeriesReader;
             string sqlstr;
-
+            /*
             if (accessionNum != "")
             {
                 sqlstr = string.Format(" select b.SeriesInstanceUID,b.SeriesNumber,a.AccessionNumber " +
@@ -153,6 +153,24 @@ namespace ClearCanvas.Desktop
                     return;
                 }
             }
+            */
+
+            sqlstr = string.Format(" select machinetype,CONVERT(varchar, EXAMDATE, 120 ) AS EXAMDATE, olddocid  " +
+                                            " from  examrecord " +
+                                            " where modulename='RIS' " +
+                                            " and id='{0}'", accessionNum);
+            sqlCommand = new SqlDataAdapter(sqlstr, GlobalData.MainConn.ChangeType());
+            sqlCommand.SelectCommand.CommandType = CommandType.Text;
+            SeriesReader = sqlCommand.SelectCommand.ExecuteReader();
+            while (SeriesReader.Read())
+            {
+                sPatientID = (string)SeriesReader["olddocid"];
+                sModality = (string)SeriesReader["machinetype"];
+                sStudyDate = (string)SeriesReader["examdate"].ToString().Substring(0, 10);
+                break;
+            }
+            sqlCommand.Dispose();
+            SeriesReader.Close();
 
             //按照设备类型获取图像
             sqlstr = string.Format(" select b.SeriesInstanceUID,b.SeriesNumber,a.AccessionNumber " +
