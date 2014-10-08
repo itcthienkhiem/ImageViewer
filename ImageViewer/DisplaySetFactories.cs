@@ -1182,8 +1182,8 @@ namespace ClearCanvas.ImageViewer
 				    || sop.SopClassUid == SopClass.PseudoColorSoftcopyPresentationStateStorageSopClassUid
 				    || sop.SopClassUid == SopClass.BlendingSoftcopyPresentationStateStorageSopClassUid)
 					continue;
-
-				images.Add(new PlaceholderPresentationImage(sop));
+                //
+				//images.Add(new PlaceholderPresentationImage(sop));
 			}
 
 			if (images.Count > 0)

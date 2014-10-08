@@ -226,7 +226,7 @@ namespace ClearCanvas.Dicom.Validation
 
 			try
 			{
-				ValidateUid(uid);
+				//ValidateUid(uid);
 			}
 			catch (DicomDataException e)
 			{
@@ -264,7 +264,7 @@ namespace ClearCanvas.Dicom.Validation
 		{
 			try
 			{
-				ValidateUid(uid);
+				//ValidateUid(uid);
 			}
 			catch (DicomDataException e)
 			{
