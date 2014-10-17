@@ -84,25 +84,33 @@ namespace ClearCanvas.Desktop
             Image image = capture_class.CaptureScreentoClipboard(finalx, finaly, finalwidth, finalheight);
             //开始发送给
             ClassFtpSocketClient sk = new ClassFtpSocketClient();
-            string ImagePath = GetRemoteFilePath();
-            string ImageId = GetMaxIDFormImageBack();
-            string sqlstr = string.Format("insert into imageback(imgid,id,imagepath,flag,modulename) values('{0}','{1}','{2}','1','{3}')",
-            ImageId, GlobalData.RunParams.AccessionNumber, ImagePath, GlobalData.RunParams.RunMode);
-            SqlCommand sqlCmd = new SqlCommand();
-            sqlCmd.Connection = GlobalData.MainConn.ChangeType();
-            sqlCmd.CommandText = sqlstr;
-            sqlCmd.ExecuteNonQuery();
+            try
+            {
+                string ImagePath = GetRemoteFilePath();
+                string ImageId = GetMaxIDFormImageBack();
+                string sqlstr = string.Format("insert into imageback(imgid,id,imagepath,flag,modulename) values('{0}','{1}','{2}','1','{3}')",
+                ImageId, GlobalData.RunParams.AccessionNumber, ImagePath, GlobalData.RunParams.RunMode);
+                SqlCommand sqlCmd = new SqlCommand();
+                sqlCmd.Connection = GlobalData.MainConn.ChangeType();
+                sqlCmd.CommandText = sqlstr;
+                sqlCmd.ExecuteNonQuery();
 
-            string JpegFile = GetRemoteFilePath() + ImageId + ".jpg";
+                string JpegFile = GetRemoteFilePath() + ImageId + ".jpg";
 
-            Image tmpImage = image;
-            System.IO.Stream mStream = new System.IO.MemoryStream();
-            tmpImage.Save(mStream, System.Drawing.Imaging.ImageFormat.Jpeg);
-            sk.PutFileIntoFtpServer(GlobalData.RunParams.RemoteIP,
-                                                  GlobalData.RunParams.RemotePort,
-                                                  JpegFile, mStream);
-            mStream.Dispose();
-            image.Dispose();
+                Image tmpImage = image;
+                System.IO.Stream mStream = new System.IO.MemoryStream();
+                tmpImage.Save(mStream, System.Drawing.Imaging.ImageFormat.Jpeg);
+                sk.PutFileIntoFtpServer(GlobalData.RunParams.RemoteIP,
+                                                      GlobalData.RunParams.RemotePort,
+                                                      JpegFile, mStream);
+                mStream.Dispose();
+                image.Dispose();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("网络断开。。。请重启浏览器!!");
+                return;
+            }
             IntPtr WINDOW_HANDLER = new IntPtr(Convert.ToInt32(GlobalData.RunParams.CallerHwnd));
             if ((int)WINDOW_HANDLER == 0)
             {

@@ -28,7 +28,7 @@ namespace ClearCanvas.Desktop.View.WinForms
        
         private void button1_Click(object sender, EventArgs e)
         {
-            _storageScu = new StorageScu("localAe", "remoteAe", editIP.Text, Convert.ToInt16(editPort.Text));
+            _storageScu = new StorageScu(editAE.Text, editAE.Text, editIP.Text, Convert.ToInt16(editPort.Text));
             _storageScu.ImageStoreCompleted += new EventHandler<StorageInstance>(storageScu_StoreCompleted);
          
             //_storageScu.AddStorageInstance(new StorageInstance("AnotherFile.dcm"));
