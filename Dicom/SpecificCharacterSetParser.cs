@@ -207,6 +207,7 @@ namespace ClearCanvas.Dicom
 
         public static void Unparse(string specificCharacterSet, string dataInUnicode, out byte[] rawBytes)
         {
+            
             if (null == specificCharacterSet || "" == specificCharacterSet)
             {
                 rawBytes = GetIsomorphicBytes(dataInUnicode);
@@ -246,6 +247,8 @@ namespace ClearCanvas.Dicom
                 // represention of the original raw bytes
                 return GetIsomorphicString(rawData);
             }
+            //if (specificCharacterSet == "GB2313")
+                return GetIsomorphicString(rawData);
 
             CharacterSetInfo defaultRepertoire;
             Dictionary<string, CharacterSetInfo> extensionRepertoires;

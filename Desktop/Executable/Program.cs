@@ -81,12 +81,9 @@ namespace ClearCanvas.Desktop.Executable
 			Platform.CheckForNullReference(e, "e");
 #if !MONO
 			SplashScreenManager.SetStatus(e.Message);
-
 			if (e.PluginAssembly != null)
 				SplashScreenManager.AddAssemblyIcon(e.PluginAssembly);
 #endif
 		}
-
-      
 	}
 }

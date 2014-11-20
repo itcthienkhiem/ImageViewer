@@ -15,7 +15,7 @@
     </When>
     <Otherwise>
       <PropertyGroup>
-        <BuildPlatform></BuildPlatform>
+        <BuildPlatform>x86</BuildPlatform>
       </PropertyGroup>
     </Otherwise>
   </Choose>

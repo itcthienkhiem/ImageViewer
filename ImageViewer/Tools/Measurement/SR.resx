@@ -225,4 +225,13 @@
   <data name="TooltipShowAngles" xml:space="preserve">
     <value>显示角度</value>
   </data>
+  <data name="MenuHeartRatio" xml:space="preserve">
+    <value>心胸比</value>
+  </data>
+  <data name="ToolbarHeartRatio" xml:space="preserve">
+    <value>心胸比</value>
+  </data>
+  <data name="CommandCreateHeartRatio" xml:space="preserve">
+    <value>心胸比</value>
+  </data>
 </root>

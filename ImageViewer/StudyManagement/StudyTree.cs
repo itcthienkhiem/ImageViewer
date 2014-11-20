@@ -138,8 +138,9 @@ namespace ClearCanvas.ImageViewer.StudyManagement
 		{
 			Platform.CheckForNullReference(sop, "sop");
 
-			if (!this.SopValidationDisabled)
-				sop.Validate();
+            //disable
+            //if (!this.SopValidationDisabled)
+            //    sop.Validate();
 
 			if (_sops.ContainsKey(sop.SopInstanceUid))
 			{

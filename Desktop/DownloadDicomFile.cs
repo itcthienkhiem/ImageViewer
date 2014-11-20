@@ -113,7 +113,7 @@ namespace ClearCanvas.Desktop
                 SeriesReader.Close();
                 if (arrSeriesString.Count == 0) //根据ACCESSION获取设备类型，影像号，检查日期
                 {
-                    sqlstr = string.Format(" select machinetype,CONVERT(varchar, EXAMDATE, 120 ) AS EXAMDATE, olddocid  " +
+                    sqlstr = string.Format(" select machinetype,CONVERT(varchar, submittime, 120 ) AS EXAMDATE, olddocid  " +
                                                  " from  examrecord " +
                                                  " where modulename='RIS' " +
                                                  " and id='{0}'", accessionNum);
@@ -243,7 +243,7 @@ namespace ClearCanvas.Desktop
                 SeriesReader.Close();
                 if (arrSeriesString.Count == 0) //根据ACCESSION获取设备类型，影像号，检查日期
                 {
-                    sqlstr = string.Format(" select machinetype,CONVERT(varchar, EXAMDATE, 120 ) AS EXAMDATE, olddocid  " +
+                    sqlstr = string.Format(" select machinetype,CONVERT(varchar, su, 120 ) AS EXAMDATE, olddocid  " +
                                                  " from  examrecord " +
                                                  " where modulename='RIS' " +
                                                  " and id='{0}'", accessionNum);
@@ -442,7 +442,7 @@ namespace ClearCanvas.Desktop
             m_count = 0;
             try
             {
-                if (GlobalData.MainConn.ChangeType().State == ConnectionState.Broken)
+                if (GlobalData.MainConn.isConnectedBroken())
                 {
                     GlobalData.MainConn.Close();
                     ConnectDataBase();

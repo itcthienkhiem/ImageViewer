@@ -518,7 +518,7 @@ namespace ClearCanvas.Dicom
             if (readStat != DicomReadStatus.Success)
             {
                 Platform.Log(LogLevel.Error, "Unexpected error ({0}) when reading file at offset {2}: {1}", readStat, Filename,dsr.BytesRead);
-                throw new DicomException("Unexpected failure (" + readStat + ") reading file at offset " + dsr.BytesRead + ": " + Filename);
+                //throw new DicomException("Unexpected failure (" + readStat + ") reading file at offset " + dsr.BytesRead + ": " + Filename);
             }
 
 			Loaded = true;

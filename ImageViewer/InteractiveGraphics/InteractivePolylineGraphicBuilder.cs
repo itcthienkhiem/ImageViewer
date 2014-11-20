@@ -43,6 +43,7 @@ namespace ClearCanvas.ImageViewer.InteractiveGraphics
 		private readonly int _maximumVertices;
         private readonly int _minimumVertices;
         private int _numberOfPointsAnchored;
+      
 
 		/// <summary>
 		/// Constructs an interactive builder for the specified graphic.
@@ -98,7 +99,7 @@ namespace ClearCanvas.ImageViewer.InteractiveGraphics
 		{
 		    /// TODO (CR Sep 2011): Shouldn't this also clear the points?
 			_numberOfPointsAnchored = 0;
-			base.Reset();
+			base.Reset(); 
 		}
 
 		/// <summary>
@@ -132,15 +133,18 @@ namespace ClearCanvas.ImageViewer.InteractiveGraphics
 				this.Graphic.Points.Add(mouseInformation.Location);
                 this.Graphic.Points.Add(mouseInformation.Location);
                 this.Graphic.ResetCoordinateSystem();
+                
 			}
 			// We're done creating
 			else if (_numberOfPointsAnchored == _maximumVertices)
 			{
                 // When user moves very quickly and events are filtered for performance purpose (eg web viewer case), 
                 // the final point may not be the same as the last tracked point. Must update the final point based on the latest mouse position.
+
                 this.Graphic.CoordinateSystem = CoordinateSystem.Destination;
+
 			    this.Graphic.Points[this.Graphic.Points.Count-1] = mouseInformation.Location;
-                this.Graphic.ResetCoordinateSystem();
+                 this.Graphic.ResetCoordinateSystem();
 
 				this.NotifyGraphicComplete();
 			}
@@ -151,7 +155,7 @@ namespace ClearCanvas.ImageViewer.InteractiveGraphics
 
                 // Update the final position of current point based on the latest mouse position.
                 this.Graphic.Points[Graphic.Points.Count-1] = mouseInformation.Location;
-
+             
                 // Add a new point for tracking
                 this.Graphic.Points.Add(mouseInformation.Location);
 				this.Graphic.ResetCoordinateSystem();
@@ -169,7 +173,7 @@ namespace ClearCanvas.ImageViewer.InteractiveGraphics
 		{
 			this.Graphic.CoordinateSystem = CoordinateSystem.Destination;
 			this.Graphic.Points[_numberOfPointsAnchored] = mouseInformation.Location;
-			this.Graphic.ResetCoordinateSystem();
+            this.Graphic.ResetCoordinateSystem();
 			this.Graphic.Draw();
 
 			return true;

@@ -198,7 +198,6 @@ namespace ClearCanvas.Server.ShredHost
                         ShredController shredController = new ShredController(newShredStartupInfo);
                         _shredInfoList.Add(shredController);
                     }
-
                 }
             }
 

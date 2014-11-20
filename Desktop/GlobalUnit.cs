@@ -30,7 +30,6 @@ namespace Global.Data
         public string RunMode;
         public string ImageSaveLocal;
         public string [] listAccessionNumber;
-       
     }
 
     public struct RisTags
@@ -657,7 +656,7 @@ namespace Global.Data
             {
                 //ServerStr = "server=" + server + ";uid=" + uid + ";password=" + pwd + ";database=" + database;
                 string oracleString = "Data Source=(DESCRIPTION = (ADDRESS_LIST = (ADDRESS = (PROTOCOL = TCP)(HOST=" + server + ")(PORT=1521)))(CONNECT_DATA=(SERVICE_NAME=" + database + ")));User Id=" + uid + ";Password=" + pwd;
-                oracleConn = new OracleConnection(ServerStr);
+                oracleConn = new OracleConnection(oracleString);
                 b_IsOracle = true;
             }
             else
@@ -701,7 +700,13 @@ namespace Global.Data
             return myConn;
 
         }
-
+        public bool isConnectedBroken()
+        {
+            if (b_IsOracle)
+                return oracleConn.State == System.Data.ConnectionState.Broken;
+            else
+                return myConn.State == System.Data.ConnectionState.Broken;
+        }
         public OracleConnection ChangeTypeOracle()
         {
             return oracleConn;

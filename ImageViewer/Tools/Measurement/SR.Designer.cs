@@ -79,6 +79,15 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement {
         }
         
         /// <summary>
+        ///   查找类似 心胸比 的本地化字符串。
+        /// </summary>
+        public static string CommandCreateHeartRatio {
+            get {
+                return ResourceManager.GetString("CommandCreateHeartRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 多边形 ROI 的本地化字符串。
         /// </summary>
         public static string CommandCreatePolygonalRoi {
@@ -187,6 +196,15 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement {
         }
         
         /// <summary>
+        ///   查找类似 心胸比 的本地化字符串。
+        /// </summary>
+        public static string MenuHeartRatio {
+            get {
+                return ResourceManager.GetString("MenuHeartRatio", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 测量 的本地化字符串。
         /// </summary>
         public static string MenuMeasurement {
@@ -264,6 +282,15 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement {
         public static string ToolbarEllipticalRoi {
             get {
                 return ResourceManager.GetString("ToolbarEllipticalRoi", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 心胸比 的本地化字符串。
+        /// </summary>
+        public static string ToolbarHeartRatio {
+            get {
+                return ResourceManager.GetString("ToolbarHeartRatio", resourceCulture);
             }
         }
         
