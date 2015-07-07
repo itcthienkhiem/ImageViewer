@@ -59,48 +59,49 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement.View.WinForms
         /// </summary>
         private void InitializeComponent()
         {
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalibrationComponentControl));
-			this._length = new System.Windows.Forms.NumericUpDown();
-			this.label2 = new System.Windows.Forms.Label();
-			this._ok = new System.Windows.Forms.Button();
-			this._cancel = new System.Windows.Forms.Button();
-			((System.ComponentModel.ISupportInitialize)(this._length)).BeginInit();
-			this.SuspendLayout();
-			// 
-			// _length
-			// 
-			resources.ApplyResources(this._length, "_length");
-			this._length.Name = "_length";
-			// 
-			// label2
-			// 
-			resources.ApplyResources(this.label2, "label2");
-			this.label2.Name = "label2";
-			// 
-			// _ok
-			// 
-			resources.ApplyResources(this._ok, "_ok");
-			this._ok.Name = "_ok";
-			this._ok.UseVisualStyleBackColor = true;
-			// 
-			// _cancel
-			// 
-			resources.ApplyResources(this._cancel, "_cancel");
-			this._cancel.Name = "_cancel";
-			this._cancel.UseVisualStyleBackColor = true;
-			// 
-			// CalibrationComponentControl
-			// 
-			resources.ApplyResources(this, "$this");
-			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.Controls.Add(this._cancel);
-			this.Controls.Add(this._ok);
-			this.Controls.Add(this.label2);
-			this.Controls.Add(this._length);
-			this.Name = "CalibrationComponentControl";
-			((System.ComponentModel.ISupportInitialize)(this._length)).EndInit();
-			this.ResumeLayout(false);
-			this.PerformLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CalibrationComponentControl));
+            this._length = new System.Windows.Forms.NumericUpDown();
+            this.label2 = new System.Windows.Forms.Label();
+            this._ok = new System.Windows.Forms.Button();
+            this._cancel = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this._length)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // _length
+            // 
+            resources.ApplyResources(this._length, "_length");
+            this._length.Name = "_length";
+            // 
+            // label2
+            // 
+            resources.ApplyResources(this.label2, "label2");
+            this.label2.Name = "label2";
+            // 
+            // _ok
+            // 
+            resources.ApplyResources(this._ok, "_ok");
+            this._ok.Name = "_ok";
+            this._ok.UseVisualStyleBackColor = true;
+            this._ok.Click += new System.EventHandler(this._ok_Click);
+            // 
+            // _cancel
+            // 
+            resources.ApplyResources(this._cancel, "_cancel");
+            this._cancel.Name = "_cancel";
+            this._cancel.UseVisualStyleBackColor = true;
+            // 
+            // CalibrationComponentControl
+            // 
+            resources.ApplyResources(this, "$this");
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this._cancel);
+            this.Controls.Add(this._ok);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this._length);
+            this.Name = "CalibrationComponentControl";
+            ((System.ComponentModel.ISupportInitialize)(this._length)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 

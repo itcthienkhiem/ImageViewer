@@ -273,8 +273,11 @@ namespace ClearCanvas.ImageViewer
 			// since the keyboard action model is otherwise never used, we explicitly invoke it here to apply the persisted action model values to the actions
 			ActionModelRoot.CreateModel(ActionsNamespace, KeyboardSite, _toolSet.Actions);
 
-			foreach (ITool tool in _toolSet.Tools)
-				_shortcutManager.RegisterImageViewerTool(tool);
+            foreach (ITool tool in _toolSet.Tools)
+            {
+            
+                _shortcutManager.RegisterImageViewerTool(tool);
+            }
             
             this.backgroundWorker = new BackgroundWorker();
             this.backgroundWorker.WorkerSupportsCancellation = true;
@@ -284,14 +287,39 @@ namespace ClearCanvas.ImageViewer
 
         public void PrintFilm()
         {
-            foreach (ITool tool in _toolSet.Tools)
+            ActionModelNode node = ContextMenuModel;
+
+            ActionModelNode tempNode = null;
+            IAction[] action = null;
+            foreach (ActionModelNode tempnode in node.ChildNodes)
             {
-                string strname = tool.GetType().FullName;
-                if (strname == "ClearCanvas.ImageViewer.Tools.Standard.ThirdPrintTool")
+                Platform.Log(LogLevel.Error, "the source is " + tempnode.PathSegment.ResourceKey);
+                if (tempnode.PathSegment.ResourceKey == "MenuThirdPrint" || tempnode.PathSegment.ResourceKey == "MenuPrintChooseDisplaySet")
                 {
-                    
+                    tempNode = tempnode;
+                    break;
                 }
             }
+
+            if (tempNode != null)
+            {
+                action = tempNode.GetActionsInOrder();
+            }
+            if ((action != null) && (action.Count() > 0))
+            {
+                 
+                MenuAction ac = action[1] as MenuAction;
+                ac.Click();
+            }
+
+            //foreach (ITool tool in _toolSet.Tools)
+            //{
+            //    string strname = tool.GetType().FullName;
+            //    if (strname == "ClearCanvas.ImageViewer.Tools.Standard.ThirdPrintTool")
+            //    {
+                    
+            //    }
+            //}
         }
 
 		/// <summary>

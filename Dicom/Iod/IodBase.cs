@@ -25,6 +25,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using ClearCanvas.Dicom;
 
 namespace ClearCanvas.Dicom.Iod
 {
@@ -34,6 +35,7 @@ namespace ClearCanvas.Dicom.Iod
 	public abstract class IodBase
 	{
 		#region Private Variables
+
 
 		/// <summary>
 		/// Contains dicom attribute collection which contains all the dicom tags
@@ -45,7 +47,21 @@ namespace ClearCanvas.Dicom.Iod
 		/// if the <see cref="DicomAttributeProvider"/> gets updated, the new attribute collection will be used (lazy loaded).
 		/// </summary>
 		private Dictionary<Type, IodBase> _moduleIods = new Dictionary<Type, IodBase>();
+        private DicomAttributeCollection _dicomAttributeCollection;
 
+        // Properties
+        public DicomAttributeCollection DicomAttributeCollection
+        {
+            get
+            {
+                return this._dicomAttributeCollection;
+            }
+            set
+            {
+                this._dicomAttributeCollection = value;
+                this._moduleIods.Clear();
+            }
+        }
 		#endregion
 
 		#region Constructors
@@ -315,4 +331,6 @@ namespace ClearCanvas.Dicom.Iod
 
 		#endregion
 	}
+
+  
 }

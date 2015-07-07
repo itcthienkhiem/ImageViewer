@@ -52,7 +52,6 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
         {
             Context.Viewer.EventBroker.ImageBoxSelected -= OnImageBoxSelected;
             Context.Viewer.EventBroker.DisplaySetSelected -= OnDisplaySetSelected;
-
             base.Dispose(disposing);
         }
 

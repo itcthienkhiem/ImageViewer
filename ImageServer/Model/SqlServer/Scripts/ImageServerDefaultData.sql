@@ -603,27 +603,27 @@ VALUES (newid(), '1.2.840.10008.5.1.4.1.1.66.3', 'Deformable Spatial Registratio
 GO
 
 INSERT INTO [ImageServer].[dbo].[ServerSopClass] ([GUID],[SopClassUid],[Description],[NonImage])
-VALUES (newid(), '1.2.840.10008.5.1.4.1.1.1.3', 'Digital Intra-oral X-Ray Image Storage – For Presentation', 0)
+VALUES (newid(), '1.2.840.10008.5.1.4.1.1.1.3', 'Digital Intra-oral X-Ray Image Storage ?For Presentation', 0)
 GO
 
 INSERT INTO [ImageServer].[dbo].[ServerSopClass] ([GUID],[SopClassUid],[Description],[NonImage])
-VALUES (newid(), '1.2.840.10008.5.1.4.1.1.1.3.1', 'Digital Intra-oral X-Ray Image Storage – For Processing', 0)
+VALUES (newid(), '1.2.840.10008.5.1.4.1.1.1.3.1', 'Digital Intra-oral X-Ray Image Storage ?For Processing', 0)
 GO
 
 INSERT INTO [ImageServer].[dbo].[ServerSopClass] ([GUID],[SopClassUid],[Description],[NonImage])
-VALUES (newid(), '1.2.840.10008.5.1.4.1.1.1.2', 'Digital Mammography X-Ray Image Storage – For Presentation', 0)
+VALUES (newid(), '1.2.840.10008.5.1.4.1.1.1.2', 'Digital Mammography X-Ray Image Storage ?For Presentation', 0)
 GO
 
 INSERT INTO [ImageServer].[dbo].[ServerSopClass] ([GUID],[SopClassUid],[Description],[NonImage])
-VALUES (newid(), '1.2.840.10008.5.1.4.1.1.1.2.1', 'Digital Mammography X-Ray Image Storage – For Processing', 0)
+VALUES (newid(), '1.2.840.10008.5.1.4.1.1.1.2.1', 'Digital Mammography X-Ray Image Storage ?For Processing', 0)
 GO
 
 INSERT INTO [ImageServer].[dbo].[ServerSopClass] ([GUID],[SopClassUid],[Description],[NonImage])
-VALUES (newid(), '1.2.840.10008.5.1.4.1.1.1.1', 'Digital X-Ray Image Storage – For Presentation', 0)
+VALUES (newid(), '1.2.840.10008.5.1.4.1.1.1.1', 'Digital X-Ray Image Storage ?For Presentation', 0)
 GO
 
 INSERT INTO [ImageServer].[dbo].[ServerSopClass] ([GUID],[SopClassUid],[Description],[NonImage])
-VALUES (newid(), '1.2.840.10008.5.1.4.1.1.1.1.1', 'Digital X-Ray Image Storage – For Processing', 0)
+VALUES (newid(), '1.2.840.10008.5.1.4.1.1.1.1.1', 'Digital X-Ray Image Storage ?For Processing', 0)
 GO
 
 INSERT INTO [ImageServer].[dbo].[ServerSopClass] ([GUID],[SopClassUid],[Description],[NonImage])

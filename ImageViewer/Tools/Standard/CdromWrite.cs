@@ -43,8 +43,17 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
                         if (image is IImageSopProvider)
                         {
                             Sop sop = ((IImageSopProvider)image).Sop;
-                            
-                            File.Copy(strSoucePath + sop.SopInstanceUid + ".dcm", strImagePath +sop.SopInstanceUid + ".dcm" );
+                            try
+                            {
+                                File.Copy(strSoucePath + sop.SopInstanceUid + ".dcm", strImagePath + sop.SopInstanceUid + ".dcm");
+                            }
+                            catch (Exception ex)
+                            {
+                                Platform.Log(LogLevel.Fatal, ex);
+                                //strSoucePath = 
+                                //File.Copy(strSoucePath + sop.SopInstanceUid + ".dcm", strImagePath + sop.SopInstanceUid + ".dcm");
+            
+                            }
                         }
                     }
                 }

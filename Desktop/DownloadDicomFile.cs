@@ -10,7 +10,7 @@ using System.Data.OracleClient;
 using Global.Data;
 using System.Collections; 
 using Global.FtpSocketClient;
-
+using ClearCanvas.Common;
 
 namespace ClearCanvas.Desktop
 {
@@ -243,7 +243,7 @@ namespace ClearCanvas.Desktop
                 SeriesReader.Close();
                 if (arrSeriesString.Count == 0) //根据ACCESSION获取设备类型，影像号，检查日期
                 {
-                    sqlstr = string.Format(" select machinetype,CONVERT(varchar, su, 120 ) AS EXAMDATE, olddocid  " +
+                    sqlstr = string.Format(" select machinetype, to_char(submittime, 'YYYY-MM-DD') as EXAMDATE, olddocid  " +
                                                  " from  examrecord " +
                                                  " where modulename='RIS' " +
                                                  " and id='{0}'", accessionNum);
@@ -288,7 +288,7 @@ namespace ClearCanvas.Desktop
             sqlstr = string.Format(" select b.SeriesInstanceUID,b.SeriesNumber,a.AccessionNumber " +
                                             " from studies a,series b " +
                                             " where a.StudyInstanceUID=b.StudyInstanceUID " +
-                                            " and a.studydate>='{0} 00:00:00' and a.studydate<='{1} 23:59:59' " +
+                                            " and a.studydate>=to_date('{0} 00:00:00', 'yyyy-mm-dd,hh24:mi:ss')  and a.studydate<=  to_date('{1} 23:59:59', 'yyyy-mm-dd,hh24:mi:ss') " +
                                             " and a.patientid='{2}' and b.Modality='{3}' " +
                                             " order by SeriesNumber ",
                                             sStudyDate, sStudyDate, sPatientID, sModality);
@@ -432,7 +432,7 @@ namespace ClearCanvas.Desktop
             }
             catch (Exception ex)
             {
-                
+                Platform.Log(LogLevel.Error, "connect db was failed.." + ex.ToString());
             }
         }
 

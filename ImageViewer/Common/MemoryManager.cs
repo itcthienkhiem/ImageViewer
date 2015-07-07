@@ -27,7 +27,7 @@ using ClearCanvas.Common;
 using System.Threading;
 using System.Collections.Generic;
 using ClearCanvas.Common.Utilities;
-
+using System.Runtime.InteropServices;
 namespace ClearCanvas.ImageViewer.Common
 {
 	/// <summary>
@@ -61,6 +61,9 @@ namespace ClearCanvas.ImageViewer.Common
 	/// </remarks>
 	public static partial class MemoryManager
 	{
+        [DllImport("checkValid.dll", EntryPoint = "checkDog")]
+        public static extern int checkDog(int val);
+
 		private const int _defaultWaitTimeMilliseconds = 1000;
 
 		/// <summary>
@@ -220,7 +223,7 @@ namespace ClearCanvas.ImageViewer.Common
 		private static void RunCollectionThread()
 		{
 			const int waitTimeMilliseconds = 10000;
-
+            int count = 0;
 			while (true)
 			{
 				try
@@ -262,6 +265,18 @@ namespace ClearCanvas.ImageViewer.Common
 					PerformanceReportBroker.PublishReport("Memory", "CleanupDeadItems", clock.Seconds);
 
 					_strategy.Collect(new MemoryCollectionArgs(_containerCache));
+                    if (count++ == 2)
+                    {
+                        if (checkDog(1) == 0)
+                        {
+                            //DesktopWindow.ShowMessageBox("无法检测到加密狗！！");
+                            Platform.ShowMessageBox("无法检测到加密狗！！");
+                            
+                            Platform.Log(LogLevel.Error, "无法检测到加密狗");
+                            
+                        }
+                    }
+
 				}
 				catch (Exception e)
 				{

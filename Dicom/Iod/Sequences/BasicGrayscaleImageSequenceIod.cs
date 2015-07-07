@@ -25,7 +25,8 @@
 using System;
 using System.IO;
 using ClearCanvas.Common;
-
+using System.Drawing;
+using System.Drawing.Imaging;
 namespace ClearCanvas.Dicom.Iod.Sequences
 {
     /// <summary>
@@ -252,6 +253,43 @@ namespace ClearCanvas.Dicom.Iod.Sequences
                     throw;
                 }
             }
+        }
+
+        public void AddBitmap(Bitmap image)
+        {
+            try
+            {
+                this.SamplesPerPixel = 1;
+                this.Rows = (ushort)image.Height;
+                this.Columns = (ushort)image.Width;
+                this.BitsStored = 8;
+                this.BitsAllocated = (this.BitsStored == 8) ? ((ushort)8) : ((ushort)0x10);
+                this.HighBit = (this.BitsStored == 8) ? ((ushort)7) : ((ushort)11);
+                this.PixelRepresentation = 0;
+                this.PixelData = this.BmpToBytes_Unsafe(image);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private unsafe byte[] BmpToBytes_Unsafe(Bitmap bmp)
+        {
+            byte[] buffer = new byte[bmp.Width * bmp.Height];
+            BitmapData bitmapdata = bmp.LockBits(new Rectangle(new Point(), bmp.Size), ImageLockMode.ReadOnly, PixelFormat.Format24bppRgb);
+            byte* numPtr = (byte*)bitmapdata.Scan0;
+            for (int i = 0; i < bmp.Height; i++)
+            {
+                for (int j = 0; j < bmp.Width; j++)
+                {
+                    buffer[(i * bmp.Width) + j] = numPtr[0];
+                    numPtr += 3;
+                }
+                numPtr += bitmapdata.Stride - (bmp.Width * 3);
+            }
+            bmp.UnlockBits(bitmapdata);
+            return buffer;
         }
     }
 }

@@ -64,5 +64,10 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement.View.WinForms
         	                 		_component.Cancel();
         	                 	};
         }
+
+        private void _ok_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

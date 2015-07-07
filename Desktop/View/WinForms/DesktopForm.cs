@@ -339,6 +339,8 @@ namespace ClearCanvas.Desktop.View.WinForms
                     Mytest();
                     break;
                 case WM_PRINTDICOM:
+                    
+                    MyPrint();
                     break;
                 case WM_RISCLOSE:
                     Close();
@@ -347,6 +349,30 @@ namespace ClearCanvas.Desktop.View.WinForms
                     base.DefWndProc(ref m);
                     //Hotkey.ProcessHotKey(m);
                     break;
+            }
+        }
+
+
+        private void MyPrint()
+        {
+            ClearCanvas.ImageViewer.ImageViewerComponent viewer = null;
+            DesktopWindow desktopWindow = null;
+            List<string> _filenames = new List<string>();
+
+            foreach (DesktopWindow window in Application.DesktopWindows)
+            {
+                foreach (Workspace space in window.Workspaces)
+                {
+                    if (space.Title == "imageview")
+                    {
+                        desktopWindow = window;
+                        viewer = space.Component as ClearCanvas.ImageViewer.ImageViewerComponent;
+                    }
+                }
+            }
+            if (viewer != null)
+            {
+                viewer.PrintFilm();
             }
         }
 

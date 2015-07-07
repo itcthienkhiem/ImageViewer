@@ -181,6 +181,7 @@ namespace ClearCanvas.Dicom
 			}
 
 			_linearVoiLuts = Window.GetWindowCenterAndWidth(collection);
+
 			if (collection.Contains(DicomTags.VoiLutSequence))
 			{
 				DicomAttribute attrib = collection[DicomTags.VoiLutSequence];

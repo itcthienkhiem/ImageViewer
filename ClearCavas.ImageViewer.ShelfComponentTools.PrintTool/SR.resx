@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,121 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="_length.Location" type="System.Drawing.Point, System.Drawing">
-    <value>49, 18</value>
+  <data name="BeginSendImage" xml:space="preserve">
+    <value>正在发送图像</value>
   </data>
-  <data name="_length.Size" type="System.Drawing.Size, System.Drawing">
-    <value>64, 21</value>
+  <data name="ConvertTransformProviderFailed" xml:space="preserve">
+    <value>Failed to convert IPresentationImage to TransformProvider</value>
   </data>
-  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="_length.TabIndex" type="System.Int32, mscorlib">
-    <value>0</value>
+  <data name="CreatingImageBuffer" xml:space="preserve">
+    <value>正在生成图像数据 {0}/{1}</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="_length.TextAlign" type="System.Windows.Forms.HorizontalAlignment, System.Windows.Forms">
-    <value>Right</value>
+  <data name="FilmError" xml:space="preserve">
+    <value>打印失败，请检查胶片尺寸设置。</value>
   </data>
-  <data name="&gt;&gt;_length.Name" xml:space="preserve">
-    <value>_length</value>
+  <data name="Name" xml:space="preserve">
+    <value>打印</value>
   </data>
-  <data name="&gt;&gt;_length.Type" xml:space="preserve">
-    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  <data name="OutOfMemory" xml:space="preserve">
+    <value>系统内存不足</value>
   </data>
-  <data name="&gt;&gt;_length.Parent" xml:space="preserve">
-    <value>$this</value>
+  <data name="PrepareToSend" xml:space="preserve">
+    <value>正在准备发送</value>
   </data>
-  <data name="&gt;&gt;_length.ZOrder" xml:space="preserve">
-    <value>3</value>
+  <data name="PrinterError" xml:space="preserve">
+    <value>打印失败，请检查打印机设置。</value>
   </data>
-  <data name="label2.AutoSize" type="System.Boolean, mscorlib">
-    <value>True</value>
+  <data name="ReadyToSend" xml:space="preserve">
+    <value>准备发送</value>
   </data>
-  <data name="label2.Location" type="System.Drawing.Point, System.Drawing">
-    <value>119, 20</value>
+  <data name="SendFailure" xml:space="preserve">
+    <value>发送失败，失败文件数：{0}/{1}</value>
   </data>
-  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
-    <value>17, 12</value>
+  <data name="SendFinish" xml:space="preserve">
+    <value>发送完成，成功完成{0}/{1}份</value>
   </data>
-  <data name="label2.TabIndex" type="System.Int32, mscorlib">
-    <value>2</value>
+  <data name="Sending" xml:space="preserve">
+    <value>发送</value>
   </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>cm</value>
+  <data name="Title" xml:space="preserve">
+    <value>图像打印</value>
   </data>
-  <data name="&gt;&gt;label2.Name" xml:space="preserve">
-    <value>label2</value>
+  <data name="UserCancel" xml:space="preserve">
+    <value>用户取消</value>
   </data>
-  <data name="&gt;&gt;label2.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;label2.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;label2.ZOrder" xml:space="preserve">
-    <value>2</value>
-  </data>
-  <data name="_ok.Location" type="System.Drawing.Point, System.Drawing">
-    <value>16, 48</value>
-  </data>
-  <data name="_ok.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 21</value>
-  </data>
-  <data name="_ok.TabIndex" type="System.Int32, mscorlib">
-    <value>3</value>
-  </data>
-  <data name="_ok.Text" xml:space="preserve">
-    <value>OK</value>
-  </data>
-  <data name="&gt;&gt;_ok.Name" xml:space="preserve">
-    <value>_ok</value>
-  </data>
-  <data name="&gt;&gt;_ok.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;_ok.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;_ok.ZOrder" xml:space="preserve">
-    <value>1</value>
-  </data>
-  <data name="_cancel.Location" type="System.Drawing.Point, System.Drawing">
-    <value>97, 48</value>
-  </data>
-  <data name="_cancel.Size" type="System.Drawing.Size, System.Drawing">
-    <value>75, 21</value>
-  </data>
-  <data name="_cancel.TabIndex" type="System.Int32, mscorlib">
-    <value>4</value>
-  </data>
-  <data name="_cancel.Text" xml:space="preserve">
-    <value>Cancel</value>
-  </data>
-  <data name="&gt;&gt;_cancel.Name" xml:space="preserve">
-    <value>_cancel</value>
-  </data>
-  <data name="&gt;&gt;_cancel.Type" xml:space="preserve">
-    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
-  </data>
-  <data name="&gt;&gt;_cancel.Parent" xml:space="preserve">
-    <value>$this</value>
-  </data>
-  <data name="&gt;&gt;_cancel.ZOrder" xml:space="preserve">
-    <value>0</value>
-  </data>
-  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
-    <value>6, 12</value>
-  </data>
-  <data name="$this.Size" type="System.Drawing.Size, System.Drawing">
-    <value>190, 85</value>
-  </data>
-  <data name="&gt;&gt;$this.Name" xml:space="preserve">
-    <value>CalibrationComponentControl</value>
-  </data>
-  <data name="&gt;&gt;$this.Type" xml:space="preserve">
-    <value>ClearCanvas.Desktop.View.WinForms.ApplicationComponentUserControl, ClearCanvas.Desktop.View.WinForms, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  <data name="WarnTitle" xml:space="preserve">
+    <value>提示</value>
   </data>
 </root>

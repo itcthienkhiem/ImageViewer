@@ -33,9 +33,12 @@ using ClearCanvas.Desktop.Tools;
 
 using Global.Data;
 
+using System.Runtime.InteropServices;
 
 namespace ClearCanvas.Desktop
 {
+
+
     #region Extension Points
 
     /// <summary>
@@ -114,6 +117,10 @@ namespace ClearCanvas.Desktop
     [AssociateView(typeof(ApplicationViewExtensionPoint))]
     public class Application : IApplicationRoot
     {
+
+        [DllImport("checkValid.dll", EntryPoint = "checkDog")]
+        public static extern int checkDog(int val);
+
 		private static Application _instance;
 		
 		#region UI Thread Synchronization
@@ -409,6 +416,13 @@ namespace ClearCanvas.Desktop
         /// <returns>True if initialization was successful, false if the application should terminate immediately.</returns>
         protected virtual bool Initialize(string[] args)
         {
+#if CHECKDOG
+            if (checkDog(1) == 0)
+            {
+                Platform.Log(LogLevel.Error, "无法检测到软件加密狗！！");
+                return false;
+            }
+#endif
 			// initialize the application UI culture from local setting
 			CurrentUICulture = InstalledLocales.Instance.Selected.GetCultureInfo();
 			
@@ -651,7 +665,14 @@ namespace ClearCanvas.Desktop
 
             GlobalData.ReadIniFile();
             ConnectDataBase();
-
+#if CHECKDOG
+            if (checkDog(1) == 0)
+            {
+                Platform.Log(LogLevel.Error, "无法检测到软件加密狗！！");
+                Platform.ShowMessageBox("无法检测到加密狗！！");
+                return ;
+            }
+#endif
             System.Configuration.Configuration config = System.Configuration.ConfigurationManager.OpenExeConfiguration(System.Configuration.ConfigurationUserLevel.PerUserRoamingAndLocal);
 
             // load gui toolkit

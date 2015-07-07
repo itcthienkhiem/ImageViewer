@@ -147,12 +147,12 @@ namespace ClearCanvas.ImageViewer.Graphics
 			}
 		}
 #pragma warning restore 1591
-		protected int SourceWidth
+		public int SourceWidth
 		{
 			get { return _columns; }
 		}
 
-		protected int SourceHeight
+		public  int SourceHeight
 		{
 			get { return _rows; }
 		}
@@ -310,5 +310,41 @@ namespace ClearCanvas.ImageViewer.Graphics
 			this.ScaleX = scaleX;
 			this.ScaleY = scaleY;
 		}
+
+
+        public void MoveTo(RectangleF range, float scale)
+        {
+            RectangleF ef = base.ConvertToSource(range);
+            this.ScaleToFit = false;
+            if (scale > 0f)
+            {
+                base.Scale = scale;
+            }
+            base.TranslationX = (this.SourceWidth / 2) - ((ef.Left + ef.Right) / 2f);
+            base.TranslationY = (this.SourceHeight / 2) - ((ef.Top + ef.Bottom) / 2f);
+        }
+
+        public void MoveTo(RectangleF range, Size destinationSize)
+        {
+            this.MoveTo(range, this.CalculateScale(new Size(this.SourceWidth, this.SourceHeight), destinationSize));
+        }
+
+        public void MoveTo(RectangleF range)
+        {
+            this.MoveTo(range, (float)0f);
+        }
+
+   
+
+        private float CalculateScale(Size sourceSize, Size destinationSize)
+        {
+            float num2 = sourceSize.Height / sourceSize.Width;
+            float num3 = destinationSize.Height / destinationSize.Width;
+            if (num2 > num3)
+            {
+                return (float)(sourceSize.Width / destinationSize.Width);
+            }
+            return (sourceSize.Height / destinationSize.Height);
+        }
 	}
 }

@@ -6,6 +6,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Data.OracleClient;
 
 using System.Data.SqlClient;
 using Global.Data;
@@ -24,6 +25,7 @@ namespace ClearCanvas.Desktop.View.WinForms
             edtPatientID.Text = GlobalData.RunParams.PatientID;
             dtStart.Value = DateTime.Now.AddYears(-3);
             dtEnd.Value = DateTime.Now;
+            cmbModality.Text = "DX";
        
         }
 
@@ -99,30 +101,64 @@ namespace ClearCanvas.Desktop.View.WinForms
             {
                 sWhereModality = string.Format(" and c.modality='{0}' ", cmbModality.Text);
             }
-            string sqlstr = string.Format(" select distinct a.patientid 影像号,a.familyname 姓名,a.birthdate 出生日期," +
-                                          "        a.sex 性别,b.studydate 诊断日期,b.studytime 诊断时间," +
-                                          "        c.modality 设备类型,b.accessionnumber RIS流水号 " +
-                                          " from patients a,studies b,series c " +
-                                          " where a.patientid=b.patientid and b.studyinstanceuid=c.studyinstanceuid " +
-                                          " and b.studydate>='{0} 00:00:00' and b.studydate<='{1} 23:59:59' " +
-                                          " {2} {3} ", sStartDate, sEndDate, sWherePateint, sWhereModality);
-           
-            SqlDataAdapter sqlDaQuery = new SqlDataAdapter(sqlstr, GlobalData.MainConn.ChangeType());
-            DataSet sqlDsQuery = new DataSet();
-            sqlDaQuery.Fill(sqlDsQuery);
-            for (int i = 0; i < sqlDsQuery.Tables[0].Rows.Count; i++)
+            if (Conn.isOracle())
             {
-                string[] result = new string[7];
+                string sqlstr = string.Format(" select distinct a.patientid 影像号,a.familyname 姓名,a.birthdate 出生日期," +
+                                              "        a.sex 性别,b.studydate 诊断日期,b.studytime 诊断时间," +
+                                              "        c.modality 设备类型,b.accessionnumber RIS流水号 " +
+                                              " from patients a,studies b,series c " +
+                                              " where a.patientid=b.patientid and b.studyinstanceuid=c.studyinstanceuid " +
+                                              " and b.studydate >= to_date('{0} 00:00:00', 'yyyy-mm-dd,hh24:mi:ss') and b.studydate<= to_date('{1} 23:59:59', 'yyyy-mm-dd,hh24:mi:ss') " +
+                                              " {2} {3} ", sStartDate, sEndDate, sWherePateint, sWhereModality);
 
-                DataRow row = sqlDsQuery.Tables[0].Rows[i];
-                result[0] = row["影像号"].ToString();
-                result[1] = row["姓名"].ToString();
-                result[2] = row["出生日期"].ToString();
-                result[3] = row["性别"].ToString();
-                result[4] = row["诊断时间"].ToString();
-                result[5] = row["设备类型"].ToString();
-                result[6] = row["RIS流水号"].ToString();
-                listView1.Items.Add(new ListViewItem(result));
+                OracleDataAdapter sqlDaQuery = new OracleDataAdapter(sqlstr, GlobalData.MainConn.ChangeTypeOracle());
+                
+                DataSet sqlDsQuery = new DataSet();
+                sqlDaQuery.Fill(sqlDsQuery);
+                for (int i = 0; i < sqlDsQuery.Tables[0].Rows.Count; i++)
+                {
+                    string[] result = new string[7];
+
+                    DataRow row = sqlDsQuery.Tables[0].Rows[i];
+                    result[0] = row["影像号"].ToString();
+                    result[1] = row["姓名"].ToString();
+                    result[2] = row["出生日期"].ToString();
+                    result[3] = row["性别"].ToString();
+                    result[4] = row["诊断时间"].ToString();
+                    result[5] = row["设备类型"].ToString();
+                    result[6] = row["RIS流水号"].ToString();
+                    listView1.Items.Add(new ListViewItem(result));
+                }
+            }
+            else
+            {
+
+
+                string sqlstr = string.Format(" select distinct a.patientid 影像号,a.familyname 姓名,a.birthdate 出生日期," +
+                                              "        a.sex 性别,b.studydate 诊断日期,b.studytime 诊断时间," +
+                                              "        c.modality 设备类型,b.accessionnumber RIS流水号 " +
+                                              " from patients a,studies b,series c " +
+                                              " where a.patientid=b.patientid and b.studyinstanceuid=c.studyinstanceuid " +
+                                              " and b.studydate>='{0} 00:00:00' and b.studydate<='{1} 23:59:59' " +
+                                              " {2} {3} ", sStartDate, sEndDate, sWherePateint, sWhereModality);
+
+                SqlDataAdapter sqlDaQuery = new SqlDataAdapter(sqlstr, GlobalData.MainConn.ChangeType());
+                DataSet sqlDsQuery = new DataSet();
+                sqlDaQuery.Fill(sqlDsQuery);
+                for (int i = 0; i < sqlDsQuery.Tables[0].Rows.Count; i++)
+                {
+                    string[] result = new string[7];
+
+                    DataRow row = sqlDsQuery.Tables[0].Rows[i];
+                    result[0] = row["影像号"].ToString();
+                    result[1] = row["姓名"].ToString();
+                    result[2] = row["出生日期"].ToString();
+                    result[3] = row["性别"].ToString();
+                    result[4] = row["诊断时间"].ToString();
+                    result[5] = row["设备类型"].ToString();
+                    result[6] = row["RIS流水号"].ToString();
+                    listView1.Items.Add(new ListViewItem(result));
+                }
             }
         }
     }

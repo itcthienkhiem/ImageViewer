@@ -197,16 +197,16 @@
     <Compile Include="Automation\Stack.cs" />
     <Compile Include="Automation\LookupTable.cs" />
     <Compile Include="Automation\WorkspaceLayout.cs" />
-    <Compile Include="BaseTools\GraphicTool.cs" />
-    <Compile Include="BaseTools\DefaultMouseToolButtonAttribute.cs" />
-    <Compile Include="BaseTools\MouseButtonIconSet.cs" />
-    <Compile Include="BaseTools\MouseToolSettings.cs" />
-    <Compile Include="BaseTools\MouseToolSettings.Designer.cs">
+    <Compile Include="Comparers\BaseTools\GraphicTool.cs" />
+    <Compile Include="Comparers\BaseTools\DefaultMouseToolButtonAttribute.cs" />
+    <Compile Include="Comparers\BaseTools\MouseButtonIconSet.cs" />
+    <Compile Include="Comparers\BaseTools\MouseToolSettings.cs" />
+    <Compile Include="Comparers\BaseTools\MouseToolSettings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>MouseToolSettings.settings</DependentUpon>
     </Compile>
-    <Compile Include="BaseTools\MouseToolSettingsProfile.cs" />
+    <Compile Include="Comparers\BaseTools\MouseToolSettingsProfile.cs" />
     <Compile Include="BasicPresentationImage3D.cs" />
     <Compile Include="Graphics3D\BoundableGraphic3D.cs" />
     <Compile Include="Graphics3D\CompositeGraphic3D.cs" />
@@ -566,10 +566,10 @@
     <Compile Include="Annotations\AnnotationLayoutFactory.cs" />
     <Compile Include="Annotations\Tests\AnnotationLayoutStoreTests.cs" />
     <Compile Include="ActiveImageViewerChangedEventArgs.cs" />
-    <Compile Include="BaseTools\ModifiedMouseToolButtonAttribute.cs" />
-    <Compile Include="BaseTools\MouseToolAttributeProcessor.cs" />
-    <Compile Include="BaseTools\MouseToolButtonAttribute.cs" />
-    <Compile Include="BaseTools\MouseWheelHandlerAttribute.cs" />
+    <Compile Include="Comparers\BaseTools\ModifiedMouseToolButtonAttribute.cs" />
+    <Compile Include="Comparers\BaseTools\MouseToolAttributeProcessor.cs" />
+    <Compile Include="Comparers\BaseTools\MouseToolButtonAttribute.cs" />
+    <Compile Include="Comparers\BaseTools\MouseWheelHandlerAttribute.cs" />
     <Compile Include="BasicImageOperation.cs" />
     <Compile Include="ColorPresentationImage.cs" />
     <Compile Include="Comparers\ComparerBase.cs" />
@@ -713,7 +713,7 @@
     <Compile Include="Rendering\Tests\ImageRendererBilinearInterpolationTests.cs" />
     <Compile Include="Rendering\Tests\ImageRendererTestUtilities.cs" />
     <Compile Include="Mathematics\Tests\RectangleUtilitiesTests.cs" />
-    <Compile Include="BaseTools\ImageViewerTool.cs" />
+    <Compile Include="Comparers\BaseTools\ImageViewerTool.cs" />
     <Compile Include="StandardModalities.cs" />
     <Compile Include="StandardModalitySettings.cs" />
     <Compile Include="StandardModalitySettings.Designer.cs">
@@ -811,7 +811,7 @@
     <Compile Include="Graphics\Tests\PixelDataWrapperTest.cs" />
     <Compile Include="LinkageChangedEventArgs.cs" />
     <Compile Include="LogicalWorkspace.cs" />
-    <Compile Include="BaseTools\MouseImageViewerTool.cs" />
+    <Compile Include="Comparers\BaseTools\MouseImageViewerTool.cs" />
     <Compile Include="LoadSopsException.cs" />
     <Compile Include="PhysicalWorkspace.cs" />
     <Compile Include="PhysicalWorkspaceMemento.cs" />
@@ -900,7 +900,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="BaseTools\MouseToolSettings.settings">
+    <None Include="Comparers\BaseTools\MouseToolSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>MouseToolSettings.Designer.cs</LastGenOutput>
     </None>
@@ -1023,21 +1023,21 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BaseTools\LeftMouseButtonOverlayLarge.png" />
-    <EmbeddedResource Include="BaseTools\LeftMouseButtonOverlayMedium.png" />
-    <EmbeddedResource Include="BaseTools\LeftMouseButtonOverlaySmall.png" />
-    <EmbeddedResource Include="BaseTools\MiddleMouseButtonOverlayLarge.png" />
-    <EmbeddedResource Include="BaseTools\MiddleMouseButtonOverlayMedium.png" />
-    <EmbeddedResource Include="BaseTools\MiddleMouseButtonOverlaySmall.png" />
-    <EmbeddedResource Include="BaseTools\RightMouseButtonOverlayLarge.png" />
-    <EmbeddedResource Include="BaseTools\RightMouseButtonOverlayMedium.png" />
-    <EmbeddedResource Include="BaseTools\RightMouseButtonOverlaySmall.png" />
-    <EmbeddedResource Include="BaseTools\X1MouseButtonOverlayLarge.png" />
-    <EmbeddedResource Include="BaseTools\X1MouseButtonOverlayMedium.png" />
-    <EmbeddedResource Include="BaseTools\X1MouseButtonOverlaySmall.png" />
-    <EmbeddedResource Include="BaseTools\X2MouseButtonOverlayLarge.png" />
-    <EmbeddedResource Include="BaseTools\X2MouseButtonOverlayMedium.png" />
-    <EmbeddedResource Include="BaseTools\X2MouseButtonOverlaySmall.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\LeftMouseButtonOverlayLarge.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\LeftMouseButtonOverlayMedium.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\LeftMouseButtonOverlaySmall.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\MiddleMouseButtonOverlayLarge.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\MiddleMouseButtonOverlayMedium.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\MiddleMouseButtonOverlaySmall.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\RightMouseButtonOverlayLarge.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\RightMouseButtonOverlayMedium.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\RightMouseButtonOverlaySmall.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\X1MouseButtonOverlayLarge.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\X1MouseButtonOverlayMedium.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\X1MouseButtonOverlaySmall.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\X2MouseButtonOverlayLarge.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\X2MouseButtonOverlayMedium.png" />
+    <EmbeddedResource Include="Comparers\BaseTools\X2MouseButtonOverlaySmall.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="InteractiveGraphics\Resources\ProgressBarGraphicBlocksUnit.png" />

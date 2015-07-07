@@ -193,7 +193,7 @@ namespace ClearCanvas.ImageViewer.InteractiveGraphics
 		/// <returns>
 		/// True if the framework should <b>not</b> release capture, otherwise false.
 		/// </returns>
-		protected override bool Stop(IMouseInformation mouseInformation)
+        protected override bool Stop(IMouseInformation mouseInformation)
 		{
 			Platform.CheckMemberIsSet(State, "State");
 			_mouseInformation = mouseInformation;
@@ -209,7 +209,7 @@ namespace ClearCanvas.ImageViewer.InteractiveGraphics
 		/// It is important that this method is implemented correctly and doesn't simply do nothing when it is inappropriate
 		/// to do so, otherwise odd behaviour may be experienced.
 		/// </remarks>
-		protected override void Cancel()
+        protected override void Cancel()
 		{
 			State.Cancel();
 		}

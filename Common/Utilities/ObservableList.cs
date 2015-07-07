@@ -36,7 +36,8 @@ namespace ClearCanvas.Common.Utilities
 	/// For exception details on individual methods, see <see cref="List{T}"/>.
 	/// </remarks>
 	/// <typeparam name="TItem">The type of the objects stored in the list.</typeparam>
-	public class ObservableList<TItem> : IObservableList<TItem>
+	//public class ObservableList<TItem> : IObservableList<TItem>
+    public class ObservableList<TItem> : IObservableList<TItem>, ICollection<TItem>, IEnumerable<TItem>, IEnumerable
 	{
 		private readonly List<TItem> _list;
 		private bool _enableEvents = true;	// events are enabled by default

@@ -132,8 +132,19 @@ namespace ClearCanvas.ImageViewer.Tools.Standard.PresetVoiLuts.Operations
 				foreach (State state in _stateProgression)
 				{
 					IVoiLut lut = state.GetLut(this);
-					if (lut != null)
-						return lut;
+
+                    if (lut != null)
+                    {
+                        if (lut is AutoVoiLutLinear)
+                        {
+                            if ((((AutoVoiLutLinear)lut).WindowCenter == 1600) &&
+                                (((AutoVoiLutLinear)lut).WindowWidth == 2800))
+                            {
+                                return GetDefaultMinMaxLut();
+                            }
+                        }
+                        return lut;
+                    }
 				}
 				return GetDefaultMinMaxLut();
 			}

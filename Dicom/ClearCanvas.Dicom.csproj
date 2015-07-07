@@ -332,6 +332,7 @@
     <Compile Include="IO\Tests\ByteBufferTests.cs" />
     <Compile Include="IO\Tests\LegacyByteBuffer.cs" />
     <Compile Include="IO\Tests\TestByteBuffer.cs" />
+    <Compile Include="Network\Scu\BasicGrayscalePrintScu.cs" />
     <Compile Include="Network\SR.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

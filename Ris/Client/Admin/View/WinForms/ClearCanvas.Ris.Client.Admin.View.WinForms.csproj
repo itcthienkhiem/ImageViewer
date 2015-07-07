@@ -67,60 +67,70 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DepartmentEditorComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="DepartmentEditorComponentControl.Designer.cs">
       <DependentUpon>DepartmentEditorComponentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="DepartmentEditorComponentView.cs" />
     <Compile Include="EnumerationEditorComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="EnumerationEditorComponentControl.Designer.cs">
       <DependentUpon>EnumerationEditorComponentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="EnumerationEditorComponentView.cs" />
     <Compile Include="EnumerationSummaryComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="EnumerationSummaryComponentControl.Designer.cs">
       <DependentUpon>EnumerationSummaryComponentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="EnumerationSummaryComponentView.cs" />
     <Compile Include="FacilityEditorComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="FacilityEditorComponentControl.Designer.cs">
       <DependentUpon>FacilityEditorComponentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="FacilityEditorComponentView.cs" />
     <Compile Include="DataImportComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="DataImportComponentControl.designer.cs">
       <DependentUpon>DataImportComponentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="DataImportComponentView.cs" />
     <Compile Include="LocationEditorComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="LocationEditorComponentControl.Designer.cs">
       <DependentUpon>LocationEditorComponentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="LocationEditorComponentView.cs" />
     <Compile Include="LocationSummaryComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="LocationSummaryComponentControl.Designer.cs">
       <DependentUpon>LocationSummaryComponentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="LocationSummaryComponentView.cs" />
     <Compile Include="ModalityEditorComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ModalityEditorComponentControl.Designer.cs">
       <DependentUpon>ModalityEditorComponentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ModalityEditorComponentView.cs" />
     <Compile Include="NoteCategoryEditorComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="NoteCategoryEditorComponentControl.designer.cs">
       <DependentUpon>NoteCategoryEditorComponentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="NoteCategoryEditorComponentView.cs" />
     <Compile Include="ProcedureTypeSummaryComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ProcedureTypeSummaryComponentControl.Designer.cs">
       <DependentUpon>ProcedureTypeSummaryComponentControl.cs</DependentUpon>
@@ -133,12 +143,14 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="ProcedureTypeGroupEditorComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ProcedureTypeGroupEditorComponentControl.Designer.cs">
       <DependentUpon>ProcedureTypeGroupEditorComponentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ProcedureTypeGroupEditorComponentView.cs" />
     <Compile Include="ProcedureTypeGroupSummaryComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ProcedureTypeGroupSummaryComponentControl.Designer.cs">
       <DependentUpon>ProcedureTypeGroupSummaryComponentControl.cs</DependentUpon>
@@ -150,24 +162,28 @@
       <DependentUpon>SR.resx</DependentUpon>
     </Compile>
     <Compile Include="ValidationEditorComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ValidationEditorComponentControl.Designer.cs">
       <DependentUpon>ValidationEditorComponentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ValidationEditorComponentView.cs" />
     <Compile Include="ValidationManagementComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="ValidationManagementComponentControl.Designer.cs">
       <DependentUpon>ValidationManagementComponentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="ValidationManagementComponentView.cs" />
     <Compile Include="WorklistSummaryComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WorklistSummaryComponentControl.Designer.cs">
       <DependentUpon>WorklistSummaryComponentControl.cs</DependentUpon>
     </Compile>
     <Compile Include="WorklistSummaryComponentView.cs" />
     <Compile Include="WorkQueueAdminComponentControl.cs">
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WorkQueueAdminComponentControl.Designer.cs">
       <DependentUpon>WorkQueueAdminComponentControl.cs</DependentUpon>

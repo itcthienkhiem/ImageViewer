@@ -215,7 +215,6 @@ namespace ClearCanvas.ImageViewer.View.WinForms
 				try
 				{
 					_tile.Draw(args);
-
 					_lastRenderExceptionMessage = null;
 				}
 				catch (Exception ex)
@@ -234,7 +233,7 @@ namespace ClearCanvas.ImageViewer.View.WinForms
 					graphics.Dispose();
 
 					_isDrawing = false;
-				}
+				} 
 			}
 
 			//Cause the tile to paint/refresh.
