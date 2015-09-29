@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Globalization;
 
 using System.Drawing;
 using ClearCanvas.Common;
@@ -27,11 +28,210 @@ using System.Threading;
 using ClearCanvas.Dicom.Network;
 using ClearCanvas.Dicom.Network.Scu;
 
+using Leadtools;
+using Leadtools.Dicom;
+using Leadtools.Drawing;
+using Leadtools.Codecs; 
+using System.Diagnostics;
+using System.Runtime.InteropServices;
+using System.IO;
+using System.Collections.Specialized;
 
-
+using System.Data.OracleClient;
+using System.Data.SqlClient;
+using Global.Data;
 
 namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
 {
+
+    public class IniFiles
+    {
+        public string FileName;
+        //声明读写INI文件的API函数
+        [DllImport("kernel32")]
+        private static extern bool WritePrivateProfileString(string section, string key, string val, string filePath);
+        [DllImport("kernel32")]
+        private static extern int GetPrivateProfileString(string section, string key, string def, byte[] retVal, int size, string filePath);
+        public IniFiles(string AFileName)
+        {
+            // 判断文件是否存在
+            FileInfo fileInfo = new FileInfo(AFileName);
+            if ((!fileInfo.Exists))
+            {
+                //文件不存在，建立文件
+                System.IO.StreamWriter sw = new System.IO.StreamWriter(AFileName, false, System.Text.Encoding.Default);
+                try
+                {
+                    sw.Write("#配置档案");
+                    sw.Close();
+                }
+                catch
+                {
+                    throw (new ApplicationException("Ini文件不存在"));
+                }
+            }
+            FileName = fileInfo.FullName;
+        }
+        //写INI文件
+        public void WriteString(string Section, string Ident, string Value)
+        {
+            if (!WritePrivateProfileString(Section, Ident, Value, FileName))
+            {
+
+                throw (new ApplicationException("写Ini文件出错"));
+            }
+        }
+        //读取INI文件指定
+        public string ReadString(string Section, string Ident, string Default)
+        {
+            Byte[] Buffer = new Byte[65535];
+            int bufLen = GetPrivateProfileString(Section, Ident, Default, Buffer, Buffer.GetUpperBound(0), FileName);
+
+            string s = Encoding.GetEncoding(0).GetString(Buffer, 0, bufLen);
+            //Encoding.GetEncoding("GB2312")
+
+            return s.Trim();
+        }
+
+        //读整数
+        public int ReadInteger(string Section, string Ident, int Default)
+        {
+            string intStr = ReadString(Section, Ident, Convert.ToString(Default));
+            try
+            {
+                return Convert.ToInt32(intStr);
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return Default;
+            }
+        }
+
+        //写整数
+        public void WriteInteger(string Section, string Ident, int Value)
+        {
+            WriteString(Section, Ident, Value.ToString());
+        }
+
+        //读布尔
+        public bool ReadBool(string Section, string Ident, bool Default)
+        {
+            try
+            {
+                return Convert.ToBoolean(ReadString(Section, Ident, Convert.ToString(Default)));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                return Default;
+            }
+        }
+
+        //写Bool
+        public void WriteBool(string Section, string Ident, bool Value)
+        {
+            WriteString(Section, Ident, Convert.ToString(Value));
+        }
+
+        //从Ini文件中，将指定的Section名称中的所有Ident添加到列表中
+        public void ReadSection(string Section, StringCollection Idents)
+        {
+            Byte[] Buffer = new Byte[16384];
+            //Idents.Clear();
+            int bufLen = GetPrivateProfileString(Section, null, null, Buffer, Buffer.GetUpperBound(0),
+             FileName);
+            //对Section进行解析
+            GetStringsFromBuffer(Buffer, bufLen, Idents);
+        }
+        private void GetStringsFromBuffer(Byte[] Buffer, int bufLen, StringCollection Strings)
+        {
+            Strings.Clear();
+            if (bufLen != 0)
+            {
+                int start = 0;
+                for (int i = 0; i < bufLen; i++)
+                {
+                    if ((Buffer[i] == 0) && ((i - start) > 0))
+                    {
+                        String s = Encoding.GetEncoding(0).GetString(Buffer, start, i - start);
+                        Strings.Add(s);
+                        start = i + 1;
+                    }
+                }
+            }
+        }
+        //从Ini文件中，读取所有的Sections的名称
+        public void ReadSections(StringCollection SectionList)
+        {
+            byte[] Buffer = new byte[65535];
+            int bufLen = 0;
+            bufLen = GetPrivateProfileString(null, null, null, Buffer,
+             Buffer.GetUpperBound(0), FileName);
+            GetStringsFromBuffer(Buffer, bufLen, SectionList);
+        }
+        //读取指定的Section的所有Value到列表中
+        public void ReadSectionValues(string Section, NameValueCollection Values)
+        {
+            StringCollection KeyList = new StringCollection();
+            ReadSection(Section, KeyList);
+            Values.Clear();
+            foreach (string key in KeyList)
+            {
+                Values.Add(key, ReadString(Section, key, ""));
+            }
+        }
+        /**/
+        ////读取指定的Section的所有Value到列表中，
+        //public void ReadSectionValues(string Section, NameValueCollection Values,char splitString)
+        //{　 string sectionValue;
+        //　　string[] sectionValueSplit;
+        //　　StringCollection KeyList = new StringCollection();
+        //　　ReadSection(Section, KeyList);
+        //　　Values.Clear();
+        //　　foreach (string key in KeyList)
+        //　　{
+        //　　　　sectionValue=ReadString(Section, key, "");
+        //　　　　sectionValueSplit=sectionValue.Split(splitString);
+        //　　　　Values.Add(key, sectionValueSplit[0].ToString(),sectionValueSplit[1].ToString());
+
+        //　　}
+        //}
+        //清除某个Section
+        public void EraseSection(string Section)
+        {
+            if (!WritePrivateProfileString(Section, null, null, FileName))
+            {
+                throw (new ApplicationException("无法清除Ini文件中的Section"));
+            }
+        }
+        //删除某个Section下的键
+        public void DeleteKey(string Section, string Ident)
+        {
+            WritePrivateProfileString(Section, Ident, null, FileName);
+        }
+
+        public void UpdateFile()
+        {
+            WritePrivateProfileString(null, null, null, FileName);
+        }
+
+        //检查某个Section下的某个键值是否存在
+        public bool ValueExists(string Section, string Ident)
+        {
+            //
+            StringCollection Idents = new StringCollection();
+            ReadSection(Section, Idents);
+            return Idents.IndexOf(Ident) > -1;
+        }
+
+        //确保资源的释放
+        ~IniFiles()
+        {
+            UpdateFile();
+        }
+    }
     public class PrintJobManager
     {
         // Fields
@@ -69,7 +269,7 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
         public bool AddJob(PrintJob job)
         {
             bool flag = false;
-            if ((this.sendThread == null) || (this.sendThread.ThreadState == ThreadState.Stopped))
+            if ((this.sendThread == null) || (this.sendThread.ThreadState == System.Threading.ThreadState.Stopped))
             {
                 this._jobList.InsertRange(0, this._errorJobList);
             }
@@ -324,6 +524,7 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
                         context.ReportProgress(progress);
                         if (tile.ImageData != null)
                         {
+                            Platform.Log(LogLevel.Error, "TITLE IMAGEDATA");
                             Bitmap printImagePixel = tile.GetPrintImagePixel(false);
                             float x = tile.NormalizedRectangle.X * size.Width;
                             float y = tile.NormalizedRectangle.Y * size.Height;
@@ -341,8 +542,59 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
                             }
                         }
                     }
+
+                    //clear
+                    foreach (PreviewTile tile in job.Images)
+                    {
+
+                        ImageSop sop = ((IImageSopProvider)tile.ImageData).ImageSop;
+                        string strUID = sop.SopInstanceUid;
+                        //获取UID 的 accession
+                        try
+                        {
+                            if (Conn.isOracle())
+                            {
+                                string sqlstr = string.Format(" update examrecord set filmprint='{0}' where  id=(select AccessionNumber from images where SopInstanceUID='{1}') and modulename='RIS' ",
+                                      "1", strUID);
+                                OracleCommand sqlCmd = new OracleCommand();
+                                sqlCmd.Connection = GlobalData.MainConn.ChangeTypeOracle();
+                                sqlCmd.CommandText = sqlstr;
+                                sqlCmd.ExecuteNonQuery();
+                                sqlCmd.Dispose();
+                            }
+                            else
+                            {
+                                string sqlstr = string.Format(" update examrecord set filmprint='{0}' where  id=(select AccessionNumber from images where SopInstanceUID='{1}') and modulename='RIS' ",
+                                   "1", strUID);
+                                SqlCommand sqlCmd = new SqlCommand();
+                                sqlCmd.Connection = GlobalData.MainConn.ChangeType();
+                                sqlCmd.CommandText = sqlstr;
+                                sqlCmd.ExecuteNonQuery();
+                                sqlCmd.Dispose();
+                                Platform.Log(LogLevel.Error, " sql is  " + sqlstr);
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Platform.Log(LogLevel.Error, "exception is " + ex.ToString());
+                        }
+                        //tile.Dispose();
+                        tile.RemoveImage();
+                    }
+                    
+                    job.Images.Clear();
+
+
                     g.Dispose();
-                    iod2.AddBitmap(image);
+                    //iod2.AddBitmap(image);
+                    Unlock();
+                    RasterImage lRasterImage = null;
+                    RasterCodecs lRasterCodecs = new RasterCodecs();
+
+                    lRasterImage = RasterImageConverter.ConvertFromImage(image, ConvertFromImageOptions.None);
+                    lRasterCodecs.Save(lRasterImage, System.Windows.Forms.Application.StartupPath + @"\print.jpg", RasterImageFormat.Tif, 8);
+                    string lDicomFile = "1" + DateTime.Now.ToString("HHmmss", DateTimeFormatInfo.InvariantInfo);
+                    lRasterCodecs.Save(lRasterImage, System.Windows.Forms.Application.StartupPath + @"\PrintFiles\" + lDicomFile, RasterImageFormat.DicomGray, 16);
                     //image.Save("d:\\test.jpg");
                     image.Dispose();
                     item.BasicGrayscaleImageSequenceList.Add(iod2);
@@ -355,17 +607,19 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
                     {
                         progress = new BackgroundTaskProgress(80, SR.BeginSendImage);
                         context.ReportProgress(progress);
-                        BasicGrayscalePrintScu scu = new BasicGrayscalePrintScu();
-                        scu.Print(job.Printer.AET, job.Printer.CalledAET, job.Printer.Host, job.Printer.Port, basicFilmSessionModuleIod, basicFilmBoxModuleIod, imageBoxPixelModuleIods);
-                        if (scu.ResultStatus == DicomState.Success)
-                        {
-                            this.UpdateStudyPrintStatus(this.GetStudyInstanceUIDs(job.Images));
-                            PrintToolComponent.TilesComponent.ResetTiles();
-                        }
-                        else
-                        {
-                            this._component.ShowMessageBox(SR.FilmError);
-                        }
+                        PrintDicomFiles(lDicomFile, 1, 1, lDicomFile, job);
+
+                        //BasicGrayscalePrintScu scu = new BasicGrayscalePrintScu();
+                        //scu.Print(job.Printer.AET, job.Printer.CalledAET, job.Printer.Host, job.Printer.Port, basicFilmSessionModuleIod, basicFilmBoxModuleIod, imageBoxPixelModuleIods);
+                        //if (scu.ResultStatus == DicomState.Success)
+                        //{
+                        //    this.UpdateStudyPrintStatus(this.GetStudyInstanceUIDs(job.Images));
+                        //    PrintToolComponent.TilesComponent.ResetTiles();
+                        //}
+                        //else
+                        //{
+                        //    this._component.ShowMessageBox(SR.FilmError);
+                        //}
                     }
                 }
                 catch (OutOfMemoryException)
@@ -388,6 +642,88 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
                 }
             }, true);
             ProgressDialog.Show(task, this._window, true, ProgressBarStyle.Blocks);
+        }
+
+        private static void Unlock()
+        {
+            RasterSupport.Unlock(RasterSupportType.Dicom, "y47S3rZv6U");
+            RasterSupport.Unlock(RasterSupportType.Document, "HbQR9NSXQ3");
+            RasterSupport.Unlock(RasterSupportType.DocumentWriters, "BhaNezSEBB");
+            RasterSupport.Unlock(RasterSupportType.DocumentWritersPdf, "3b39Q3YMdX");
+            RasterSupport.Unlock(RasterSupportType.ExtGray, "bpTmxSfx8R");
+            RasterSupport.Unlock(RasterSupportType.Forms, "GpC33ZK78k");
+            RasterSupport.Unlock(RasterSupportType.IcrPlus, "9vdKEtBhFy");
+            RasterSupport.Unlock(RasterSupportType.IcrProfessional, "3p2UAxjTy5");
+            RasterSupport.Unlock(RasterSupportType.J2k, "Hvu2PRAr3z");
+            RasterSupport.Unlock(RasterSupportType.Jbig2, "43WiSV4YNB");
+            RasterSupport.Unlock(RasterSupportType.Jpip, "YbGG7wWiVJ");
+            RasterSupport.Unlock(RasterSupportType.Pro, "");
+            RasterSupport.Unlock(RasterSupportType.LeadOmr, "J3vh828GC8");
+            RasterSupport.Unlock(RasterSupportType.MediaWriter, "TpjDw2kJD2");
+            RasterSupport.Unlock(RasterSupportType.Medical, "ZhyFRnk3sY");
+            RasterSupport.Unlock(RasterSupportType.Medical3d, "DvuzH3ePeu");
+            RasterSupport.Unlock(RasterSupportType.MedicalNet, "b4nBinY7tv");
+            RasterSupport.Unlock(RasterSupportType.MedicalServer, "QbXwuZxA3h");
+            RasterSupport.Unlock(RasterSupportType.Mobile, "");
+            RasterSupport.Unlock(RasterSupportType.Nitf, "G37rmw5dTr");
+            DicomEngine.Startup();
+        }
+
+        [DllImport("User32.dll", EntryPoint = "FindWindow")]
+        public static extern int FindWindow(string lpClassName, string lpWindowName);
+        [DllImport("User32.dll", EntryPoint = "SendMessage")]
+        public static extern int SendMessage(
+                     int hWnd,      // handle to destination window
+                     int Msg,       // message
+                     int wParam,  // first message parameter
+                     int lParam // second message parameter
+         );
+        public const int USER = 0x0400;
+        public const int WM_PRINTDICOM = USER + 1006;
+        private void PrintDicomFiles(string sMessage, int Rows, int Columns, string strPrintFileNames, PrintJob job)
+        {
+         
+            string DcmPrintPath = System.Windows.Forms.Application.StartupPath + @"\PrintFiles\";
+            string lPrtFile = DcmPrintPath + sMessage + ".prt";
+            string lDicomPrnAppName = System.Windows.Forms.Application.StartupPath + @"\DcmPrnProtect.exe";
+            
+            IniFiles prtini = new IniFiles(lPrtFile);
+            prtini.WriteString("DCMPRNT", "AETITLE", job.Printer.AET);
+            prtini.WriteString("DCMPRNT", "AETITLESCU", job.Printer.CalledAET);
+            prtini.WriteString("DCMPRNT", "IPADDRESS", job.Printer.Host);
+            //prtini.WriteString("DCMPRNT", "PORT", job.Printer.Port);
+            prtini.WriteInteger("DCMPRNT", "PORT", job.Printer.Port);
+            prtini.WriteString("DCMPRNT", "IMAGEDISFORMAT", string.Format("STANDARD\\{0},{1}", Columns, Rows));
+            if (job.FilmOrientation == FilmOrientation.Landscape)
+                prtini.WriteString("DCMPRNT", "FILMORE", "landscape");
+            else
+                prtini.WriteString("DCMPRNT", "FILMORE", "portrait");
+            prtini.WriteString("DCMPRNT", "FILMSIZE", job.FilmSize.ToString());
+            prtini.WriteString("DCMPRNT", "NUMBERCOPYS", "1");
+            prtini.WriteString("DCMPRNT", "FILES", strPrintFileNames);
+            prtini.WriteString("DCMPRNT", "TEMPIMAGEPATH", DcmPrintPath);
+            prtini.WriteString("DCMPRNT", "PATIENTID", "123");
+            //prtini.WriteString("DCMPRNT", "MediumType", cmbFilmType.Text);
+            try
+            {
+                //Call Dicom Print Process            
+                ProcessStartInfo Info = new ProcessStartInfo();
+                Info.FileName = lDicomPrnAppName;
+                Info.Arguments = sMessage;
+                int WINDOW_HANDLER = FindWindow(null, @"胶片打印");
+                if (WINDOW_HANDLER == 0)
+                {
+                    Process proc = Process.Start(Info);
+                }
+                else
+                {
+                    SendMessage(WINDOW_HANDLER, WM_PRINTDICOM, Convert.ToInt32(sMessage), 0);
+                }
+            }
+            catch (Exception ex)
+            {
+                //MessageBox.Show(ex.Message, ex.Source);
+            }
         }
 
         public void Print(PrintJob job)
@@ -445,7 +781,7 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
 
         public void Resend()
         {
-            if ((this.sendThread == null) || (this.sendThread.ThreadState == ThreadState.Stopped))
+            if ((this.sendThread == null) || (this.sendThread.ThreadState == System.Threading.ThreadState.Stopped))
             {
                 this._jobList.InsertRange(0, this._errorJobList);
             }
@@ -507,7 +843,7 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
             {
                 this.StopKey = false;
             }
-            if ((this.sendThread == null) || (this.sendThread.ThreadState == ThreadState.Stopped))
+            if ((this.sendThread == null) || (this.sendThread.ThreadState == System.Threading.ThreadState.Stopped))
             {
                 this.sendThread = new Thread(new ThreadStart(this.Run));
                 this.sendThread.Start();

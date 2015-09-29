@@ -28,6 +28,7 @@ using ClearCanvas.Common;
 using ClearCanvas.Desktop.View.WinForms;
 
 using System.Data.OracleClient;
+using Global.Data;
 
 namespace ClearCanvas.Desktop.Executable
 {
@@ -70,9 +71,11 @@ namespace ClearCanvas.Desktop.Executable
           
             //Platform.StartApp(@"ClearCanvas.Desktop.Application", new string[0]);
             string str = Application.LocalUserAppDataPath;
-
-            
             Platform.Log(LogLevel.Info, "the path is " + str);
+            GlobalData.PacsIniFile = System.Windows.Forms.Application.StartupPath + @"\pacs.ini";
+            GlobalData.EfilmIniFile = System.Windows.Forms.Application.StartupPath + @"\efilm.ini";
+            GlobalData.RunParams = GlobalData.AnalyzeMain(args);
+            GlobalData.ReadIniFile();
             Platform.StartApp(@"ClearCanvas.Desktop.Application", args);
 		}
 

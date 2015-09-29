@@ -90,8 +90,8 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
             this._window = window;
             this.provider = PrinterProviderFactory.CreateProvider();
             this._printerList = this.provider.GetPrinterCollection();
-            
             this._printerList.ActiveChanged += handler;
+
             foreach (Printer printer in this._printerList)
             {
                 if (printer.Selected)
@@ -146,8 +146,8 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
                         string attribute = element.GetAttribute("id");
                         string format = element.GetAttribute("format");
                        // FilmSize size = (FilmSize)Enum.Parse(typeof(FilmSize), element.GetAttribute("size"));
-                        //FilmSize size = FilmSize.FromDicomString(element.GetAttribute("size"));
-                        FilmSize size = FilmSize.Dimension_14in_x_17in;
+                        FilmSize size = FilmSize.FromDicomString(element.GetAttribute("size"));
+                         //FilmSize size = FilmSize.Dimension_14in_x_17in;
                         FilmOrientation orientation = (FilmOrientation)Enum.Parse(typeof(FilmOrientation), element.GetAttribute("orientation"));
                         Film item = new Film(attribute, format, size, orientation);
                         this._films.Add(item);
@@ -166,6 +166,22 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
                 selectedPresentationImage = component.SelectedPresentationImage;
             }
             return selectedPresentationImage;
+        }
+
+        public IEnumerable<IPresentationImage> GetSelectedImages()
+        {
+            if (this._window.ActiveWorkspace.Component is IImageViewer)
+            {
+                IImageViewer component = (IImageViewer)this._window.ActiveWorkspace.Component;
+                IImageBox imageBox = component.SelectedImageBox;
+
+                foreach (IPresentationImage image in imageBox.DisplaySet.PresentationImages)
+                {
+                    if (image == null)
+                        continue;
+                  	yield return image;
+				}
+            }
         }
 
         public static double GetSelectedTileRatio()
@@ -217,9 +233,11 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
                         if (printer.PrinterName == this._currentPrinter)
                         {
                             printer.Selected = true;
+                            this._selectedPrinter = printer;
                             break;
                         }
                     }
+                   
                 }
             }
         }
@@ -339,7 +357,7 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
                 {
                     _Size = value;
                     string str = value.ToString().Replace("IN", "").Replace("CM", "");
-                    string[] strArray = str.Split(new char[] { 'x' });
+                    string[] strArray = str.Split(new char[] { 'X' });
                     if (strArray.Length != 2)
                     {
                         throw new Exception(string.Format("Unknow film size string: {0}", str));

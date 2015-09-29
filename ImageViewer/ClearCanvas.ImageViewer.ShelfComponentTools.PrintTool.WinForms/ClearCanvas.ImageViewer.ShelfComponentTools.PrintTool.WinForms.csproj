@@ -43,7 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
     <Compile Include="FilmsControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -57,9 +56,14 @@
     </Compile>
     <Compile Include="PrintToolComponentView.cs" />
     <Compile Include="PrintToolControl.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\ClearCavas.ImageViewer.ShelfComponentTools.PrintTool\ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool.csproj">
@@ -86,6 +90,18 @@
       <Project>{85100D3E-471C-47C9-9687-ABF25F617ED7}</Project>
       <Name>ClearCanvas.ImageViewer</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="FilmsControl.resx">
+      <DependentUpon>FilmsControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PrintToolControl.resx">
+      <DependentUpon>PrintToolControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

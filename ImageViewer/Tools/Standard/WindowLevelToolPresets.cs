@@ -127,7 +127,7 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 				presets.Add(autoPreset);
 
 				ImageSop sop = ((IImageSopProvider) this.SelectedPresentationImage).ImageSop;
-
+               
 				PresetVoiLutGroupCollection groups = PresetVoiLutSettings.DefaultInstance.GetPresetGroups();
 				PresetVoiLutGroup group = CollectionUtils.SelectFirst(groups,
 				                                                      delegate(PresetVoiLutGroup testGroup) { return testGroup.AppliesTo(sop); });

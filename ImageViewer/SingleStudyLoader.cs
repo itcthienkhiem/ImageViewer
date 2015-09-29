@@ -415,13 +415,13 @@ namespace ClearCanvas.ImageViewer
                 this._viewer = view;
             }
 
-            public override void ProcessDownLoadFile(List<string> list)
+            public override void ProcessDownLoadFile(List<string> list, string PatientnName)
             {
                 bool cancelled;
 
                 lock (_syncLock)
                 {
-                    _viewer.LoadImages(list.ToArray(), null, out cancelled);
+                    _viewer.LoadImages(list.ToArray(), null, out cancelled, PatientnName);
                 }
                 _viewer.ParentForm.BeginInvoke(new ShowMedicalViewDelegate(ShowMedicalView), list);
             }

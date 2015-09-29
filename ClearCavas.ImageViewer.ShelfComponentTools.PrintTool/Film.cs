@@ -61,7 +61,7 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
             set
             {
                 this._orientation = value;
-            }
+            }   
         }
 
         public FilmSize Size

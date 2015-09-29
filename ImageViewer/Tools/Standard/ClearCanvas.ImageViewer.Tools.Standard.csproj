@@ -210,12 +210,12 @@
     </Compile>
     <Compile Include="CineApplicationComponent.cs" />
     <Compile Include="CineTool.cs" />
-    <Compile Include="Configuration\ConfigurationPageProvider.cs" />
-    <Compile Include="Configuration\ToolConfigurationComponent.cs" />
-    <Compile Include="Configuration\ToolModalityBehavior.cs" />
-    <Compile Include="Configuration\ToolModalityBehaviorCollection.cs" />
-    <Compile Include="Configuration\ToolModalityBehaviorHelper.cs" />
-    <Compile Include="Configuration\Tests\ToolModalityBehaviorCollectionTests.cs" />
+    <Compile Include="Icons\Configuration\ConfigurationPageProvider.cs" />
+    <Compile Include="Icons\Configuration\ToolConfigurationComponent.cs" />
+    <Compile Include="Icons\Configuration\ToolModalityBehavior.cs" />
+    <Compile Include="Icons\Configuration\ToolModalityBehaviorCollection.cs" />
+    <Compile Include="Icons\Configuration\ToolModalityBehaviorHelper.cs" />
+    <Compile Include="Icons\Configuration\Tests\ToolModalityBehaviorCollectionTests.cs" />
     <Compile Include="ImageComparerList.cs" />
     <Compile Include="ImageProperties\ImagePropertyProvider.cs" />
     <Compile Include="ImageProperties\ImagePropertiesApplicationComponent.cs" />
@@ -247,6 +247,7 @@
     <Compile Include="PresetVoiLuts\LutHelper.cs" />
     <Compile Include="PresetVoiLuts\Operations\VoiLutSelector.cs" />
     <Compile Include="PresetVoiLuts\PresetVoiLutReservedActionModelKeyStrokesProvider.cs" />
+    <Compile Include="QueryPatient.cs" />
     <Compile Include="Rotate3DTool.cs" />
     <Compile Include="TextCalloutTool.cs" />
     <Compile Include="ThirdPrint.cs" />
@@ -355,7 +356,7 @@
     <EmbeddedResource Include="Icons\ResetToolLarge.png" />
     <EmbeddedResource Include="Icons\ResetToolSmall.png" />
     <EmbeddedResource Include="Icons\ResetToolMedium.png" />
-    <EmbeddedResource Include="ProbeCursor.png" />
+    <EmbeddedResource Include="Icons\ProbeCursor.png" />
     <EmbeddedResource Include="PresetVoiLuts\DefaultPresetVoiLutConfiguration.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -497,7 +498,7 @@
     <EmbeddedResource Include="Icons\ImagePropertiesToolMedium.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Configuration\ToolModalityBehaviorCollectionDefault.xml" />
+    <EmbeddedResource Include="Icons\Configuration\ToolModalityBehaviorCollectionDefault.xml" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Icons\Rotate3DToolLarge.png" />

@@ -29,6 +29,7 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool.WinForms
         // Fields
         private Button _btnActive;
         private IContainer components;
+       
         private FlowLayoutPanel flowLayoutPanel;
 
         // Events
@@ -52,6 +53,8 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool.WinForms
         {
             int num = 0;
             base.SuspendLayout();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FilmsControl));
+       
             foreach (Film film in films)
             {
                 //ContainerButton button = new ContainerButton
@@ -70,6 +73,18 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool.WinForms
                 //{
                 //    this._btnActive = button;
                 //}
+                Button btn = new Button();
+                btn.Size = new Size(74, 40);
+                 
+                //btn.Location = new Point(3 + num * 74, 3);
+                string strFormat = string.Format("button{0}.Image", num+1);
+                btn.Image = ((System.Drawing.Image)(resources.GetObject(strFormat)));
+                btn.Tag = film.ID;
+                btn.TabIndex = num;
+                
+                this.flowLayoutPanel.Controls.Add(btn);
+                
+                btn.Click += new EventHandler(this.FilmButton_Click);
                 num++;
             }
             base.ResumeLayout(false);
@@ -104,20 +119,30 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool.WinForms
 
         private void InitializeComponent()
         {
-            this.flowLayoutPanel = new FlowLayoutPanel();
-            base.SuspendLayout();
-            this.flowLayoutPanel.Anchor = AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Bottom | AnchorStyles.Top;
-            this.flowLayoutPanel.Location = new Point(3, 3);
+            this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.SuspendLayout();
+            // 
+            // flowLayoutPanel
+            // 
+            this.flowLayoutPanel.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.flowLayoutPanel.Location = new System.Drawing.Point(0, 3);
             this.flowLayoutPanel.Name = "flowLayoutPanel";
-            this.flowLayoutPanel.Size = new Size(0xea, 180);
-            this.flowLayoutPanel.TabIndex = 0x79;
-            base.AutoScaleDimensions = new SizeF(6f, 13f);
-            //base.AutoScaleMode = AutoScaleMode.Font;
-            this.BackColor = Color.FromArgb(220, 0xe7, 0xf6);
-            base.Controls.Add(this.flowLayoutPanel);
-            base.Name = "FilmsControl";
-            base.Size = new Size(240, 0xba);
-            base.ResumeLayout(false);
+            this.flowLayoutPanel.Size = new System.Drawing.Size(239, 180);
+            this.flowLayoutPanel.TabIndex = 121;
+            // 
+            // FilmsControl
+            // 
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(231)))), ((int)(((byte)(246)))));
+            this.Controls.Add(this.flowLayoutPanel);
+            this.Name = "FilmsControl";
+            this.Size = new System.Drawing.Size(240, 186);
+            this.ResumeLayout(false);
+
         }
+
+
+        
     }
 }

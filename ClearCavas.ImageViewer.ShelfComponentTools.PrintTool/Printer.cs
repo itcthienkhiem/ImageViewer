@@ -180,11 +180,50 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
             //    this._printersName.Add(row.PrinterName);
             //    this._printers.Add(item);
             //}
-            Printer item = new Printer("test", "AETITLE", "MYAETITLE", "127.0.0.1", 7000);
-            item.Selected = true;
-            this._printersName.Add("test");
-            this._printers.Add(item);
+            //Printer item = new Printer("test", "AETITLE", "MYAETITLE", "127.0.0.1", 7000);
+            //item.Selected = true;
+            //this._printersName.Add("test");
+            //this._printersName.Add("test2");
+            //this._printers.Add(item);
+            //this._printers.Add(new Printer("test2", "AE", "AE", "127.0.0.1", 104));
+            ReadPrinterIni();
         }
+
+
+        private void ReadPrinterIni()
+        {
+            const char cLineChar = ';';
+            const char cItemChar = ',';
+            //读取打印机配置         
+            IniFiles efilmini = new IniFiles(System.Windows.Forms.Application.StartupPath + @"\efilm.ini");
+            string PrinterStr = efilmini.ReadString("PrintConfig", "Printer", "");
+            string[] PrinterList = PrinterStr.Split(cLineChar);
+
+            foreach (string sLine in PrinterList)
+            {
+                string[] sItems = sLine.Split(cItemChar);
+                if (sItems.Length >= 6)
+                {
+
+                    try
+                    {
+                        Printer item = new Printer(sItems[0], sItems[0], sItems[1], sItems[2], int.Parse(sItems[3]));
+                        this._printers.Add(item);
+                        this._printersName.Add(sItems[0]);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+                }
+                
+                else
+                {
+                    Platform.Log(LogLevel.Error, "配置错误" + PrinterStr);
+                }
+            }
+        }
+
 
         public IEnumerable<string> GetAllPrinters()
         {

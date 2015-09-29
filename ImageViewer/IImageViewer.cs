@@ -170,7 +170,7 @@ namespace ClearCanvas.ImageViewer
 		/// <param name="path">The file path of the image.</param>
 		/// <exception cref="LoadSopsException">One or more images could not be opened.</exception>
 		/// <exception cref="ArgumentNullException">A parameter is <b>null</b>.</exception>
-		void LoadImages(string[] path);
+		void LoadImages(string[] path,string strPatientName);
 
 		/// <summary>
 		/// Loads images with the specified file paths and displays a progress bar.
@@ -182,7 +182,7 @@ namespace ClearCanvas.ImageViewer
 		/// was cancelled.</param>
 		/// <exception cref="LoadSopsException">One or more images could not be opened.</exception>
 		/// <exception cref="ArgumentNullException">A parameter is <b>null</b>.</exception>
-		void LoadImages(string[] files, IDesktopWindow desktop, out bool cancelled);
+        void LoadImages(string[] files, IDesktopWindow desktop, out bool cancelled, string strPatientName);
 
 		/// <summary>
 		/// Lays out the images in the <see cref="IImageViewer"/> using

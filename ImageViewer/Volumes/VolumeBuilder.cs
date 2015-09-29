@@ -639,13 +639,14 @@ namespace ClearCanvas.ImageViewer.Volumes
 				for (int i = 1; i < frames.Count; i++)
 				{
 					float currentSpacing = CalcSpaceBetweenPlanes(frames[i].Frame, frames[i - 1].Frame);
-					if (currentSpacing < _minimumSliceSpacing)
-						throw new UnevenlySpacedFramesException();
+                    
+                    //if (currentSpacing < _minimumSliceSpacing)
+                    //    throw new UnevenlySpacedFramesException();
 
 					spacing[i - 1] = currentSpacing;
 				}
-				if (spacing.Max() - spacing.Min() > 2*_sliceSpacingTolerance)
-					throw new UnevenlySpacedFramesException();
+                //if (spacing.Max() - spacing.Min() > 2*_sliceSpacingTolerance)
+                //    throw new UnevenlySpacedFramesException();
 
 				// ensure frames are not skewed about unsupported axis combinations (this volume builder only normalizes for skew between the Y-axis and XZ-plane in the source data)
 				if (!IsSupportedSourceSkew(frames))

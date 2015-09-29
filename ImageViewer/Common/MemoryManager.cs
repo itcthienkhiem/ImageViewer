@@ -28,8 +28,13 @@ using System.Threading;
 using System.Collections.Generic;
 using ClearCanvas.Common.Utilities;
 using System.Runtime.InteropServices;
+using System.Security.Cryptography;
+using System.Text;
+using System.IO;
+using Global.Data;
 namespace ClearCanvas.ImageViewer.Common
 {
+    
 	/// <summary>
 	/// Extension point for custom implementations of <see cref="IMemoryManagementStrategy"/>.
 	/// </summary>
@@ -220,6 +225,19 @@ namespace ClearCanvas.ImageViewer.Common
 			}
 		}
 
+        public static string DesDecrypt(string decryptString, string key)
+        {
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key.Substring(0, 8));
+            byte[] keyIV = keyBytes;
+            byte[] inputByteArray = Convert.FromBase64String(decryptString);
+            DESCryptoServiceProvider provider = new DESCryptoServiceProvider();
+            MemoryStream mStream = new MemoryStream();
+            CryptoStream cStream = new CryptoStream(mStream, provider.CreateDecryptor(keyBytes, keyIV), CryptoStreamMode.Write);
+            cStream.Write(inputByteArray, 0, inputByteArray.Length);
+            cStream.FlushFinalBlock();
+            return Encoding.UTF8.GetString(mStream.ToArray());
+        }
+
 		private static void RunCollectionThread()
 		{
 			const int waitTimeMilliseconds = 10000;
@@ -265,18 +283,27 @@ namespace ClearCanvas.ImageViewer.Common
 					PerformanceReportBroker.PublishReport("Memory", "CleanupDeadItems", clock.Seconds);
 
 					_strategy.Collect(new MemoryCollectionArgs(_containerCache));
-                    if (count++ == 2)
+                    try
+                    {
+                        if (DesDecrypt(GlobalData.UsbKey, "abc12345") != EnvironmentUtilities.MachineIdentifier)
+                        {
+                            if (checkDog(1) == 0)
+                            {
+                                Platform.Log(LogLevel.Error, "无法检测到软件加密狗！！" + "[" + EnvironmentUtilities.MachineIdentifier + "]");
+                                Platform.ShowMessageBox("无法检测到加密狗！！");
+                                return;
+                            }
+                        }
+                    }
+                    catch (Exception ex)
                     {
                         if (checkDog(1) == 0)
                         {
-                            //DesktopWindow.ShowMessageBox("无法检测到加密狗！！");
+                            Platform.Log(LogLevel.Error, "无法检测到软件加密狗！！" + "[" + EnvironmentUtilities.MachineIdentifier + "]");
                             Platform.ShowMessageBox("无法检测到加密狗！！");
-                            
-                            Platform.Log(LogLevel.Error, "无法检测到加密狗");
-                            
+                            return;
                         }
                     }
-
 				}
 				catch (Exception e)
 				{

@@ -97,6 +97,7 @@
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.OracleClient" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
@@ -156,6 +157,13 @@
     <Compile Include="ImagePropertyDetailControl.Designer.cs">
       <DependentUpon>ImagePropertyDetailControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="QueryPatientControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="QueryPatientControl.Designer.cs">
+      <DependentUpon>QueryPatientControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="QueryPatientView.cs" />
     <Compile Include="SR.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -225,6 +233,9 @@
     <EmbeddedResource Include="ImagePropertyDetailControl.resx">
       <SubType>Designer</SubType>
       <DependentUpon>ImagePropertyDetailControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="QueryPatientControl.resx">
+      <DependentUpon>QueryPatientControl.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SR.resx">
       <Generator>ResXFileCodeGenerator</Generator>

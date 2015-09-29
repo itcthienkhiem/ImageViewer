@@ -25,12 +25,12 @@
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+[assembly: ClearCanvas.Common.Plugin]
 [assembly: AssemblyConfiguration("Release")]
 [assembly: AssemblyCompany("Womsoft Inc.")]
 [assembly: AssemblyProduct("Womsoft Workstation")]
 [assembly: AssemblyVersion("1.0.4353.19315")]
 [assembly: AssemblyFileVersion("1.0.4353.19315")]
-[assembly: ClearCanvas.Common.Plugin]
 [assembly: AssemblyTitle("PrintTool")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyCopyright("Copyright (c) 2013")]

@@ -403,7 +403,8 @@ namespace ClearCanvas.ImageViewer.Rendering.GDI
 			{
 				// We adjust the font size depending on the scale so that it's the same size
 				// irrespective of the zoom
-				var fontSize = CalculateScaledFontPoints(text.SizeInPoints, dpi);
+				//var fontSize = CalculateScaledFontPoints(text.SizeInPoints, dpi);
+                var fontSize = CalculateScaledFontPoints(20, dpi);
 				var font = fontFactory.GetFont(text.Font, fontSize, FontStyle.Regular, GraphicsUnit.Point, FontFactory.GenericSansSerif);
 
 				// Calculate how big the text will be so we can set the bounding box

@@ -28,8 +28,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using ClearCanvas.Common.Utilities;
+using System.Management;
 using log4net;
 using log4net.Config;
+using System.Security.Cryptography;
 
 // This will cause log4net to look for a configuration file
 // called Logging.config in the application base
@@ -1266,4 +1268,162 @@ namespace ClearCanvas.Common
 
 		#endregion
 	}
+
+     
+    public  class regmutou
+    {
+        // Methods
+        public string GetBIOSSerialNumber()
+        {
+            try
+            {
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher("Select * From Win32_BIOS");
+                string str = "";
+                foreach (ManagementObject obj2 in searcher.Get())
+                {
+                    str = obj2["SerialNumber"].ToString().Trim();
+                }
+                return str;
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+
+        public static string DesEncrypt(string encryptString, string key)
+        {
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key.Substring(0, 8));
+            byte[] keyIV = keyBytes;
+            byte[] inputByteArray = Encoding.UTF8.GetBytes(encryptString);
+            DESCryptoServiceProvider provider = new DESCryptoServiceProvider();
+            MemoryStream mStream = new MemoryStream();
+            CryptoStream cStream = new CryptoStream(mStream, provider.CreateEncryptor(keyBytes, keyIV), CryptoStreamMode.Write);
+            cStream.Write(inputByteArray, 0, inputByteArray.Length);
+            cStream.FlushFinalBlock();
+            return Convert.ToBase64String(mStream.ToArray());
+        }
+
+        /// <summary>
+        /// DESΩ‚√‹
+        /// </summary>
+        /// <param name="decryptString"></param>
+        /// <returns></returns>
+        public static string DesDecrypt(string decryptString, string key)
+        {
+            byte[] keyBytes = Encoding.UTF8.GetBytes(key.Substring(0, 8));
+            byte[] keyIV = keyBytes;
+            byte[] inputByteArray = Convert.FromBase64String(decryptString);
+            DESCryptoServiceProvider provider = new DESCryptoServiceProvider();
+            MemoryStream mStream = new MemoryStream();
+            CryptoStream cStream = new CryptoStream(mStream, provider.CreateDecryptor(keyBytes, keyIV), CryptoStreamMode.Write);
+            cStream.Write(inputByteArray, 0, inputByteArray.Length);
+            cStream.FlushFinalBlock();
+            return Encoding.UTF8.GetString(mStream.ToArray());
+        }
+
+        public void checkValid(string key, string value)
+        {
+            string str = DesDecrypt(key, "abc12345");
+            string cpuID = GetHardDiskSerialNumber() + GetNetCardMACAddress();
+
+            if (str == cpuID)
+            {
+
+            }
+            else
+                throw new Exception("don't have license");
+        }
+
+        public string getcomputerbit(string softname)
+        {
+            string cpuID = this.GetCpuID();
+            string bIOSSerialNumber = this.GetBIOSSerialNumber();
+            string hardDiskSerialNumber = this.GetHardDiskSerialNumber();
+            string netCardMACAddress = this.GetNetCardMACAddress();
+            if (cpuID != "")
+            {
+                return DesEncrypt(cpuID, "abc12345");
+                //MD5 md = new MD5CryptoServiceProvider();
+                //cpuID = BitConverter.ToString(md.ComputeHash(Encoding.Default.GetBytes(cpuID))).Replace("-", "").ToUpper().Substring(8, 0x10);
+                //return (softname + "C" + cpuID);
+            }
+            if (bIOSSerialNumber != "")
+            {
+                MD5 md2 = new MD5CryptoServiceProvider();
+                bIOSSerialNumber = BitConverter.ToString(md2.ComputeHash(Encoding.Default.GetBytes(bIOSSerialNumber))).Replace("-", "").ToUpper().Substring(8, 0x10);
+                return (softname + "B" + bIOSSerialNumber);
+            }
+            if (hardDiskSerialNumber != "")
+            {
+                MD5 md3 = new MD5CryptoServiceProvider();
+                hardDiskSerialNumber = BitConverter.ToString(md3.ComputeHash(Encoding.Default.GetBytes(hardDiskSerialNumber))).Replace("-", "").ToUpper().Substring(8, 0x10);
+                return (softname + "H" + hardDiskSerialNumber);
+            }
+            if (netCardMACAddress != "")
+            {
+                MD5 md4 = new MD5CryptoServiceProvider();
+                netCardMACAddress = BitConverter.ToString(md4.ComputeHash(Encoding.Default.GetBytes(netCardMACAddress))).Replace("-", "").ToUpper().Substring(8, 0x10);
+                return (softname + "N" + netCardMACAddress);
+            }
+            return (softname + "WF53A419DB238BBAD");
+        }
+
+        public string GetCpuID()
+        {
+            try
+            {
+                ManagementObjectCollection instances = new ManagementClass("Win32_Processor").GetInstances();
+                string str = null;
+                foreach (ManagementObject obj2 in instances)
+                {
+                    str = obj2.Properties["ProcessorId"].Value.ToString();
+                    break;
+                }
+                return "C" + str;
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        public string GetHardDiskSerialNumber()
+        {
+            try
+            {
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_PhysicalMedia");
+                string str = "";
+                foreach (ManagementObject obj2 in searcher.Get())
+                {
+                    str = obj2["SerialNumber"].ToString().Trim();
+                    break;
+                }
+                return str;
+            }
+            catch
+            {
+                return "";
+            }
+        }
+
+        public string GetNetCardMACAddress()
+        {
+            try
+            {
+                ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_NetworkAdapter WHERE ((MACAddress Is Not NULL) AND (Manufacturer <> 'Microsoft'))");
+                string str = "";
+                foreach (ManagementObject obj2 in searcher.Get())
+                {
+                    str = obj2["MACAddress"].ToString().Trim();
+                }
+                return str;
+            }
+            catch
+            {
+                return "";
+            }
+        }
+    }
 }

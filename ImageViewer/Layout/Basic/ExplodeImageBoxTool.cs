@@ -33,16 +33,16 @@ using ClearCanvas.ImageViewer.InputManagement;
 
 namespace ClearCanvas.ImageViewer.Layout.Basic
 {
-    //[ButtonAction("explodeImageBox", "global-toolbars/ToolbarStandard/ToolbarExplodeImageBox", "ToggleExplode", Flags = ClickActionFlags.CheckAction, KeyStroke = XKeys.X)]
-    //[MenuAction("explodeImageBox", "global-menus/MenuTools/MenuStandard/MenuExplodeImageBox", "ToggleExplode", Flags = ClickActionFlags.CheckAction)]
-    //[CheckedStateObserver("explodeImageBox", "Checked", "CheckedChanged")]
-    //[EnabledStateObserver("explodeImageBox", "Enabled", "EnabledChanged")]
-    //[Tooltip("explodeImageBox", "TooltipExplodeImageBox")]
-    //[MouseButtonIconSet("explodeImageBox", "Icons.ExplodeImageBoxToolSmall.png", "Icons.ExplodeImageBoxMedium.png", "Icons.ExplodeImageBoxLarge.png")]
-    //[GroupHint("explodeImageBox", "Tools.Layout.ImageBox.Explode")]
+    [ButtonAction("explodeImageBox", "global-toolbars/ToolbarStandard/ToolbarExplodeImageBox", "ToggleExplode", Flags = ClickActionFlags.CheckAction, KeyStroke = XKeys.X)]
+    [MenuAction("explodeImageBox", "global-menus/MenuTools/MenuStandard/MenuExplodeImageBox", "ToggleExplode", Flags = ClickActionFlags.CheckAction)]
+    [CheckedStateObserver("explodeImageBox", "Checked", "CheckedChanged")]
+    [EnabledStateObserver("explodeImageBox", "Enabled", "EnabledChanged")]
+    [Tooltip("explodeImageBox", "TooltipExplodeImageBox")]
+    [MouseButtonIconSet("explodeImageBox", "Icons.ExplodeImageBoxToolSmall.png", "Icons.ExplodeImageBoxMedium.png", "Icons.ExplodeImageBoxLarge.png")]
+    [GroupHint("explodeImageBox", "Tools.Layout.ImageBox.Explode")]
 
-	//[DefaultMouseToolButton(XMouseButtons.Left)]
-	//[ExtensionOf(typeof(ImageViewerToolExtensionPoint))]
+    [DefaultMouseToolButton(XMouseButtons.Left)]
+    [ExtensionOf(typeof(ImageViewerToolExtensionPoint))]
 	public class ExplodeImageBoxTool : MouseImageViewerTool
 	{
 	    private class ExtensionDataProxy

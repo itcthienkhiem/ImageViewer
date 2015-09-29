@@ -21,7 +21,7 @@ using Microsoft.Win32;
  
 namespace ClearCanvas.Desktop
 {
-    [MenuAction("QueryPatient", "global-menus/视图/影像查找", "QueryPatient")]
+    //[MenuAction("QueryPatient", "global-menus/视图/影像查找", "QueryPatient")]
     [MenuAction("ScreenCapture", "global-menus/视图/截屏", "ScreenCapture")]
     [MenuAction("SendPatient", "global-menus/视图/MenuSend", "SendPatient")]
     [KeyboardAction("ScreenCapture", "global-menus/视图/截屏", "ScreenCapture", KeyStroke = XKeys.Control | XKeys.X)]
@@ -36,10 +36,10 @@ namespace ClearCanvas.Desktop
         Screen[] screens;
       
 
-        public void QueryPatient()
-        {
-            ApplicationComponent.LaunchAsDialog(this.Context.DesktopWindow, new QueryPatientComponent(), "查询提取病人影像");
-        }
+        //public void QueryPatient()
+        //{
+        //    ApplicationComponent.LaunchAsDialog(this.Context.DesktopWindow, new QueryPatientComponent(), "查询提取病人影像");
+        //}
 
         public void SendPatient()
         {
@@ -147,30 +147,29 @@ namespace ClearCanvas.Desktop
     }
 
 
-    [ExtensionPoint]
-    public sealed class QueryPatientComponentViewExtensionPoint : ExtensionPoint<IApplicationComponentView>
-    {
-    }
+    //[ExtensionPoint]
+    //public sealed class QueryPatientComponentViewExtensionPoint : ExtensionPoint<IApplicationComponentView>
+    //{
+    //}
 
-    [AssociateView(typeof(QueryPatientComponentViewExtensionPoint))]
-    public class QueryPatientComponent : ApplicationComponent
-    {
+    //[AssociateView(typeof(QueryPatientComponentViewExtensionPoint))]
+    //public class QueryPatientComponent : ApplicationComponent
+    //{
 
-        public override void Start()
-        {
-            base.Start();
-        }
+    //    public override void Start()
+    //    {
+    //        base.Start();
+    //    }
 
-        /// <summary>
-        /// Does nothing unless the task has completed; closes the progress dialog.
-        /// </summary>
-        public override void Stop()
-        {
-            base.Stop();
-        }
-        // your component code here
-
-    }
+    //    /// <summary>
+    //    /// Does nothing unless the task has completed; closes the progress dialog.
+    //    /// </summary>
+    //    public override void Stop()
+    //    {
+    //        base.Stop();
+    //    }
+    //    // your component code here
+    //}
 
 
     [ExtensionPoint]

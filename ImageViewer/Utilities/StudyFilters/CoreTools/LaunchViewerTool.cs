@@ -54,7 +54,7 @@ namespace ClearCanvas.ImageViewer.Utilities.StudyFilters.CoreTools
 			ImageViewerComponent viewer = new ImageViewerComponent();
 			try
 			{
-				viewer.LoadImages(selection, base.Context.DesktopWindow, out cancelled);
+				viewer.LoadImages(selection, base.Context.DesktopWindow, out cancelled, "");
 			}
 			catch (Exception ex)
 			{

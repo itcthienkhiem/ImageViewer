@@ -76,7 +76,7 @@ namespace ClearCanvas.ImageViewer.Utilities.StudyFilters.CoreTools
                     viewer.LogicalWorkspace.Clear();
                     viewer.ReAllocateStudyTree();
                     viewer.Layout();
-                    viewer.LoadImages(file);
+                    viewer.LoadImages(file, "");
                     viewer.Layout();
                 }
 			}

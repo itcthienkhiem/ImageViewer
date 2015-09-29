@@ -29,6 +29,11 @@ using ClearCanvas.Common.Utilities;
 using ClearCanvas.Desktop;
 using ClearCanvas.ImageViewer.Common;
 using ClearCanvas.ImageViewer.Mathematics;
+using ClearCanvas.Desktop.Actions;
+using System.Linq;
+using ClearCanvas.ImageViewer.StudyManagement;
+
+
 
 namespace ClearCanvas.ImageViewer
 {
@@ -718,6 +723,43 @@ namespace ClearCanvas.ImageViewer
 				if (_displaySet != null)
 					_displaySet.Selected = true;
 			}
+            try
+            {
+                ImageViewerComponent view = this.ImageViewer as ImageViewerComponent;
+
+                ActionModelNode node = view.ToolbarModel;
+
+                ActionModelNode tempNode = null;
+                IAction[] action = null;
+                foreach (ActionModelNode tempnode in node.ChildNodes)
+                {
+                    if (tempnode.PathSegment.ResourceKey == "ToolbarSynchronizeStacking")
+                    {
+                        tempNode = tempnode;
+                        break;
+                    }
+                }
+                if (tempNode != null)
+                {
+                    action = tempNode.GetActionsInOrder();
+                }
+                if ((action != null) && (action.Count() > 0))
+                {
+                    ButtonAction ac = action[0] as ButtonAction;
+                    ImageSop sop = ((IImageSopProvider)this.TopLeftPresentationImage).ImageSop;
+                    if (sop.Modality == "DX" || sop.Modality == "CR" || sop.Modality == "RF")
+                    {
+                        ac.Checked = false;
+                    }
+                    else
+                        ac.Checked = true;
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
 		}
 
 		#region IMemorable Members

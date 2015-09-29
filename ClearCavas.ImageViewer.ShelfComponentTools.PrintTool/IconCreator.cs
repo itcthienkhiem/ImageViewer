@@ -74,16 +74,20 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
 
         public static Bitmap CreatePresentationImagePrintData(IPresentationImage image, double tileRatio, bool withAnnotation)
         {
+           
             Size size;
             ISpatialTransformProvider provider = image as ISpatialTransformProvider;
             if (provider == null)
             {
+                Platform.Log(LogLevel.Error, " 转换失败");
                 throw new Exception("转换失败");
             }
             ImageSpatialTransform spatialTransform = provider.SpatialTransform as ImageSpatialTransform;
             object memento = spatialTransform.CreateMemento();
+         
             if (!spatialTransform.ScaleToFit)
             {
+                Platform.Log(LogLevel.Error, "!spatialTransform.ScaleToFit");
                 float num = 1f / spatialTransform.Scale;
                 int width = Convert.ToInt32((float)(image.ClientRectangle.Width * num));
                 int height = Convert.ToInt32((float)(image.ClientRectangle.Height * num));
@@ -110,8 +114,11 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
             }
             else
             {
+                 
                 size = new Size(spatialTransform.SourceWidth, spatialTransform.SourceHeight);
             }
+
+         
             Size size2 = CalculateSize(size, tileRatio);
             if (!withAnnotation)
             {
@@ -131,6 +138,7 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
             ISpatialTransformProvider provider = image as ISpatialTransformProvider;
             if (provider == null)
             {
+                Platform.Log(LogLevel.Error, "RectangleF 转换失败");
                 throw new Exception("转换失败");
             }
             ImageSpatialTransform spatialTransform = provider.SpatialTransform as ImageSpatialTransform;

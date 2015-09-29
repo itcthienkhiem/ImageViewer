@@ -34,18 +34,18 @@ using ClearCanvas.ImageViewer.InteractiveGraphics;
 
 namespace ClearCanvas.ImageViewer.Tools.Measurement
 {
-    [MenuAction("activate", "imageviewer-contextmenu/MenuHeartRatio", "Select", Flags = ClickActionFlags.CheckAction, InitiallyAvailable = false)]
-    [MenuAction("activate", "global-menus/MenuTools/MenuMeasurement/MenuHeartRatio", "Select", Flags = ClickActionFlags.CheckAction)]
-    [MenuAction("activate", RulerTool.MeasurementToolbarDropdownSite + "/MenuHeartRatio", "Select", Flags = ClickActionFlags.CheckAction)]
-    [ButtonAction("activate", "global-toolbars/ToolbarMeasurement/ToolbarHeartRatio", "Select", Flags = ClickActionFlags.CheckAction)]
-    [CheckedStateObserver("activate", "Active", "ActivationChanged")]
-    [TooltipValueObserver("activate", "Tooltip", "TooltipChanged")]
-    [MouseButtonIconSet("activate", "Icons.EllipticalRoiToolSmall.png", "Icons.EllipticalRoiToolMedium.png", "Icons.EllipticalRoiToolLarge.png")]
-    [GroupHint("activate", "Tools.Image.Annotations.Measurement.Roi.Elliptical")]
+    //[MenuAction("activate", "imageviewer-contextmenu/MenuHeartRatio", "Select", Flags = ClickActionFlags.CheckAction, InitiallyAvailable = false)]
+    //[MenuAction("activate", "global-menus/MenuTools/MenuMeasurement/MenuHeartRatio", "Select", Flags = ClickActionFlags.CheckAction)]
+    //[MenuAction("activate", RulerTool.MeasurementToolbarDropdownSite + "/MenuHeartRatio", "Select", Flags = ClickActionFlags.CheckAction)]
+    //[ButtonAction("activate", "global-toolbars/ToolbarMeasurement/ToolbarHeartRatio", "Select", Flags = ClickActionFlags.CheckAction)]
+    //[CheckedStateObserver("activate", "Active", "ActivationChanged")]
+    //[TooltipValueObserver("activate", "Tooltip", "TooltipChanged")]
+    //[MouseButtonIconSet("activate", "Icons.EllipticalRoiToolSmall.png", "Icons.EllipticalRoiToolMedium.png", "Icons.EllipticalRoiToolLarge.png")]
+    //[GroupHint("activate", "Tools.Image.Annotations.Measurement.Roi.Elliptical")]
 
-    [MouseToolButton(XMouseButtons.Left, false)]
-    [ExtensionOf(typeof(MeasurementToolbarToolExtensionPoint))]
-    [ExtensionOf(typeof(ImageViewerToolExtensionPoint))]
+    //[MouseToolButton(XMouseButtons.Left, false)]
+    //[ExtensionOf(typeof(MeasurementToolbarToolExtensionPoint))]
+    //[ExtensionOf(typeof(ImageViewerToolExtensionPoint))]
     public partial class HeartRatiolRoiTool : MeasurementTool
     {
         public HeartRatiolRoiTool() : base(SR.TooltipPolygonalRoi) { }

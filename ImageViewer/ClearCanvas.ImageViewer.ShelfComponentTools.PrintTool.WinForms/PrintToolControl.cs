@@ -31,6 +31,721 @@ using ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool;
 
 namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool.WinForms
 {
+   
+
+
+    public class PrintToolControl : UserControl
+    {
+        // Fields
+        private PrintToolComponent _component;
+        private DynamicActionButton _FixedToolBtn;
+        private DynamicActionButton _freeToolBtn;
+        private Point _landscapePoint;
+        private Point _portraitPoint;
+        private Button btnExport;
+        private Button BtnSinglePrint;
+        private Button button2;
+        private CheckBox checkBox1;
+        private CheckBox chkCustom;
+        private CustomComboBox cmbFilmOrientation;
+        private CustomComboBox cmbFilmSize;
+        private CustomComboBox cmbFilmType;
+        private CustomComboBox cmbLayout;
+        private ComboBox cmbPrinter;
+        private IContainer components;
+        private PictureBox customPictureBox1;
+        private PictureBox customPictureBox2;
+        private PictureBox customPictureBox4;
+        private FilmsControl filmsControl;
+        private Button ibExport;
+        private Button ibImport;
+        private Label label10;
+        private Label label11;
+        private Label label5;
+        private Label label6;
+        private Label label7;
+        private Label label8;
+        private Label label9;
+        private NumericUpDown nupdPrintCount;
+        private Panel panPrewControl;
+        private PictureBox pictureBox1;
+        private PrintPreviewControl printPreviewControl1;
+        private SaveFileDialog saveFileDialog;
+        private Button button1;
+        private ToolTip toolTip;
+
+        // Methods
+        public PrintToolControl(PrintToolComponent component)
+        {
+            this._component = component;
+            this.InitializeComponent();
+            this.printPreviewControl1.Component = PrintToolComponent.TilesComponent;
+            this.cmbFilmType.SetDataSouce("FilmType");
+            this.cmbFilmSize.SetDataSouce("FilmSize");
+            this.cmbLayout.SetDataSouce("PrintLayout");
+            
+            
+            this.cmbFilmOrientation.SetDataSouce("FilmOrientation");
+            BindingSource dataSource = new BindingSource
+            {
+                DataSource = this._component
+            };
+            this.cmbPrinter.DataSource = this._component.PrintersView;
+            this.cmbPrinter.SelectedItem = this._component.CurrentPrinterValue;
+            this.cmbPrinter.DataBindings.Add("SelectedValue", dataSource, "CurrentPrinterValue", true, DataSourceUpdateMode.OnPropertyChanged);
+            this.nupdPrintCount.DataBindings.Add("Value", dataSource, "NumberOfCopies", true, DataSourceUpdateMode.OnPropertyChanged);
+            this.filmsControl.GridLayoutChange += new EventHandler(this.filmsControl_GridLayoutChange);
+            List<Film> films = this._component.GetFilms();
+
+            if (films.Count > 0)
+            {
+                this.filmsControl.CreateFilmButton(films);
+                this.UpdateFilmView(films[0]);
+            }
+            ////this.BuildActionButtons(this._component.FreeRadioPrintAction, this._component.FixedRadioPrintAction);
+            //this._component.ActionChanged += new EventHandler(this.OnActionChanged);
+
+            //this.btnExport.Visible = PrintToolSettings.Default.ExportImage;
+        }
+
+        private void btnExport_Click(object sender, EventArgs e)
+        {
+            //if (this.saveFileDialog.ShowDialog() == DialogResult.OK)
+            //{
+            //    string fileName = this.saveFileDialog.FileName;
+            //    PrintToolComponent.TilesComponent.ExportSelectedImage(fileName);
+            //}
+
+            IEnumerable<IPresentationImage> images = this._component.GetSelectedImages();
+            foreach (IPresentationImage image in images)
+            {
+                PrintToolComponent.AddToClipboard(image);
+            }
+        }
+
+        private void BuildActionButtons(IAction freeTool, IAction fixedTool)
+        {
+            base.SuspendLayout();
+            IClickAction action = freeTool as IClickAction;
+            if (action != null)
+            {
+                if (this._freeToolBtn == null)
+                {
+                    this._freeToolBtn = new DynamicActionButton(action);
+                    this._freeToolBtn.Location = new Point(0x56, this.BtnSinglePrint.Location.Y);
+                    this._freeToolBtn.Size = new Size(0x2e, 0x2e);
+                    this.toolTip.SetToolTip(this._freeToolBtn, action.Tooltip);
+                    base.Controls.Add(this._freeToolBtn);
+                }
+                else
+                {
+                    this._freeToolBtn.Action = action;
+                }
+            }
+            IClickAction action2 = fixedTool as IClickAction;
+            if (action2 != null)
+            {
+                if (this._FixedToolBtn == null)
+                {
+                    this._FixedToolBtn = new DynamicActionButton(action2);
+                    this._FixedToolBtn.Location = new Point(13, this.BtnSinglePrint.Location.Y);
+                    this._FixedToolBtn.Size = new Size(0x2e, 0x2e);
+                    this.toolTip.SetToolTip(this._FixedToolBtn, action2.Tooltip);
+                    base.Controls.Add(this._FixedToolBtn);
+                }
+                else
+                {
+                    this._FixedToolBtn.Action = action2;
+                }
+            }
+            base.ResumeLayout(true);
+        }
+
+        private Point CalculateLocation(FilmOrientation Status, double size)
+        {
+            if (Status == FilmOrientation.Portrait)
+            {
+                this._portraitPoint = new Point(Convert.ToInt32(Math.Round((double)((((double)this.panPrewControl.Width) / 2.0) - (size / 2.0)), 0)), 0);
+                return this._portraitPoint;
+            }
+            this._landscapePoint = new Point(0, Convert.ToInt32(Math.Round((double)((((double)this.panPrewControl.Height) / 2.0) - (size / 2.0)), 0)));
+            return this._landscapePoint;
+        }
+
+        private void chkCustom_CheckedChanged(object sender, EventArgs e)
+        {
+            this.filmsControl.Enabled = !this.chkCustom.Checked;
+            this.cmbFilmSize.Enabled = this.chkCustom.Checked;
+            this.cmbLayout.Enabled = this.chkCustom.Checked;
+            this.cmbFilmOrientation.Enabled = this.chkCustom.Checked;
+            if (!this.chkCustom.Checked)
+            {
+                this._component.PrintedFilmSize = this._component.LastFilmSize;
+                PrintToolComponent.FilmOrientation = this._component.LasFilmOrientation;
+                PrintToolComponent.TilesComponent.SetGrid(this._component.LastFormat);
+            }
+            else
+            {
+                this._component.LastFilmSize = this._component.PrintedFilmSize;
+                this._component.LasFilmOrientation = PrintToolComponent.FilmOrientation;
+                this.cmbLayout_SelectedValueChanged(sender, e);
+                this.cmbFilmSize_SelectedValueChanged(sender, e);
+                this.cmbFilmOrientation_SelectedValueChanged(sender, e);
+            }
+            this.UpdatePrinterControl(PrintToolComponent.FilmOrientation, PrintToolComponent.FilmRatio);
+        }
+
+        private void cmbFilmOrientation_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (((this.cmbFilmOrientation.SelectedValue != null) && this.cmbFilmOrientation.Enabled) && (this.cmbLayout.SelectedValue != null))
+            {
+                try
+                {
+                    PrintToolComponent.FilmOrientation = (FilmOrientation)Enum.Parse(typeof(FilmOrientation), this.cmbFilmOrientation.SelectedValue.ToString(), true);
+                }
+                catch (Exception exception)
+                {
+                    Platform.Log(LogLevel.Error, exception);
+                    PrintToolComponent.FilmOrientation = FilmOrientation.Portrait;
+                }
+                string format = this.cmbLayout.SelectedValue.ToString();
+                PrintToolComponent.TilesComponent.SetGrid(format);
+                this.UpdatePrinterControl(PrintToolComponent.FilmOrientation, PrintToolComponent.FilmRatio);
+            }
+        }
+
+        private void cmbPrinter_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (this.cmbPrinter.SelectedValue != null)
+            {
+                this._component.CurrentPrinterValue = this.cmbPrinter.SelectedValue.ToString();
+            }
+        }
+
+        private void cmbFilmSize_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (((this.cmbFilmSize.SelectedValue != null) && this.cmbFilmSize.Enabled) && (this.cmbLayout.SelectedValue != null))
+            {
+                try
+                {
+                   // this._component.PrintedFilmSize = (FilmSize)Enum.Parse(typeof(FilmSize), this.cmbFilmSize.SelectedValue.ToString(), true);
+                    this._component.PrintedFilmSize = FilmSize.FromDicomString(this.cmbFilmSize.SelectedValue.ToString());
+                }
+                catch (Exception exception)
+                {
+                    Platform.Log(LogLevel.Error, exception);
+                    this._component.PrintedFilmSize = FilmSize.Dimension_8in_x_10in;
+                }
+                string format = this.cmbLayout.SelectedValue.ToString();
+                PrintToolComponent.TilesComponent.SetGrid(format);
+                this.UpdatePrinterControl(PrintToolComponent.FilmOrientation, PrintToolComponent.FilmRatio);
+            }
+        }
+
+        private void cmbLayout_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (this.cmbLayout.SelectedValue != null)
+            {
+                try
+                {
+                    string format = this.cmbLayout.SelectedValue.ToString();
+                    PrintToolComponent.TilesComponent.SetGrid(format);
+                    this._component.LastFormat = format;
+                }
+                catch (Exception exception)
+                {
+                    Platform.Log(LogLevel.Error, exception);
+                    PrintToolComponent.TilesComponent.SetGrid(@"STANDARD\1,1");
+                }
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (this.components != null))
+            {
+                this.components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private void filmsControl_GridLayoutChange(object sender, EventArgs e)
+        {
+            //ContainerButton button = sender as ContainerButton;
+            //if (button != null)
+            //{
+            //    foreach (Film film in this._component.GetFilms())
+            //    {
+            //        if (button.Tag.ToString().Equals(film.ID))
+            //        {
+            //            this.UpdateFilmView(film);
+            //            break;
+            //        }
+            //    }
+            //}
+            Button button = sender as Button;
+            foreach (Film film in this._component.GetFilms())
+            {
+                if (button.Tag.ToString().Equals(film.ID))
+                {
+                    this.UpdateFilmView(film);
+                    break;
+                }
+            }
+        }
+
+        private void ibExport_Click(object sender, EventArgs e)
+        {
+            PrintToolComponent.TilesComponent.RemoveActiveTile();
+        }
+
+        private void ibImport_Click(object sender, EventArgs e)
+        {
+            IPresentationImage selectedPI = this._component.GetSelectedPI();
+            if (selectedPI != null)
+            {
+                PrintToolComponent.AddToClipboard(selectedPI);
+            }
+        }
+
+        private void InitializeComponent()
+        {
+            this.components = new System.ComponentModel.Container();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.ibImport = new System.Windows.Forms.Button();
+            this.ibExport = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.cmbPrinter = new System.Windows.Forms.ComboBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.nupdPrintCount = new System.Windows.Forms.NumericUpDown();
+            this.label9 = new System.Windows.Forms.Label();
+            this.checkBox1 = new System.Windows.Forms.CheckBox();
+            this.chkCustom = new System.Windows.Forms.CheckBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.panPrewControl = new System.Windows.Forms.Panel();
+            this.printPreviewControl1 = new ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool.WinForms.PrintPreviewControl();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label11 = new System.Windows.Forms.Label();
+            this.btnExport = new System.Windows.Forms.Button();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.button2 = new System.Windows.Forms.Button();
+            this.label6 = new System.Windows.Forms.Label();
+            this.BtnSinglePrint = new System.Windows.Forms.Button();
+            this.customPictureBox1 = new System.Windows.Forms.PictureBox();
+            this.customPictureBox4 = new System.Windows.Forms.PictureBox();
+            this.customPictureBox2 = new System.Windows.Forms.PictureBox();
+            this.filmsControl = new ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool.WinForms.FilmsControl();
+            this.cmbFilmOrientation = new ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool.WinForms.CustomComboBox();
+            this.cmbFilmSize = new ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool.WinForms.CustomComboBox();
+            this.cmbLayout = new ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool.WinForms.CustomComboBox();
+            this.cmbFilmType = new ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool.WinForms.CustomComboBox();
+            ((System.ComponentModel.ISupportInitialize)(this.nupdPrintCount)).BeginInit();
+            this.panPrewControl.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customPictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customPictureBox4)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customPictureBox2)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // ibImport
+            // 
+            this.ibImport.Location = new System.Drawing.Point(6, 443);
+            this.ibImport.Name = "ibImport";
+            this.ibImport.Size = new System.Drawing.Size(82, 33);
+            this.ibImport.TabIndex = 80;
+            this.ibImport.Text = "添 加";
+            this.toolTip.SetToolTip(this.ibImport, "导入");
+            this.ibImport.Click += new System.EventHandler(this.ibImport_Click);
+            // 
+            // ibExport
+            // 
+            this.ibExport.Location = new System.Drawing.Point(94, 442);
+            this.ibExport.Name = "ibExport";
+            this.ibExport.Size = new System.Drawing.Size(85, 33);
+            this.ibExport.TabIndex = 79;
+            this.ibExport.Text = "删 除";
+            this.toolTip.SetToolTip(this.ibExport, "导出");
+            this.ibExport.Click += new System.EventHandler(this.ibExport_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(94, 481);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(85, 33);
+            this.button1.TabIndex = 136;
+            this.button1.Text = "删除所有";
+            this.toolTip.SetToolTip(this.button1, "导入");
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // cmbPrinter
+            // 
+            this.cmbPrinter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPrinter.FormattingEnabled = true;
+            this.cmbPrinter.Location = new System.Drawing.Point(113, 25);
+            this.cmbPrinter.Name = "cmbPrinter";
+            this.cmbPrinter.Size = new System.Drawing.Size(121, 20);
+            this.cmbPrinter.TabIndex = 96;
+            this.cmbPrinter.SelectedValueChanged += new System.EventHandler(this.cmbPrinter_SelectedValueChanged);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(47, 63);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(29, 12);
+            this.label5.TabIndex = 107;
+            this.label5.Text = "份数";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(17, 371);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(29, 12);
+            this.label7.TabIndex = 109;
+            this.label7.Text = "布局";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(50, 28);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(41, 12);
+            this.label8.TabIndex = 110;
+            this.label8.Text = "打印机";
+            // 
+            // nupdPrintCount
+            // 
+            this.nupdPrintCount.Location = new System.Drawing.Point(113, 61);
+            this.nupdPrintCount.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nupdPrintCount.Name = "nupdPrintCount";
+            this.nupdPrintCount.Size = new System.Drawing.Size(121, 21);
+            this.nupdPrintCount.TabIndex = 112;
+            this.nupdPrintCount.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(18, 394);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(29, 12);
+            this.label9.TabIndex = 115;
+            this.label9.Text = "尺寸";
+            // 
+            // checkBox1
+            // 
+            this.checkBox1.AutoSize = true;
+            this.checkBox1.Location = new System.Drawing.Point(-15, -15);
+            this.checkBox1.Name = "checkBox1";
+            this.checkBox1.Size = new System.Drawing.Size(78, 16);
+            this.checkBox1.TabIndex = 117;
+            this.checkBox1.Text = "checkBox1";
+            this.checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // chkCustom
+            // 
+            this.chkCustom.AutoSize = true;
+            this.chkCustom.Location = new System.Drawing.Point(14, 352);
+            this.chkCustom.Name = "chkCustom";
+            this.chkCustom.Size = new System.Drawing.Size(48, 16);
+            this.chkCustom.TabIndex = 118;
+            this.chkCustom.Text = "其他";
+            this.chkCustom.UseVisualStyleBackColor = true;
+            this.chkCustom.CheckedChanged += new System.EventHandler(this.chkCustom_CheckedChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(18, 419);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(29, 12);
+            this.label10.TabIndex = 120;
+            this.label10.Text = "方向";
+            // 
+            // panPrewControl
+            // 
+            this.panPrewControl.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.panPrewControl.Controls.Add(this.printPreviewControl1);
+            this.panPrewControl.Location = new System.Drawing.Point(0, 98);
+            this.panPrewControl.Name = "panPrewControl";
+            this.panPrewControl.Size = new System.Drawing.Size(250, 231);
+            this.panPrewControl.TabIndex = 122;
+            // 
+            // printPreviewControl1
+            // 
+            this.printPreviewControl1.Component = null;
+            this.printPreviewControl1.Location = new System.Drawing.Point(49, 1);
+            this.printPreviewControl1.Name = "printPreviewControl1";
+            this.printPreviewControl1.Size = new System.Drawing.Size(145, 230);
+            this.printPreviewControl1.TabIndex = 93;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Location = new System.Drawing.Point(7, 11);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(45, 48);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 123;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(3, 75);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(29, 12);
+            this.label11.TabIndex = 124;
+            this.label11.Text = "胶片";
+            // 
+            // btnExport
+            // 
+            this.btnExport.Location = new System.Drawing.Point(6, 482);
+            this.btnExport.Name = "btnExport";
+            this.btnExport.Size = new System.Drawing.Size(82, 33);
+            this.btnExport.TabIndex = 132;
+            this.btnExport.Text = "加序列";
+            this.btnExport.UseVisualStyleBackColor = true;
+            this.btnExport.Click += new System.EventHandler(this.btnExport_Click);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "jpg";
+            this.saveFileDialog.Filter = "JPEG files(*.jpg)|*.jpg|Bitmap files (*.bmp)|*.bmp|All files (*.*)|*.*";
+            this.saveFileDialog.RestoreDirectory = true;
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(194, 730);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(47, 23);
+            this.button2.TabIndex = 134;
+            this.button2.Text = "button2";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Visible = false;
+            this.button2.Click += new System.EventHandler(this.SinglePrintImage);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(38, 185);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(65, 12);
+            this.label6.TabIndex = 108;
+            this.label6.Text = "Film Type:";
+            this.label6.Visible = false;
+            // 
+            // BtnSinglePrint
+            // 
+            this.BtnSinglePrint.Location = new System.Drawing.Point(185, 443);
+            this.BtnSinglePrint.Name = "BtnSinglePrint";
+            this.BtnSinglePrint.Size = new System.Drawing.Size(62, 70);
+            this.BtnSinglePrint.TabIndex = 111;
+            this.BtnSinglePrint.Text = "胶片打印";
+            this.BtnSinglePrint.Click += new System.EventHandler(this.SinglePrintImage);
+            // 
+            // customPictureBox1
+            // 
+            this.customPictureBox1.Location = new System.Drawing.Point(7, 3);
+            this.customPictureBox1.Name = "customPictureBox1";
+            this.customPictureBox1.Size = new System.Drawing.Size(229, 2);
+            this.customPictureBox1.TabIndex = 62;
+            this.customPictureBox1.TabStop = false;
+            this.customPictureBox1.Text = "customPictureBox1";
+            // 
+            // customPictureBox4
+            // 
+            this.customPictureBox4.Location = new System.Drawing.Point(12, 699);
+            this.customPictureBox4.Name = "customPictureBox4";
+            this.customPictureBox4.Size = new System.Drawing.Size(229, 2);
+            this.customPictureBox4.TabIndex = 68;
+            this.customPictureBox4.TabStop = false;
+            this.customPictureBox4.Text = "customPictureBox4";
+            // 
+            // customPictureBox2
+            // 
+            this.customPictureBox2.Location = new System.Drawing.Point(8, 90);
+            this.customPictureBox2.Name = "customPictureBox2";
+            this.customPictureBox2.Size = new System.Drawing.Size(229, 2);
+            this.customPictureBox2.TabIndex = 66;
+            this.customPictureBox2.TabStop = false;
+            this.customPictureBox2.Text = "customPictureBox2";
+            // 
+            // filmsControl
+            // 
+            this.filmsControl.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(231)))), ((int)(((byte)(246)))));
+            this.filmsControl.Location = new System.Drawing.Point(3, 538);
+            this.filmsControl.Name = "filmsControl";
+            this.filmsControl.Size = new System.Drawing.Size(244, 186);
+            this.filmsControl.TabIndex = 135;
+            // 
+            // cmbFilmOrientation
+            // 
+            this.cmbFilmOrientation.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFilmOrientation.Enabled = false;
+            this.cmbFilmOrientation.FormattingEnabled = true;
+            this.cmbFilmOrientation.Location = new System.Drawing.Point(102, 416);
+            this.cmbFilmOrientation.Name = "cmbFilmOrientation";
+            this.cmbFilmOrientation.Size = new System.Drawing.Size(121, 20);
+            this.cmbFilmOrientation.TabIndex = 121;
+            this.cmbFilmOrientation.SelectedValueChanged += new System.EventHandler(this.cmbFilmOrientation_SelectedValueChanged);
+            // 
+            // cmbFilmSize
+            // 
+            this.cmbFilmSize.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFilmSize.Enabled = false;
+            this.cmbFilmSize.FormattingEnabled = true;
+            this.cmbFilmSize.Location = new System.Drawing.Point(102, 392);
+            this.cmbFilmSize.Name = "cmbFilmSize";
+            this.cmbFilmSize.Size = new System.Drawing.Size(121, 20);
+            this.cmbFilmSize.TabIndex = 116;
+            this.cmbFilmSize.SelectedValueChanged += new System.EventHandler(this.cmbFilmSize_SelectedValueChanged);
+            // 
+            // cmbLayout
+            // 
+            this.cmbLayout.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbLayout.Enabled = false;
+            this.cmbLayout.FormattingEnabled = true;
+            this.cmbLayout.Location = new System.Drawing.Point(102, 367);
+            this.cmbLayout.Name = "cmbLayout";
+            this.cmbLayout.Size = new System.Drawing.Size(121, 20);
+            this.cmbLayout.TabIndex = 114;
+            this.cmbLayout.SelectedValueChanged += new System.EventHandler(this.cmbLayout_SelectedValueChanged);
+            // 
+            // cmbFilmType
+            // 
+            this.cmbFilmType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFilmType.FormattingEnabled = true;
+            this.cmbFilmType.Location = new System.Drawing.Point(113, 182);
+            this.cmbFilmType.Name = "cmbFilmType";
+            this.cmbFilmType.Size = new System.Drawing.Size(121, 20);
+            this.cmbFilmType.TabIndex = 113;
+            this.cmbFilmType.Visible = false;
+            // 
+            // PrintToolControl
+            // 
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(231)))), ((int)(((byte)(246)))));
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.filmsControl);
+            this.Controls.Add(this.BtnSinglePrint);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.btnExport);
+            this.Controls.Add(this.label11);
+            this.Controls.Add(this.customPictureBox1);
+            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.panPrewControl);
+            this.Controls.Add(this.cmbFilmOrientation);
+            this.Controls.Add(this.label10);
+            this.Controls.Add(this.chkCustom);
+            this.Controls.Add(this.checkBox1);
+            this.Controls.Add(this.cmbFilmSize);
+            this.Controls.Add(this.label9);
+            this.Controls.Add(this.cmbLayout);
+            this.Controls.Add(this.cmbFilmType);
+            this.Controls.Add(this.nupdPrintCount);
+            this.Controls.Add(this.label8);
+            this.Controls.Add(this.label7);
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.label5);
+            this.Controls.Add(this.cmbPrinter);
+            this.Controls.Add(this.ibImport);
+            this.Controls.Add(this.ibExport);
+            this.Controls.Add(this.customPictureBox4);
+            this.Controls.Add(this.customPictureBox2);
+            this.Name = "PrintToolControl";
+            this.Size = new System.Drawing.Size(250, 775);
+            ((System.ComponentModel.ISupportInitialize)(this.nupdPrintCount)).EndInit();
+            this.panPrewControl.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customPictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customPictureBox4)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.customPictureBox2)).EndInit();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+        }
+
+        private void OnActionChanged(object sender, EventArgs e)
+        {
+            //this.BuildActionButtons(this._component.FreeRadioPrintAction, this._component.FixedRadioPrintAction);
+        }
+
+        private void SinglePrintImage(object sender, EventArgs e)
+        {
+            PreviewTileCollection images = PrintToolComponent.TilesComponent.GetImages();
+            if (images.Count == 0)
+            {
+                this._component.ShowMessageBox("无图像");
+            }
+            else if (this._component.SelectedPrinter == null)
+            {
+                this._component.ShowMessageBox("无打印机");
+            }
+            else
+            {
+                PrintJob job = this._component.CreateJob(images);
+                this._component.JobManager.Print(job);
+            }
+        }
+
+        private void UpdateFilmView(Film film)
+        {
+            if (film != null)
+            {
+                PrintToolComponent.FilmOrientation = film.Orientation;
+                this._component.PrintedFilmSize = film.Size;
+                PrintToolComponent.TilesComponent.SetGrid(film.Format);
+                this._component.LastFormat = film.Format;
+                this.UpdatePrinterControl(film.Orientation, PrintToolComponent.FilmRatio);
+            }
+        }
+
+        private void UpdatePrinterControl(FilmOrientation orientation, double filmRatio)
+        {
+            Size size;
+            int width = Convert.ToInt32((double)(this.panPrewControl.Height * filmRatio));
+            if (orientation == FilmOrientation.Portrait)
+            {
+                size = new Size(width, this.panPrewControl.Height);
+            }
+            else
+            {
+                size = new Size(this.panPrewControl.Width, width);
+            }
+            this.printPreviewControl1.Size = size;
+            this.printPreviewControl1.Location = this.CalculateLocation(orientation, (double)width);
+        }
+
+        private bool VerifyPrintCondition()
+        {
+            if ((this.cmbPrinter.SelectedValue != null) && !(this.cmbPrinter.SelectedValue.ToString() == ""))
+            {
+                return true;
+            }
+            this._component.ShowMessageBox("无法打印");
+            return false;
+        }
+
+        // Nested Types
+        private delegate void UpdateViewDelegate();
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            PrintToolComponent.TilesComponent.ResetTiles();
+        }
+    }
+
+
     public class CustomComboBox : ComboBox
     {
         // Fields
@@ -327,609 +1042,5 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool.WinForms
         }
     }
 
-
-
-    public class PrintToolControl : UserControl
-    {
-        // Fields
-        private PrintToolComponent _component;
-        private DynamicActionButton _FixedToolBtn;
-        private DynamicActionButton _freeToolBtn;
-        private Point _landscapePoint;
-        private Point _portraitPoint;
-        private Button btnExport;
-        private Button BtnSinglePrint;
-        private Button button2;
-        private CheckBox checkBox1;
-        private CheckBox chkCustom;
-        private CustomComboBox cmbFilmOrientation;
-        private CustomComboBox cmbFilmSize;
-        private CustomComboBox cmbFilmType;
-        private CustomComboBox cmbLayout;
-        private ComboBox cmbPrinter;
-        private IContainer components;
-        private PictureBox customPictureBox1;
-        private PictureBox customPictureBox2;
-        private PictureBox customPictureBox3;
-        private PictureBox customPictureBox4;
-        private FilmsControl filmsControl;
-        private Button ibExport;
-        private Button ibImport;
-        private Label label10;
-        private Label label11;
-        private Label label5;
-        private Label label6;
-        private Label label7;
-        private Label label8;
-        private Label label9;
-        private NumericUpDown nupdPrintCount;
-        private Panel panPrewControl;
-        private PictureBox pictureBox1;
-        private PrintPreviewControl printPreviewControl1;
-        private SaveFileDialog saveFileDialog;
-        private ToolTip toolTip;
-
-        // Methods
-        public PrintToolControl(PrintToolComponent component)
-        {
-            this._component = component;
-            this.InitializeComponent();
-            this.printPreviewControl1.Component = PrintToolComponent.TilesComponent;
-            this.cmbFilmType.SetDataSouce("FilmType");
-            this.cmbFilmSize.SetDataSouce("FilmSize");
-            this.cmbLayout.SetDataSouce("PrintLayout");
-            
-            
-            this.cmbFilmOrientation.SetDataSouce("FilmOrientation");
-            BindingSource dataSource = new BindingSource
-            {
-                DataSource = this._component
-            };
-            this.cmbPrinter.DataSource = this._component.PrintersView;
-            this.cmbPrinter.SelectedItem = this._component.CurrentPrinterValue;
-            this.cmbPrinter.DataBindings.Add("SelectedValue", dataSource, "CurrentPrinterValue", true, DataSourceUpdateMode.OnPropertyChanged);
-            this.nupdPrintCount.DataBindings.Add("Value", dataSource, "NumberOfCopies", true, DataSourceUpdateMode.OnPropertyChanged);
-            this.filmsControl.GridLayoutChange += new EventHandler(this.filmsControl_GridLayoutChange);
-            List<Film> films = this._component.GetFilms();
-
-            //if (films.Count > 0)
-            //{
-            //    this.filmsControl.CreateFilmButton(films);
-            //    this.UpdateFilmView(films[PrintToolViewSettings.Default.DefaultFilmSizeIndex]);
-            //}
-            ////this.BuildActionButtons(this._component.FreeRadioPrintAction, this._component.FixedRadioPrintAction);
-            //this._component.ActionChanged += new EventHandler(this.OnActionChanged);
-
-            //this.btnExport.Visible = PrintToolSettings.Default.ExportImage;
-        }
-
-        private void btnExport_Click(object sender, EventArgs e)
-        {
-            if (this.saveFileDialog.ShowDialog() == DialogResult.OK)
-            {
-                string fileName = this.saveFileDialog.FileName;
-                PrintToolComponent.TilesComponent.ExportSelectedImage(fileName);
-            }
-        }
-
-        private void BuildActionButtons(IAction freeTool, IAction fixedTool)
-        {
-            base.SuspendLayout();
-            IClickAction action = freeTool as IClickAction;
-            if (action != null)
-            {
-                if (this._freeToolBtn == null)
-                {
-                    this._freeToolBtn = new DynamicActionButton(action);
-                    this._freeToolBtn.Location = new Point(0x56, this.BtnSinglePrint.Location.Y);
-                    this._freeToolBtn.Size = new Size(0x2e, 0x2e);
-                    this.toolTip.SetToolTip(this._freeToolBtn, action.Tooltip);
-                    base.Controls.Add(this._freeToolBtn);
-                }
-                else
-                {
-                    this._freeToolBtn.Action = action;
-                }
-            }
-            IClickAction action2 = fixedTool as IClickAction;
-            if (action2 != null)
-            {
-                if (this._FixedToolBtn == null)
-                {
-                    this._FixedToolBtn = new DynamicActionButton(action2);
-                    this._FixedToolBtn.Location = new Point(13, this.BtnSinglePrint.Location.Y);
-                    this._FixedToolBtn.Size = new Size(0x2e, 0x2e);
-                    this.toolTip.SetToolTip(this._FixedToolBtn, action2.Tooltip);
-                    base.Controls.Add(this._FixedToolBtn);
-                }
-                else
-                {
-                    this._FixedToolBtn.Action = action2;
-                }
-            }
-            base.ResumeLayout(true);
-        }
-
-        private Point CalculateLocation(FilmOrientation Status, double size)
-        {
-            if (Status == FilmOrientation.Portrait)
-            {
-                this._portraitPoint = new Point(Convert.ToInt32(Math.Round((double)((((double)this.panPrewControl.Width) / 2.0) - (size / 2.0)), 0)), 0);
-                return this._portraitPoint;
-            }
-            this._landscapePoint = new Point(0, Convert.ToInt32(Math.Round((double)((((double)this.panPrewControl.Height) / 2.0) - (size / 2.0)), 0)));
-            return this._landscapePoint;
-        }
-
-        private void chkCustom_CheckedChanged(object sender, EventArgs e)
-        {
-            this.filmsControl.Enabled = !this.chkCustom.Checked;
-            this.cmbFilmSize.Enabled = this.chkCustom.Checked;
-            this.cmbLayout.Enabled = this.chkCustom.Checked;
-            this.cmbFilmOrientation.Enabled = this.chkCustom.Checked;
-            if (!this.chkCustom.Checked)
-            {
-                this._component.PrintedFilmSize = this._component.LastFilmSize;
-                PrintToolComponent.FilmOrientation = this._component.LasFilmOrientation;
-                PrintToolComponent.TilesComponent.SetGrid(this._component.LastFormat);
-            }
-            else
-            {
-                this._component.LastFilmSize = this._component.PrintedFilmSize;
-                this._component.LasFilmOrientation = PrintToolComponent.FilmOrientation;
-                this.cmbLayout_SelectedValueChanged(sender, e);
-                this.cmbFilmSize_SelectedValueChanged(sender, e);
-                this.cmbFilmOrientation_SelectedValueChanged(sender, e);
-            }
-            this.UpdatePrinterControl(PrintToolComponent.FilmOrientation, PrintToolComponent.FilmRatio);
-        }
-
-        private void cmbFilmOrientation_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (((this.cmbFilmOrientation.SelectedValue != null) && this.cmbFilmOrientation.Enabled) && (this.cmbLayout.SelectedValue != null))
-            {
-                try
-                {
-                    PrintToolComponent.FilmOrientation = (FilmOrientation)Enum.Parse(typeof(FilmOrientation), this.cmbFilmOrientation.SelectedValue.ToString(), true);
-                }
-                catch (Exception exception)
-                {
-                    Platform.Log(LogLevel.Error, exception);
-                    PrintToolComponent.FilmOrientation = FilmOrientation.Portrait;
-                }
-                string format = this.cmbLayout.SelectedValue.ToString();
-                PrintToolComponent.TilesComponent.SetGrid(format);
-                this.UpdatePrinterControl(PrintToolComponent.FilmOrientation, PrintToolComponent.FilmRatio);
-            }
-        }
-
-        private void cmbFilmSize_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (((this.cmbFilmSize.SelectedValue != null) && this.cmbFilmSize.Enabled) && (this.cmbLayout.SelectedValue != null))
-            {
-                try
-                {
-                    this._component.PrintedFilmSize = (FilmSize)Enum.Parse(typeof(FilmSize), this.cmbFilmSize.SelectedValue.ToString(), true);
-                }
-                catch (Exception exception)
-                {
-                    Platform.Log(LogLevel.Error, exception);
-                    this._component.PrintedFilmSize = FilmSize.Dimension_8in_x_10in;
-                }
-                string format = this.cmbLayout.SelectedValue.ToString();
-                PrintToolComponent.TilesComponent.SetGrid(format);
-                this.UpdatePrinterControl(PrintToolComponent.FilmOrientation, PrintToolComponent.FilmRatio);
-            }
-        }
-
-        private void cmbLayout_SelectedValueChanged(object sender, EventArgs e)
-        {
-            if (this.cmbLayout.SelectedValue != null)
-            {
-                try
-                {
-                    string format = this.cmbLayout.SelectedValue.ToString();
-                    PrintToolComponent.TilesComponent.SetGrid(format);
-                }
-                catch (Exception exception)
-                {
-                    Platform.Log(LogLevel.Error, exception);
-                    PrintToolComponent.TilesComponent.SetGrid(@"STANDARD\1,1");
-                }
-            }
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing && (this.components != null))
-            {
-                this.components.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private void filmsControl_GridLayoutChange(object sender, EventArgs e)
-        {
-            //ContainerButton button = sender as ContainerButton;
-            //if (button != null)
-            //{
-            //    foreach (Film film in this._component.GetFilms())
-            //    {
-            //        if (button.Tag.ToString().Equals(film.ID))
-            //        {
-            //            this.UpdateFilmView(film);
-            //            break;
-            //        }
-            //    }
-            //}
-        }
-
-        private void ibExport_Click(object sender, EventArgs e)
-        {
-            PrintToolComponent.TilesComponent.RemoveActiveTile();
-        }
-
-        private void ibImport_Click(object sender, EventArgs e)
-        {
-            IPresentationImage selectedPI = this._component.GetSelectedPI();
-            if (selectedPI != null)
-            {
-                PrintToolComponent.AddToClipboard(selectedPI);
-            }
-        }
-
-        private void InitializeComponent()
-        {
-            this.components = new Container();
-            ComponentResourceManager manager = new ComponentResourceManager(typeof(PrintToolControl));
-            this.toolTip = new ToolTip(this.components);
-            this.cmbPrinter = new ComboBox();
-            this.label5 = new Label();
-            this.label7 = new Label();
-            this.label8 = new Label();
-            this.nupdPrintCount = new NumericUpDown();
-            this.label9 = new Label();
-            this.checkBox1 = new CheckBox();
-            this.chkCustom = new CheckBox();
-            this.label10 = new Label();
-            this.panPrewControl = new Panel();
-            this.pictureBox1 = new PictureBox();
-            this.label11 = new Label();
-            this.btnExport = new Button();
-            this.saveFileDialog = new SaveFileDialog();
-            this.button2 = new Button();
-            this.label6 = new Label();
-            this.filmsControl = new FilmsControl();
-            this.BtnSinglePrint = new Button();
-            this.customPictureBox1 = new PictureBox();
-            this.printPreviewControl1 = new PrintPreviewControl();
-            this.cmbFilmOrientation = new CustomComboBox();
-            this.cmbFilmSize = new CustomComboBox();
-            this.cmbLayout = new CustomComboBox();
-            this.cmbFilmType = new CustomComboBox();
-            this.ibImport = new Button();
-            this.ibExport = new Button();
-            this.customPictureBox4 = new PictureBox();
-            this.customPictureBox3 = new PictureBox();
-            this.customPictureBox2 = new PictureBox();
-            this.nupdPrintCount.BeginInit();
-            this.panPrewControl.SuspendLayout();
-            ((ISupportInitialize)this.pictureBox1).BeginInit();
-            ((ISupportInitialize)this.customPictureBox1).BeginInit();
-            ((ISupportInitialize)this.customPictureBox4).BeginInit();
-            ((ISupportInitialize)this.customPictureBox3).BeginInit();
-            ((ISupportInitialize)this.customPictureBox2).BeginInit();
-            base.SuspendLayout();
-            this.cmbPrinter.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.cmbPrinter.FormattingEnabled = true;
-            this.cmbPrinter.Location = new Point(0x71, 0x19);
-            this.cmbPrinter.Name = "cmbPrinter";
-            this.cmbPrinter.Size = new Size(0x79, 0x15);
-            this.cmbPrinter.TabIndex = 0x60;
-            this.label5.AutoSize = true;
-            this.label5.Location = new Point(0x2f, 0x3f);
-            this.label5.Name = "label5";
-            this.label5.Size = new Size(0x1f, 13);
-            this.label5.TabIndex = 0x6b;
-            this.label5.Text = "份数";
-            this.label7.AutoSize = true;
-            this.label7.Location = new Point(0x15, 0x14c);
-            this.label7.Name = "label7";
-            this.label7.Size = new Size(0x1f, 13);
-            this.label7.TabIndex = 0x6d;
-            this.label7.Text = "布局";
-            this.label8.AutoSize = true;
-            this.label8.Location = new Point(50, 0x1c);
-            this.label8.Name = "label8";
-            this.label8.Size = new Size(0x2b, 13);
-            this.label8.TabIndex = 110;
-            this.label8.Text = "打印机";
-            this.nupdPrintCount.Location = new Point(0x71, 0x3d);
-            int[] bits = new int[4];
-            bits[0] = 1;
-            this.nupdPrintCount.Minimum = new decimal(bits);
-            this.nupdPrintCount.Name = "nupdPrintCount";
-            this.nupdPrintCount.Size = new Size(0x79, 20);
-            this.nupdPrintCount.TabIndex = 0x70;
-            int[] numArray2 = new int[4];
-            numArray2[0] = 1;
-            this.nupdPrintCount.Value = new decimal(numArray2);
-            this.label9.AutoSize = true;
-            this.label9.Location = new Point(0x16, 0x163);
-            this.label9.Name = "label9";
-            this.label9.Size = new Size(0x1f, 13);
-            this.label9.TabIndex = 0x73;
-            this.label9.Text = "尺寸";
-            this.checkBox1.AutoSize = true;
-            this.checkBox1.Location = new Point(-15, -15);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new Size(80, 0x11);
-            this.checkBox1.TabIndex = 0x75;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
-            this.chkCustom.AutoSize = true;
-            this.chkCustom.Location = new Point(12, 0x137);
-            this.chkCustom.Name = "chkCustom";
-            this.chkCustom.Size = new Size(50, 0x11);
-            this.chkCustom.TabIndex = 0x76;
-            this.chkCustom.Text = "其他";
-            this.chkCustom.UseVisualStyleBackColor = true;
-            this.chkCustom.CheckedChanged += new EventHandler(this.chkCustom_CheckedChanged);
-            this.label10.AutoSize = true;
-            this.label10.Location = new Point(0x16, 380);
-            this.label10.Name = "label10";
-            this.label10.Size = new Size(0x1f, 13);
-            this.label10.TabIndex = 120;
-            this.label10.Text = "方向";
-            this.panPrewControl.Anchor = AnchorStyles.Right | AnchorStyles.Left | AnchorStyles.Top;
-            this.panPrewControl.Controls.Add(this.printPreviewControl1);
-            this.panPrewControl.Location = new Point(0, 0x1cf);
-            this.panPrewControl.Name = "panPrewControl";
-            this.panPrewControl.Size = new Size(250, 230);
-            this.panPrewControl.TabIndex = 0x7a;
-            //this.pictureBox1.Image = SR.打印机;
-            this.pictureBox1.Location = new Point(7, 11);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new Size(0x2d, 0x30);
-            this.pictureBox1.SizeMode = PictureBoxSizeMode.AutoSize;
-            this.pictureBox1.TabIndex = 0x7b;
-            this.pictureBox1.TabStop = false;
-            this.label11.AutoSize = true;
-            this.label11.Location = new Point(10, 0x5f);
-            this.label11.Name = "label11";
-            this.label11.Size = new Size(0x1f, 13);
-            this.label11.TabIndex = 0x7c;
-            this.label11.Text = "胶片";
-            this.btnExport.Location = new Point(0x1f, 420);
-            this.btnExport.Name = "btnExport";
-            this.btnExport.Size = new Size(0x2f, 0x21);
-            this.btnExport.TabIndex = 0x84;
-            this.btnExport.Text = "导出";
-            this.btnExport.UseVisualStyleBackColor = true;
-            this.btnExport.Visible = false;
-            this.btnExport.Click += new EventHandler(this.btnExport_Click);
-            this.saveFileDialog.DefaultExt = "jpg";
-            this.saveFileDialog.Filter = "JPEG files(*.jpg)|*.jpg|Bitmap files (*.bmp)|*.bmp|All files (*.*)|*.*";
-            this.saveFileDialog.RestoreDirectory = true;
-            this.button2.Location = new Point(0xc2, 730);
-            this.button2.Name = "button2";
-            this.button2.Size = new Size(0x2f, 0x17);
-            this.button2.TabIndex = 0x86;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            this.button2.Click += new EventHandler(this.SinglePrintImage);
-            this.label6.AutoSize = true;
-            this.label6.Location = new Point(0x26, 0xb9);
-            this.label6.Name = "label6";
-            this.label6.Size = new Size(0x37, 13);
-            this.label6.TabIndex = 0x6c;
-            this.label6.Text = "Film Type:";
-            this.label6.Visible = false;
-            this.filmsControl.BackColor = Color.FromArgb(220, 0xe7, 0xf6);
-            this.filmsControl.Location = new Point(3, 0x6f);
-            this.filmsControl.Name = "filmsControl";
-            this.filmsControl.Size = new Size(240, 0xba);
-            this.filmsControl.TabIndex = 0x87;
-            this.BtnSinglePrint.DialogResult = DialogResult.None;
-         
-            this.BtnSinglePrint.Location = new Point(0xa9, 0x2ce);
-            this.BtnSinglePrint.Name = "BtnSinglePrint";
-            this.BtnSinglePrint.Size = new Size(0x48, 0x23);
-            this.BtnSinglePrint.TabIndex = 0x6f;
-            this.BtnSinglePrint.Text = "imageButton4";
-            this.BtnSinglePrint.Click += new EventHandler(this.SinglePrintImage);
-
-            //this.customPictureBox1.BackgroundImage = (Image)manager.GetObject("customPictureBox1.BackgroundImage");
-            //this.customPictureBox1.Image = (Image)manager.GetObject("customPictureBox1.Image");
-            this.customPictureBox1.Location = new Point(7, 3);
-            this.customPictureBox1.Name = "customPictureBox1";
-            this.customPictureBox1.Size = new Size(0xe5, 2);
-            this.customPictureBox1.TabIndex = 0x3e;
-            this.customPictureBox1.TabStop = false;
-            this.customPictureBox1.Text = "customPictureBox1";
-            this.printPreviewControl1.Component = null;
-            this.printPreviewControl1.Location = new Point(0x35, 0);
-            this.printPreviewControl1.Name = "printPreviewControl1";
-            this.printPreviewControl1.Size = new Size(0x91, 230);
-            this.printPreviewControl1.TabIndex = 0x5d;
-            this.cmbFilmOrientation.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.cmbFilmOrientation.Enabled = false;
-            this.cmbFilmOrientation.FormattingEnabled = true;
-            this.cmbFilmOrientation.Location = new Point(0x6a, 0x179);
-            this.cmbFilmOrientation.Name = "cmbFilmOrientation";
-            this.cmbFilmOrientation.Size = new Size(0x79, 0x15);
-            this.cmbFilmOrientation.TabIndex = 0x79;
-            this.cmbFilmOrientation.SelectedValueChanged += new EventHandler(this.cmbFilmOrientation_SelectedValueChanged);
-            this.cmbFilmSize.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.cmbFilmSize.Enabled = false;
-            this.cmbFilmSize.FormattingEnabled = true;
-            this.cmbFilmSize.Location = new Point(0x6a, 0x161);
-            this.cmbFilmSize.Name = "cmbFilmSize";
-            this.cmbFilmSize.Size = new Size(0x79, 0x15);
-            this.cmbFilmSize.TabIndex = 0x74;
-            this.cmbFilmSize.SelectedValueChanged += new EventHandler(this.cmbFilmSize_SelectedValueChanged);
-            this.cmbLayout.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.cmbLayout.Enabled = false;
-            this.cmbLayout.FormattingEnabled = true;
-            this.cmbLayout.Location = new Point(0x6a, 0x148);
-            this.cmbLayout.Name = "cmbLayout";
-            this.cmbLayout.Size = new Size(0x79, 0x15);
-            this.cmbLayout.TabIndex = 0x72;
-            this.cmbLayout.SelectedValueChanged += new EventHandler(this.cmbLayout_SelectedValueChanged);
-            this.cmbFilmType.DropDownStyle = ComboBoxStyle.DropDownList;
-            this.cmbFilmType.FormattingEnabled = true;
-            this.cmbFilmType.Location = new Point(0x71, 0xb6);
-            this.cmbFilmType.Name = "cmbFilmType";
-            this.cmbFilmType.Size = new Size(0x79, 0x15);
-            this.cmbFilmType.TabIndex = 0x71;
-            this.cmbFilmType.Visible = false;
-            this.ibImport.DialogResult = DialogResult.None;
-          
-            this.ibImport.Location = new Point(0x69, 0x1a0);
-            this.ibImport.Name = "ibImport";
-            this.ibImport.Size = new Size(60, 0x24);
-            this.ibImport.TabIndex = 80;
-            this.toolTip.SetToolTip(this.ibImport, "导入");
-            this.ibImport.Click += new EventHandler(this.ibImport_Click);
-            this.ibExport.DialogResult = DialogResult.None;
-           
-            this.ibExport.Location = new Point(0xa9, 0x1a0);
-            this.ibExport.Name = "ibExport";
-            this.ibExport.Size = new Size(60, 0x24);
-            this.ibExport.TabIndex = 0x4f;
-            this.toolTip.SetToolTip(this.ibExport, "导出");
-            this.ibExport.Click += new EventHandler(this.ibExport_Click);
-            //this.customPictureBox4.BackgroundImage = (Image)manager.GetObject("customPictureBox4.BackgroundImage");
-            //this.customPictureBox4.Image = (Image)manager.GetObject("customPictureBox4.Image");
-            this.customPictureBox4.Location = new Point(12, 0x2bb);
-            this.customPictureBox4.Name = "customPictureBox4";
-            this.customPictureBox4.Size = new Size(0xe5, 2);
-            this.customPictureBox4.TabIndex = 0x44;
-            this.customPictureBox4.TabStop = false;
-            this.customPictureBox4.Text = "customPictureBox4";
-            //this.customPictureBox3.BackgroundImage = (Image)manager.GetObject("customPictureBox3.BackgroundImage");
-            //this.customPictureBox3.Image = (Image)manager.GetObject("customPictureBox3.Image");
-            this.customPictureBox3.Location = new Point(8, 0x197);
-            this.customPictureBox3.Name = "customPictureBox3";
-            this.customPictureBox3.Size = new Size(0xe5, 2);
-            this.customPictureBox3.TabIndex = 0x43;
-            this.customPictureBox3.TabStop = false;
-            this.customPictureBox3.Text = "customPictureBox3";
-            //this.customPictureBox2.BackgroundImage = (Image)manager.GetObject("customPictureBox2.BackgroundImage");
-            //this.customPictureBox2.Image = (Image)manager.GetObject("customPictureBox2.Image");
-            this.customPictureBox2.Location = new Point(8, 90);
-            this.customPictureBox2.Name = "customPictureBox2";
-            this.customPictureBox2.Size = new Size(0xe5, 2);
-            this.customPictureBox2.TabIndex = 0x42;
-            this.customPictureBox2.TabStop = false;
-            this.customPictureBox2.Text = "customPictureBox2";
-            base.AutoScaleDimensions = new SizeF(6f, 13f);
-            base.AutoScaleMode = AutoScaleMode.Font;
-            this.BackColor = Color.FromArgb(220, 0xe7, 0xf6);
-            base.Controls.Add(this.filmsControl);
-            base.Controls.Add(this.BtnSinglePrint);
-            base.Controls.Add(this.button2);
-            base.Controls.Add(this.btnExport);
-            base.Controls.Add(this.label11);
-            base.Controls.Add(this.customPictureBox1);
-            base.Controls.Add(this.pictureBox1);
-            base.Controls.Add(this.panPrewControl);
-            base.Controls.Add(this.cmbFilmOrientation);
-            base.Controls.Add(this.label10);
-            base.Controls.Add(this.chkCustom);
-            base.Controls.Add(this.checkBox1);
-            base.Controls.Add(this.cmbFilmSize);
-            base.Controls.Add(this.label9);
-            base.Controls.Add(this.cmbLayout);
-            base.Controls.Add(this.cmbFilmType);
-            base.Controls.Add(this.nupdPrintCount);
-            base.Controls.Add(this.label8);
-            base.Controls.Add(this.label7);
-            base.Controls.Add(this.label6);
-            base.Controls.Add(this.label5);
-            base.Controls.Add(this.cmbPrinter);
-            base.Controls.Add(this.ibImport);
-            base.Controls.Add(this.ibExport);
-            base.Controls.Add(this.customPictureBox4);
-            base.Controls.Add(this.customPictureBox3);
-            base.Controls.Add(this.customPictureBox2);
-            base.Name = "PrintToolControl";
-            base.Size = new Size(250, 0x307);
-            this.nupdPrintCount.EndInit();
-            this.panPrewControl.ResumeLayout(false);
-            ((ISupportInitialize)this.pictureBox1).EndInit();
-            ((ISupportInitialize)this.customPictureBox1).EndInit();
-            ((ISupportInitialize)this.customPictureBox4).EndInit();
-            ((ISupportInitialize)this.customPictureBox3).EndInit();
-            ((ISupportInitialize)this.customPictureBox2).EndInit();
-            base.ResumeLayout(false);
-            base.PerformLayout();
-        }
-
-        private void OnActionChanged(object sender, EventArgs e)
-        {
-            //this.BuildActionButtons(this._component.FreeRadioPrintAction, this._component.FixedRadioPrintAction);
-        }
-
-        private void SinglePrintImage(object sender, EventArgs e)
-        {
-            PreviewTileCollection images = PrintToolComponent.TilesComponent.GetImages();
-            if (images.Count == 0)
-            {
-                this._component.ShowMessageBox(string.Format("无图像", new object[0]));
-            }
-            //else if (this._component.SelectedPrinter == null)
-            //{
-            //    this._component.ShowMessageBox("无打印机");
-            //}
-            //else
-            {
-                PrintJob job = this._component.CreateJob(images);
-                this._component.JobManager.Print(job);
-            }
-        }
-
-        private void UpdateFilmView(Film film)
-        {
-            if (film != null)
-            {
-                PrintToolComponent.FilmOrientation = film.Orientation;
-                this._component.PrintedFilmSize = film.Size;
-                PrintToolComponent.TilesComponent.SetGrid(film.Format);
-                this._component.LastFormat = film.Format;
-                this.UpdatePrinterControl(film.Orientation, PrintToolComponent.FilmRatio);
-            }
-        }
-
-        private void UpdatePrinterControl(FilmOrientation orientation, double filmRatio)
-        {
-            Size size;
-            int width = Convert.ToInt32((double)(this.panPrewControl.Height * filmRatio));
-            if (orientation == FilmOrientation.Portrait)
-            {
-                size = new Size(width, this.panPrewControl.Height);
-            }
-            else
-            {
-                size = new Size(this.panPrewControl.Width, width);
-            }
-            this.printPreviewControl1.Size = size;
-            this.printPreviewControl1.Location = this.CalculateLocation(orientation, (double)width);
-        }
-
-        private bool VerifyPrintCondition()
-        {
-            if ((this.cmbPrinter.SelectedValue != null) && !(this.cmbPrinter.SelectedValue.ToString() == ""))
-            {
-                return true;
-            }
-            this._component.ShowMessageBox("无法打印");
-            return false;
-        }
-
-        // Nested Types
-        private delegate void UpdateViewDelegate();
-    }
 
 }

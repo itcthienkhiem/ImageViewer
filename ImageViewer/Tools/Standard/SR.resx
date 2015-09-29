@@ -804,4 +804,10 @@ Please check the log for more details.</value>
   <data name="MenuPrintChooseDisplaySetAll" xml:space="preserve">
     <value>所有图像</value>
   </data>
+  <data name="QueryPatient" xml:space="preserve">
+    <value>影像查询</value>
+  </data>
+  <data name="TitleQuery" xml:space="preserve">
+    <value>影像查询</value>
+  </data>
 </root>

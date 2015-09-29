@@ -897,11 +897,11 @@ namespace ClearCanvas.ImageViewer
 		/// <param name="files">An array of file paths.</param>
 		/// <exception cref="LoadSopsException">One or more images could not be opened.</exception>
 		/// <exception cref="ArgumentNullException">A parameter is <b>null</b>.</exception>
-		public void LoadImages(string[] files)
+		public void LoadImages(string[] files, string strPatientName)
 		{
 			// Dummy variable; this overload can't be cancelled
 			bool cancelled;
-			LoadImages(files, null, out cancelled);
+			LoadImages(files, null, out cancelled, strPatientName);
 		}
 
 		/// <summary>
@@ -915,13 +915,13 @@ namespace ClearCanvas.ImageViewer
 		/// was cancelled.</param>
 		/// <exception cref="LoadSopsException">One or more images could not be opened.</exception>
 		/// <exception cref="ArgumentNullException">A parameter is <b>null</b>.</exception>
-		public void LoadImages(string[] files, IDesktopWindow desktop, out bool cancelled)
+		public void LoadImages(string[] files, IDesktopWindow desktop, out bool cancelled,  string  PatientName)
 		{
 			Platform.CheckForNullReference(files, "files");
             strFileNames = files;
 			using (LocalSopLoader loader = new LocalSopLoader(this))
 			{
-				loader.Load(files, desktop, out cancelled);
+                loader.Load(files, desktop, out cancelled, PatientName);
 			}
 		}
 

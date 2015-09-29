@@ -116,6 +116,7 @@ namespace ClearCanvas.Desktop.Explorer
             //{
             //    //ExceptionHandler.Report(e, SR.MessageUnableToOpenImages, Context.DesktopWindow);
             //}
+
             DownloadDicomFile downloadfile = new DownloadDicomFile();
             downloadfile.DownloadImages();
             string[] files = downloadfile.m_files.ToArray();

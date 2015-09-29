@@ -177,7 +177,7 @@ namespace ClearCanvas.ImageViewer.StudyManagement
             {
                 UserCancelled = false;
                 bool cancelled;
-                viewer.LoadImages(_filenames.ToArray(), desktopWindow, out cancelled);
+                viewer.LoadImages(_filenames.ToArray(), desktopWindow, out cancelled, "");
                 UserCancelled = cancelled;
             }
             catch (Exception e)

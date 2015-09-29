@@ -27,6 +27,7 @@ using ClearCanvas.Common;
 using ClearCanvas.Common.Utilities;
 using ClearCanvas.Desktop;
 using ClearCanvas.ImageViewer.StudyManagement;
+using ClearCanvas.Dicom;
 
 namespace ClearCanvas.ImageViewer
 {
@@ -54,7 +55,7 @@ namespace ClearCanvas.ImageViewer
 				get { return _failed; }
 			}
 
-			public void Load(string[] files, IDesktopWindow desktop, out bool cancelled)
+			public void Load(string[] files, IDesktopWindow desktop, out bool cancelled, string PatientName)
 			{
 				Platform.CheckForNullReference(files, "files");
 
@@ -70,7 +71,7 @@ namespace ClearCanvas.ImageViewer
 						{
 							for (int i = 0; i < files.Length; i++)
 							{
-								LoadSop(files[i]);
+                                LoadSop(files[i], PatientName);
 
 								int percentComplete = (int)(((float)(i + 1) / files.Length) * 100);
 								string message = String.Format(SR.MessageFormatOpeningImages, i, files.Length);
@@ -95,7 +96,7 @@ namespace ClearCanvas.ImageViewer
 				else
 				{
 					foreach (string file in files)
-						LoadSop(file);
+                        LoadSop(file, PatientName);
 
 					cancelled = false;
 				}
@@ -104,11 +105,13 @@ namespace ClearCanvas.ImageViewer
 					throw new LoadSopsException(Total, Failed);
 			}
 
-			private void LoadSop(string file)
+            private void LoadSop(string file, string PatientName)
 			{
 				try
 				{
 					Sop sop = Sop.Create(file);
+                    if (PatientName != "")
+                        sop[DicomTags.PatientsName].Values = PatientName;
 					try
 					{
 						_viewer.StudyTree.AddSop(sop);

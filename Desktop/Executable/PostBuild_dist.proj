@@ -23,7 +23,7 @@
   <PropertyGroup>
     <!-- The 'ProjectOutDir' property is the default output folder of the project and should not be overridden -->
     <ProjectOutDir>$(ProjectDir)\$(OutDir)</ProjectOutDir>
-    <DeletePlugins>true</DeletePlugins>
+    <DeletePlugins>false</DeletePlugins>
   </PropertyGroup>
 
   <!-- If DistributionDirectory were set directly on the command line, we would be unable to override it.-->

@@ -307,6 +307,11 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
                     if (ac.Checked == true)
                        return;
                 }
+                if (selectedImageBox.TopLeftPresentationImage == null)
+                    return;
+                ImageSop sop = ((IImageSopProvider)selectedImageBox.TopLeftPresentationImage).ImageSop;
+                if (sop.Modality == "CT" || sop.Modality == "MR")
+                    return;
                 if (increment > 0)
                 {
                     AdvanceDisplaySet(1);
@@ -355,68 +360,85 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
 
             int sourceDisplaySetIndex = parentImageSet.DisplaySets.IndexOf(sourceDisplaySet);
             sourceDisplaySetIndex += direction;
-
-            if (sourceDisplaySetIndex < 0)
+            try
             {
-                if (base.Context.Viewer.LogicalWorkspace.ImageSets.Count >= 2)
+                if (sourceDisplaySetIndex < 0)
                 {
-                    int tempNum = 0;
-                    foreach (IImageSet set in base.Context.Viewer.LogicalWorkspace.ImageSets)
+                    ImageSop sop = ((IImageSopProvider)imageBox.TopLeftPresentationImage).ImageSop;
+                    if (sop.Modality == "DX" || sop.Modality == "CR")
+                        return;
+          
+                    if (base.Context.Viewer.LogicalWorkspace.ImageSets.Count >= 2)
                     {
-                        if (set.Equals(parentImageSet))
+                        int tempNum = 0;
+                        foreach (IImageSet set in base.Context.Viewer.LogicalWorkspace.ImageSets)
                         {
+                            if (set.Equals(parentImageSet))
+                            {
+                                tempNum++;
+                                break;
+                            }
                             tempNum++;
-                            break;
                         }
-                        tempNum++;
+                        if (tempNum >= base.Context.Viewer.LogicalWorkspace.ImageSets.Count)
+                        {
+                            tempNum = 0;
+                        }
+                        parentImageSet = base.Context.Viewer.LogicalWorkspace.ImageSets[tempNum];
+                        sourceDisplaySetIndex = 0;
                     }
-                    if (tempNum >= base.Context.Viewer.LogicalWorkspace.ImageSets.Count)
-                    {
-                        tempNum = 0;
-                    }
-                    parentImageSet = base.Context.Viewer.LogicalWorkspace.ImageSets[tempNum];
-                    sourceDisplaySetIndex = 0;
+                    else
+                        sourceDisplaySetIndex = parentImageSet.DisplaySets.Count - 1;
                 }
-                else
-                    sourceDisplaySetIndex = parentImageSet.DisplaySets.Count - 1;
-            }
-            else if (sourceDisplaySetIndex >= parentImageSet.DisplaySets.Count)
-            {
-                if (base.Context.Viewer.LogicalWorkspace.ImageSets.Count >= 2)
+                else if (sourceDisplaySetIndex >= parentImageSet.DisplaySets.Count)
                 {
-                    int tempNum = 0;
-                    foreach (IImageSet set in base.Context.Viewer.LogicalWorkspace.ImageSets)
+//#if SUINING
+                    ImageSop sop = ((IImageSopProvider)imageBox.TopLeftPresentationImage).ImageSop;
+                    if (sop.Modality == "DX" || sop.Modality == "CR" || sop.Modality == "RF")
+                        return;
+//#endif
+
+                    if (base.Context.Viewer.LogicalWorkspace.ImageSets.Count >= 2)
                     {
-                        if (set.Equals(parentImageSet))
+                        int tempNum = 0;
+                        foreach (IImageSet set in base.Context.Viewer.LogicalWorkspace.ImageSets)
                         {
+                            if (set.Equals(parentImageSet))
+                            {
+                                tempNum++;
+                                break;
+                            }
                             tempNum++;
-                            break;
                         }
-                        tempNum++;
-                    }
 
-                    if (tempNum >= base.Context.Viewer.LogicalWorkspace.ImageSets.Count)
-                    {
-                        tempNum = 0;
+                        if (tempNum >= base.Context.Viewer.LogicalWorkspace.ImageSets.Count)
+                        {
+                            tempNum = 0;
+                        }
+                        parentImageSet = base.Context.Viewer.LogicalWorkspace.ImageSets[tempNum];
+                        sourceDisplaySetIndex = 0;
                     }
-                    parentImageSet = base.Context.Viewer.LogicalWorkspace.ImageSets[tempNum];
-                    sourceDisplaySetIndex = 0;
-                } else
-                     sourceDisplaySetIndex = 0;
+                    else
+                        sourceDisplaySetIndex = 0;
+                }
+                //MemorableUndoableCommand memorableCommand = new MemorableUndoableCommand(imageBox);
+                //memorableCommand.BeginState = imageBox.CreateMemento();
+
+                imageBox.DisplaySet = parentImageSet.DisplaySets[sourceDisplaySetIndex].CreateFreshCopy();
+                if (direction < 0)
+                {
+                    imageBox.TopLeftPresentationImageIndex = imageBox.DisplaySet.PresentationImages.Count - 1;
+                }
+
+                thumbileChanged(imageBox.DisplaySet);
+
+                imageBox.Draw();
+
             }
-            //MemorableUndoableCommand memorableCommand = new MemorableUndoableCommand(imageBox);
-            //memorableCommand.BeginState = imageBox.CreateMemento();
-            
-            imageBox.DisplaySet = parentImageSet.DisplaySets[sourceDisplaySetIndex].CreateFreshCopy();
-            if (direction < 0)
+            catch (Exception ex)
             {
-                imageBox.TopLeftPresentationImageIndex = imageBox.DisplaySet.PresentationImages.Count - 1;
+
             }
-
-            thumbileChanged(imageBox.DisplaySet);
-
-            imageBox.Draw();
-
             //memorableCommand.EndState = imageBox.CreateMemento();
 
             //DrawableUndoableCommand historyCommand = new DrawableUndoableCommand(imageBox);

@@ -87,7 +87,7 @@ namespace ClearCanvas.Desktop
         //    }
         //}
 
-        public void GetDownloadFileName(string sPatientID, string sModality, string sStudyDate, string accessionNum, ref List<ArrayList> imageList)
+        public void GetDownloadFileName(string sPatientID, string sModality, string sStudyDate, string accessionNum, ref List<ArrayList> imageList, ref string strPatientName)
         {
             SqlDataAdapter sqlQueryImages;
             SqlDataReader sqlImagesReader;
@@ -98,6 +98,20 @@ namespace ClearCanvas.Desktop
          
             if (accessionNum != "")
             {
+
+                sqlstr = string.Format(" select name " +
+                                                  " from examrecord " +
+                                                  " where id='{0}' and modulename='RIS' " , accessionNum);
+                sqlCommand = new SqlDataAdapter(sqlstr, GlobalData.MainConn.ChangeType());
+                sqlCommand.SelectCommand.CommandType = CommandType.Text;
+                SeriesReader = sqlCommand.SelectCommand.ExecuteReader();
+                while (SeriesReader.Read())
+                {
+                    strPatientName =(string) SeriesReader["name"];
+                }
+                sqlCommand.Dispose();
+                SeriesReader.Close();
+
                 sqlstr = string.Format(" select b.SeriesInstanceUID,b.SeriesNumber,a.AccessionNumber " +
                                                    " from studies a,series b " +
                                                    " where a.StudyInstanceUID=b.StudyInstanceUID " +
@@ -217,7 +231,7 @@ namespace ClearCanvas.Desktop
         }
 
 
-        public void GetDownloadFileNameOracle(string sPatientID, string sModality, string sStudyDate, string accessionNum, ref List<ArrayList> imageList)
+        public void GetDownloadFileNameOracle(string sPatientID, string sModality, string sStudyDate, string accessionNum, ref List<ArrayList> imageList, ref string strPatientName)
         {
             OracleDataAdapter  sqlQueryImages;
             OracleDataReader sqlImagesReader;
@@ -228,6 +242,21 @@ namespace ClearCanvas.Desktop
 
             if (accessionNum != "")
             {
+
+                sqlstr = string.Format(" select name " +
+                                                " from examrecord " +
+                                                " where id='{0}' and modulename='RIS' ", accessionNum);
+                sqlCommand = new OracleDataAdapter(sqlstr, GlobalData.MainConn.ChangeTypeOracle());
+                sqlCommand.SelectCommand.CommandType = CommandType.Text;
+                SeriesReader = sqlCommand.SelectCommand.ExecuteReader();
+                while (SeriesReader.Read())
+                {
+                    strPatientName =  (string)SeriesReader["strPatientName"];
+                }
+                sqlCommand.Dispose();
+                SeriesReader.Close();
+
+
                 sqlstr = string.Format(" select b.SeriesInstanceUID,b.SeriesNumber,a.AccessionNumber " +
                                                    " from studies a,series b " +
                                                    " where a.StudyInstanceUID=b.StudyInstanceUID " +
@@ -337,13 +366,14 @@ namespace ClearCanvas.Desktop
 
             if (m_files == null)
                 m_files = new List<string>();
+            string strPatientName = "";
 
             foreach (string accessionNum in GlobalData.RunParams.listAccessionNumber)
             {
                 if (Conn.isOracle())
-                    GetDownloadFileNameOracle(sPatientID, sModality, sStudyDate, accessionNum, ref list);
+                    GetDownloadFileNameOracle(sPatientID, sModality, sStudyDate, accessionNum, ref list, ref strPatientName);
                 else
-                    GetDownloadFileName(sPatientID, sModality, sStudyDate, accessionNum, ref list);
+                    GetDownloadFileName(sPatientID, sModality, sStudyDate, accessionNum, ref list, ref strPatientName);
                 for (int i = 0; i < list.Count; i++)
                 {
                     ArrayList l_list = list[i];
@@ -377,10 +407,10 @@ namespace ClearCanvas.Desktop
                         //listFilesOld = listFiles;
                         continue;
                     }
-                    ProcessDownLoadFile(listFiles);
+                    ProcessDownLoadFile(listFiles, strPatientName);
                 }
             }
-            if (m_count > 4) ProcessDownLoadFile(listFiles);
+            if (m_count > 4) ProcessDownLoadFile(listFiles, strPatientName);
             return true;
         }
 
@@ -389,7 +419,7 @@ namespace ClearCanvas.Desktop
         /// </summary>
         /// <param name="list"> That contains The name of the file.</param>
        
-        public virtual void  ProcessDownLoadFile(List<string> list)
+        public virtual void  ProcessDownLoadFile(List<string> list, string PatientName)
         {
             foreach (string str in list)
                 m_files.Add(str);

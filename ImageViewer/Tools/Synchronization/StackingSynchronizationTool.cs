@@ -94,6 +94,7 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 			_unlinkStudiesIconSet = new IconSet("Icons.UnlinkStudiesToolSmall.png", "Icons.UnlinkStudiesToolMedium.png", "Icons.UnlinkStudiesToolLarge.png");
 
 			ResetFrameOfReferenceCalibrations();
+            SynchronizeActive = true;
 		}
 
 		#region Tool Overrides
@@ -398,20 +399,21 @@ namespace ClearCanvas.ImageViewer.Tools.Synchronization
 				return;
             // Original
             int lastIndex = targetImageBox.TopLeftPresentationImageIndex;
-            //targetImageBox.TopLeftPresentationImage = targetImagePlane.SourceImage;
+            targetImageBox.TopLeftPresentationImage = targetImagePlane.SourceImage;
 
-            //if (lastIndex != targetImageBox.TopLeftPresentationImageIndex)
-            //{
-            //    if (!_imageBoxesToDraw.Contains(targetImageBox))
-            //        _imageBoxesToDraw.Add(targetImageBox);
-            //}
-            if (GlobalData.direct > 0)
-                targetImageBox.TopLeftPresentationImageIndex = lastIndex + 1;
-            else if (GlobalData.direct < 0)
-                targetImageBox.TopLeftPresentationImageIndex = lastIndex - 1;
+            if (lastIndex != targetImageBox.TopLeftPresentationImageIndex)
+            {
+                if (!_imageBoxesToDraw.Contains(targetImageBox))
+                    _imageBoxesToDraw.Add(targetImageBox);
+            }
+
+            //if (GlobalData.direct > 0)
+            //    targetImageBox.TopLeftPresentationImageIndex = lastIndex + 1;
+            //else if (GlobalData.direct < 0)
+            //    targetImageBox.TopLeftPresentationImageIndex = lastIndex - 1;
          
-            if (!_imageBoxesToDraw.Contains(targetImageBox))
-                _imageBoxesToDraw.Add(targetImageBox);               
+            //if (!_imageBoxesToDraw.Contains(targetImageBox))
+            //    _imageBoxesToDraw.Add(targetImageBox);               
 
 		}
 

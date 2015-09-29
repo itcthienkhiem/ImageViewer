@@ -72,7 +72,8 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement
 
 				var textSize = Callout.TextBoundingBox.Size;
 				if (textSize.IsEmpty)
-					textSize = new SizeF(100, 50);
+					//textSize = new SizeF(100, 50);
+                    textSize = new SizeF(200, 100);
 
 				coordinateSystem = CoordinateSystem.Destination;
 				location = new PointF(ComputeCalloutLocationX(textSize, clientRectangle, roiBoundingBox), ComputeCalloutLocationY(textSize, clientRectangle, roiBoundingBox));

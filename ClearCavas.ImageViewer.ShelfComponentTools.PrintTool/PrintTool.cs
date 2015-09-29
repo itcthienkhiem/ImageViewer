@@ -15,21 +15,39 @@ using ClearCanvas.ImageViewer.Annotations;
 using ClearCanvas.ImageViewer.Mathematics;
 using ClearCanvas.Common.Utilities;
 using ClearCanvas.ImageViewer.BaseTools;
+//using ClearCanvas.ImageViewer.BaseTools.MouseImageViewerTool;
 using ClearCanvas.Desktop;
 using System.ComponentModel;
 using ClearCanvas.Desktop.Configuration;
 using ClearCanvas.Desktop.Actions;
+
 
 namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
 {
 
     //[MenuAction("show", "global-menus/MenuView/MenuShowThumbnails", "Show")]
 
-    [MenuAction("show", "global-menus/MenuTools/原始胶片打印", "Show")]
+    //[MenuAction("show", "global-menus/MenuTools/原始胶片打印", "Show")]
     
-   
-    [IconSet("show", "Icons.ShowThumbnailsToolSmall.png", "Icons.ShowThumbnailsToolMedium.png", "Icons.ShowThumbnailsToolLarge.png")]
+    //[IconSet("show", "Icons.ShowThumbnailsToolSmall.png", "Icons.ShowThumbnailsToolMedium.png", "Icons.ShowThumbnailsToolLarge.png")]
 
+    //[MenuAction("show", "global-menus/MenuTools/MenuStandard/原始胶片打印", "Show")]
+    //[ButtonAction("Show", "global-toolbars/ToolbarStandard/Print", "Show", KeyStroke = XKeys.P)]
+    //[IconSet("Show", "Icons.PrintSmall.png", "Icons.PrintMedium.png",  "Icons.PrintLarge.png")]
+
+
+    //[ButtonAction("Show", "global-toolbars/ToolbarStandard/原始胶片打印", "Show")]
+    //[MenuAction("Show", "global-menus/MenuTools/MenuStandard/原始胶片打印", "Show")]
+    //[IconSet("Show", "Icons.PrintSmall.png", "Icons.PrintMedium.png", "Icons.PrintLarge.png")]
+
+
+    [MenuAction("show", "global-menus/MenuTools/原始胶片打印", "Show")]
+    [MenuAction("show", "imageviewer-contextmenu/原始胶片打印", "Show")]
+
+    [ButtonAction("show", "global-toolbars/ToolbarStandard/原始胶片打印", "Show")]
+    [Tooltip("show", "胶片打印")]
+    [IconSet("show", "Icons.PrintSmall.png", "Icons.PrintMedium.png", "Icons.PrintLarge.png")]
+   
 
     [ExtensionOf(typeof(ImageViewerToolExtensionPoint))]
     public class PrintTool : ImageViewerTool

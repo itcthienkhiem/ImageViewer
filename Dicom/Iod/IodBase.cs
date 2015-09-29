@@ -69,8 +69,30 @@ namespace ClearCanvas.Dicom.Iod
 		/// <summary>
 		/// Initializes a new instance of the <see cref="IodBase"/> class.
 		/// </summary>
-		protected IodBase()
-			: this(new DicomAttributeCollection()) {}
+        //protected IodBase()
+        //    : this(new DicomAttributeCollection()) {
+            
+        //}
+        protected IodBase() : this(new DicomAttributeCollection()) 
+        {
+            
+        }
+
+
+        protected IodBase(DicomAttributeCollection dicomAttributeCollection)
+        {
+            
+            //if (dicomAttributeCollection != null)
+            //{
+            //    this._dicomAttributeCollection = dicomAttributeCollection;
+            //}
+            //else
+            //{
+            //    this._dicomAttributeCollection = new DicomAttributeCollection();
+            //}
+            _dicomAttributeProvider = dicomAttributeCollection;
+            _dicomAttributeCollection = dicomAttributeCollection;
+        }
 
 		protected IodBase(IDicomAttributeProvider dicomAttributeProvider)
 		{

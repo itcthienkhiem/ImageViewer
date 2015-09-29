@@ -98,6 +98,7 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
         {
             if (this._range != Rectangle.Empty)
             {
+                Platform.Log(LogLevel.Error, "this._range != Rectangle.Empty");
                 return IconCreator.CreatePresentationImagePrintData(this._imageData, this._range, this._tileRatio, 1f, withAnnotation);
             }
             return IconCreator.CreatePresentationImagePrintData(this._imageData, this._tileRatio, withAnnotation);
@@ -127,6 +128,7 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
             this.RemovePresentImage();
             this._range = Rectangle.Empty;
             this._imageData = imageData;
+               
             this._icon = IconCreator.CreatePresentationImageIcon(this._imageData, this._tileRatio);
             EventsHelper.Fire(this._OnImageChanged, this, EventArgs.Empty);
         }

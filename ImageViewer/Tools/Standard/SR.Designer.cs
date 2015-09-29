@@ -1477,6 +1477,15 @@ namespace ClearCanvas.ImageViewer.Tools.Standard {
         }
         
         /// <summary>
+        ///   查找类似 影像查询 的本地化字符串。
+        /// </summary>
+        internal static string QueryPatient {
+            get {
+                return ResourceManager.GetString("QueryPatient", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   查找类似 Acquisition Time 的本地化字符串。
         /// </summary>
         internal static string SortByAcquisitionTimeDescription {
@@ -1581,6 +1590,15 @@ namespace ClearCanvas.ImageViewer.Tools.Standard {
         internal static string TitleName {
             get {
                 return ResourceManager.GetString("TitleName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找类似 影像查询 的本地化字符串。
+        /// </summary>
+        internal static string TitleQuery {
+            get {
+                return ResourceManager.GetString("TitleQuery", resourceCulture);
             }
         }
         

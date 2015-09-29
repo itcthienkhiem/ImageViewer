@@ -104,7 +104,6 @@ namespace ClearCanvas.Common
 				LoadPluginFiles(pluginCandidates, true, out pluginInfos);
 				SaveCachedMetadata(pluginInfos, checkSum);
 			}
-
 			return pluginInfos;
 		}
 
