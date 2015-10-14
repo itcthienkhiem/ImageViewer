@@ -60,11 +60,10 @@ namespace ClearCanvas.Desktop.View.WinForms
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TableView));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            this._contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this._bindingSource = new System.Windows.Forms.BindingSource(this.components);
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            this._contextMenu = new System.Windows.Forms.ContextMenuStrip();
+            this._bindingSource = new System.Windows.Forms.BindingSource();
             this._toolStrip = new System.Windows.Forms.ToolStrip();
             this._sortButton = new System.Windows.Forms.ToolStripDropDownButton();
             this._sortAscendingButton = new System.Windows.Forms.ToolStripMenuItem();
@@ -173,9 +172,9 @@ namespace ClearCanvas.Desktop.View.WinForms
             this._dataGridView.AllowUserToDeleteRows = false;
             this._dataGridView.AllowUserToOrderColumns = true;
             this._dataGridView.AllowUserToResizeRows = false;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            this._dataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this._dataGridView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this._dataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this._dataGridView.BackgroundColor = System.Drawing.SystemColors.Window;
             this._dataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;

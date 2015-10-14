@@ -115,17 +115,17 @@ namespace ClearCanvas.ImageViewer.Layout.Basic
 
 		private void UpdateEnabled()
 		{
-			IPhysicalWorkspace workspace = base.ImageViewer.PhysicalWorkspace;
-			if (Checked)
-			{
-				base.Enabled = true;
-			}
-			else
-			{
-				base.Enabled = !workspace.Locked && workspace.ImageBoxes.Count > 1 && workspace.SelectedImageBox != null &&
-				               workspace.SelectedImageBox.SelectedTile != null &&
-				               workspace.SelectedImageBox.SelectedTile.PresentationImage != null;
-			}
+            IPhysicalWorkspace workspace = base.ImageViewer.PhysicalWorkspace;
+            if (Checked)
+            {
+                base.Enabled = true;
+            }
+            else
+            {
+                base.Enabled = !workspace.Locked && workspace.ImageBoxes.Count > 1 && workspace.SelectedImageBox != null &&
+                               workspace.SelectedImageBox.SelectedTile != null &&
+                               workspace.SelectedImageBox.SelectedTile.PresentationImage != null;
+            }
 		}
 
 		private void CancelExplodeMode()

@@ -158,7 +158,9 @@
     <MakeDir Directories="@(DestinationDirectories)" ContinueOnError="true" />
 
     <!-- Delete contents of plugin directory -->
+    <!--
     <Delete Condition="$(DeletePlugins)" Files="@(PluginDeleteFiles)" ContinueOnError="true" />
+    -->
 
     <!-- Copy shared config files -->
     <Copy SourceFiles="@(ConfigFiles)" DestinationFolder="$(DistributionDirectory)" ContinueOnError="true"/>

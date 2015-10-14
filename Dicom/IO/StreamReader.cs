@@ -206,7 +206,7 @@ namespace ClearCanvas.Dicom.IO
                                 string vr = "";
                                 try
                                 {
-                                   vr = new string(_reader.ReadChars(2));
+                                    vr = new string(_reader.ReadChars(2));
                                 }
                                 catch (Exception ee)
                                 {
@@ -621,6 +621,7 @@ namespace ClearCanvas.Dicom.IO
                                 }
                                 else
                                 {
+                                  
                                     ByteBuffer bb = new ByteBuffer(_len);
                                     // If the tag is impacted by specific character set, 
                                     // set the encoding properly.
@@ -649,15 +650,23 @@ namespace ClearCanvas.Dicom.IO
                                         bb.Endian = _endian;
                                     }
 
+                                   
                                     bb.CopyFrom(_stream, (int)_len);
-
 
                                     DicomAttribute elem = LastTagRead.CreateDicomAttribute(bb);
 
                                     _remain -= _len;
                                     BytesRead += _len;
 
-
+                                    if (LastTagRead.Group == 0x0057 && LastTagRead.Element != 0x0000)
+                                    {
+                                     
+                                        LastTagRead = null;
+                                        _vr = null;
+                                        _len = UndefinedLength;
+                                        continue;
+                                    } 
+                                  
                                     if (_sqrs.Count > 0)
                                     {
                                         SequenceRecord rec = _sqrs.Peek();
@@ -707,7 +716,10 @@ namespace ClearCanvas.Dicom.IO
                                                 Dataset[LastTagRead] = elem;
                                         }
                                         else
-                                            Dataset[LastTagRead] = elem;
+                                        {
+                                           
+                                             Dataset[LastTagRead] = elem;
+                                        }
                                     }
                                 }
                             }
@@ -724,6 +736,11 @@ namespace ClearCanvas.Dicom.IO
             {
                 // should never happen
                 Platform.Log(LogLevel.Error, "Unexpected exception when reading file: {0}", e.ToString());
+                return DicomReadStatus.UnknownError;
+            }
+            catch (OutOfMemoryException ooe)
+            {
+                GC.Collect();
                 return DicomReadStatus.UnknownError;
             }
             catch (Exception ex)

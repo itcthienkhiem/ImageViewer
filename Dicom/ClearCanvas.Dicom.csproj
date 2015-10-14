@@ -163,12 +163,12 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Compile Include="Audit\AuditedInstances.cs" />
-    <Compile Include="Audit\AuditLogHelper.cs" />
-    <Compile Include="Audit\HealthcareDataAuditHelper.cs" />
-    <Compile Include="Audit\EventReceiptAction.cs" />
-    <Compile Include="Audit\EventResult.cs" />
-    <Compile Include="Audit\EventSource.cs" />
+    <Compile Include="Network\Audit\AuditedInstances.cs" />
+    <Compile Include="Network\Audit\AuditLogHelper.cs" />
+    <Compile Include="Network\Audit\HealthcareDataAuditHelper.cs" />
+    <Compile Include="Network\Audit\EventReceiptAction.cs" />
+    <Compile Include="Network\Audit\EventResult.cs" />
+    <Compile Include="Network\Audit\EventSource.cs" />
     <Compile Include="Codec\Tests\GZipDicomCodec.cs" />
     <Compile Include="Codec\Tests\NullDicomCodec.cs" />
     <Compile Include="DicomAttribute.cs" />
@@ -433,26 +433,26 @@
     <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Audit\AuditActiveParticipant.cs" />
-    <Compile Include="Audit\AuditParticipantObject.cs" />
-    <Compile Include="Audit\BeginTransferringDicomInstancesAuditHelper.cs" />
-    <Compile Include="Audit\ApplicationActivityAuditHelper.cs" />
-    <Compile Include="Audit\DataExportAuditHelper.cs" />
-    <Compile Include="Audit\DataImportAuditHelper.cs" />
-    <Compile Include="Audit\DicomAuditHelper.cs" />
-    <Compile Include="Audit\AuditLogUsedAuditHelper.cs" />
-    <Compile Include="Audit\DicomAuditMessage.cs" />
-    <Compile Include="Audit\DicomAuditMessage.gen.cs" />
-    <Compile Include="Audit\DicomAuditMessageEnums.cs" />
-    <Compile Include="Audit\DicomAuditSource.cs" />
-    <Compile Include="Audit\DicomInstancesAccessedAuditHelper.cs" />
-    <Compile Include="Audit\DicomInstancesTransferredAuditHelper.cs" />
-    <Compile Include="Audit\DicomStudyDeletedAuditHelper.cs" />
-    <Compile Include="Audit\NetworkEntryAuditHelper.cs" />
-    <Compile Include="Audit\QueryAuditHelper.cs" />
-    <Compile Include="Audit\SecurityAlertAuditHelper.cs" />
-    <Compile Include="Audit\Test\AuditTest.cs" />
-    <Compile Include="Audit\UserAuthenticationAuditHelper.cs" />
+    <Compile Include="Network\Audit\AuditActiveParticipant.cs" />
+    <Compile Include="Network\Audit\AuditParticipantObject.cs" />
+    <Compile Include="Network\Audit\BeginTransferringDicomInstancesAuditHelper.cs" />
+    <Compile Include="Network\Audit\ApplicationActivityAuditHelper.cs" />
+    <Compile Include="Network\Audit\DataExportAuditHelper.cs" />
+    <Compile Include="Network\Audit\DataImportAuditHelper.cs" />
+    <Compile Include="Network\Audit\DicomAuditHelper.cs" />
+    <Compile Include="Network\Audit\AuditLogUsedAuditHelper.cs" />
+    <Compile Include="Network\Audit\DicomAuditMessage.cs" />
+    <Compile Include="Network\Audit\DicomAuditMessage.gen.cs" />
+    <Compile Include="Network\Audit\DicomAuditMessageEnums.cs" />
+    <Compile Include="Network\Audit\DicomAuditSource.cs" />
+    <Compile Include="Network\Audit\DicomInstancesAccessedAuditHelper.cs" />
+    <Compile Include="Network\Audit\DicomInstancesTransferredAuditHelper.cs" />
+    <Compile Include="Network\Audit\DicomStudyDeletedAuditHelper.cs" />
+    <Compile Include="Network\Audit\NetworkEntryAuditHelper.cs" />
+    <Compile Include="Network\Audit\QueryAuditHelper.cs" />
+    <Compile Include="Network\Audit\SecurityAlertAuditHelper.cs" />
+    <Compile Include="Network\Audit\Test\AuditTest.cs" />
+    <Compile Include="Network\Audit\UserAuthenticationAuditHelper.cs" />
     <Compile Include="Codec\DicomCodecException.cs" />
     <Compile Include="Codec\DicomCodecFactoryExtensionPoint.cs" />
     <Compile Include="Codec\DicomCodecRegistry.cs" />
@@ -782,11 +782,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <EmbeddedResource Include="Audit\DicomAuditMessageSchema.xsd">
+    <EmbeddedResource Include="Network\Audit\DicomAuditMessageSchema.xsd">
       <SubType>
       </SubType>
     </EmbeddedResource>
-    <None Include="Audit\DicomAuditMessageSchema.xsx">
+    <None Include="Network\Audit\DicomAuditMessageSchema.xsx">
       <DependentUpon>DicomAuditMessageSchema.xsd</DependentUpon>
     </None>
     <None Include="DicomSettings.settings">
