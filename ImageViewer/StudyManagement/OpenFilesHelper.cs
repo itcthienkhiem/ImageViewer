@@ -182,6 +182,8 @@ namespace ClearCanvas.ImageViewer.StudyManagement
             }
             catch (Exception e)
             {
+                Platform.Log(LogLevel.Error, e.ToString());
+
                 //if (!HandleErrors)
                 //    throw;
 

@@ -251,7 +251,7 @@ namespace ClearCanvas.Desktop
                 SeriesReader = sqlCommand.SelectCommand.ExecuteReader();
                 while (SeriesReader.Read())
                 {
-                    strPatientName =  (string)SeriesReader["strPatientName"];
+                    strPatientName = (string)SeriesReader["name"];
                 }
                 sqlCommand.Dispose();
                 SeriesReader.Close();
@@ -481,7 +481,7 @@ namespace ClearCanvas.Desktop
             }
             catch (Exception ex)
             {
-                
+                Platform.Log(LogLevel.Error, ex.ToString());
             }
         }
     }

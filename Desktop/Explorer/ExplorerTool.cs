@@ -116,7 +116,7 @@ namespace ClearCanvas.Desktop.Explorer
             //{
             //    //ExceptionHandler.Report(e, SR.MessageUnableToOpenImages, Context.DesktopWindow);
             //}
-
+            Platform.Log(LogLevel.Error, "starting download file");
             DownloadDicomFile downloadfile = new DownloadDicomFile();
             downloadfile.DownloadImages();
             string[] files = downloadfile.m_files.ToArray();
@@ -126,6 +126,7 @@ namespace ClearCanvas.Desktop.Explorer
             }
             catch (Exception e)
             {
+                Platform.Log(LogLevel.Error, e.ToString());
                 //ExceptionHandler.Report(e, SR.MessageUnableToOpenImages, Context.DesktopWindow);
             }
 
