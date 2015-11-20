@@ -95,7 +95,8 @@ namespace ClearCanvas.Desktop
             SqlDataAdapter sqlCommand;
             SqlDataReader SeriesReader;
             string sqlstr;
-         
+
+            strPatientName = ""; 
             if (accessionNum != "")
             {
 
@@ -239,7 +240,7 @@ namespace ClearCanvas.Desktop
             OracleDataAdapter sqlCommand;
             OracleDataReader SeriesReader;
             string sqlstr;
-
+            strPatientName = "";
             if (accessionNum != "")
             {
 
@@ -272,22 +273,25 @@ namespace ClearCanvas.Desktop
                 SeriesReader.Close();
                 if (arrSeriesString.Count == 0) //根据ACCESSION获取设备类型，影像号，检查日期
                 {
-                    sqlstr = string.Format(" select machinetype, to_char(submittime, 'YYYY-MM-DD') as EXAMDATE, olddocid  " +
-                                                 " from  examrecord " +
-                                                 " where modulename='RIS' " +
-                                                 " and id='{0}'", accessionNum);
+                    ArrayList l_list = new ArrayList();
+                    sqlstr = string.Format("select ReferencedFile from images where AccessionNumber='{0}'", accessionNum);
+
+                    //sqlstr = string.Format(" select machinetype, to_char(submittime, 'YYYY-MM-DD') as EXAMDATE, olddocid  " +
+                    //                             " from  examrecord " +
+                    //                             " where modulename='RIS' " +
+                    //                             " and id='{0}'", accessionNum);
                     sqlCommand = new OracleDataAdapter(sqlstr, GlobalData.MainConn.ChangeTypeOracle());
                     sqlCommand.SelectCommand.CommandType = CommandType.Text;
                     SeriesReader = sqlCommand.SelectCommand.ExecuteReader();
                     while (SeriesReader.Read())
                     {
-                        sPatientID = (string)SeriesReader["olddocid"];
-                        sModality = (string)SeriesReader["machinetype"];
-                        sStudyDate = (string)SeriesReader["examdate"].ToString().Substring(0, 10);
-                        break;
+                        l_list.Add((string)SeriesReader["ReferencedFile"]);
                     }
                     sqlCommand.Dispose();
                     SeriesReader.Close();
+
+                    imageList.Add(l_list);
+                    return;
                 }
                 else
                 {
@@ -402,15 +406,15 @@ namespace ClearCanvas.Desktop
                         }
                     }
                     m_count++;
-                    if (m_count >4)
-                    {
-                        //listFilesOld = listFiles;
-                        continue;
-                    }
+                    //if (m_count >4)
+                    //{
+                    //    //listFilesOld = listFiles;
+                    //    continue;
+                    //}
                     ProcessDownLoadFile(listFiles, strPatientName);
                 }
             }
-            if (m_count > 4) ProcessDownLoadFile(listFiles, strPatientName);
+            //if (m_count > 4) ProcessDownLoadFile(listFiles, strPatientName);
             return true;
         }
 

@@ -56,9 +56,18 @@ namespace ClearCanvas.ImageViewer.Volumes
 		                       VolumeInterpolationMode interpolation,
 		                       VolumeProjectionMode projection)
 		{
-			Platform.CheckPositive(rows, "rows");
-			Platform.CheckPositive(columns, "columns");
-			Platform.CheckPositive(rowSpacing, "rowSpacing");
+
+		    try
+		    {
+		        Platform.CheckPositive(rows, "rows");
+		        Platform.CheckPositive(columns, "columns");
+		    }
+		    catch (ExtensionException ex)
+		    {
+                Platform.Log(LogLevel.Error, rows);
+		    }
+
+		    Platform.CheckPositive(rowSpacing, "rowSpacing");
 			Platform.CheckPositive(columnSpacing, "columnSpacing");
 			Platform.CheckPositive(sliceThickness, "sliceThickness");
 			Platform.CheckForNullReference(rowOrientationPatient, "rowOrientationPatient");

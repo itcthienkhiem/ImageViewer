@@ -384,10 +384,17 @@ namespace ClearCanvas.ImageViewer
 		/// <paramref name="columns"/> is less than 1.</exception>
 		public void SetImageBoxGrid(int rows, int columns)
 		{
-			Platform.CheckPositive(rows, "rows");
-			Platform.CheckPositive(columns, "columns");
+		    try
+		    {
+		        Platform.CheckPositive(rows, "rows");
+		        Platform.CheckPositive(columns, "columns");
+		    }
+		    catch (Exception ex)
+		    {
+		        Platform.Log(LogLevel.Error, "the row is " + rows.ToString());
+		    }
 
-			if (_rows == rows && _columns == columns)
+		    if (_rows == rows && _columns == columns)
 				return;
 
 			this.ImageBoxes.Clear();

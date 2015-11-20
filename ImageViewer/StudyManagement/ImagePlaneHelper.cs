@@ -76,8 +76,15 @@ namespace ClearCanvas.ImageViewer.StudyManagement
 			Platform.CheckForNullReference(imagePositionPatient, "imagePositionPatient");
 			Platform.CheckForNullReference(imageOrientationPatient, "imageOrientationPatient");
 			Platform.CheckForNullReference(pixelSpacing, "pixelSpacing");
-			Platform.CheckPositive(rows, "rows");
-			Platform.CheckPositive(columns, "columns");
+            try
+            {
+                Platform.CheckPositive(rows, "rows");
+                Platform.CheckPositive(columns, "columns");
+            }
+            catch (Exception ex)
+            {
+                Platform.Log(LogLevel.Error, "the row is " + rows.ToString());
+            }
 
 			_rows = rows;
 			_columns = columns;

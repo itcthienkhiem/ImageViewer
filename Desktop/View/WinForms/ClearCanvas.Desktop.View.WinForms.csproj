@@ -90,6 +90,21 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\ReferencedAssemblies\DotNetMagic2005.DLL</HintPath>
     </Reference>
+    <Reference Include="Leadtools">
+      <HintPath>..\..\Executable\bin\x86\Debug\plugins\Leadtools.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Codecs">
+      <HintPath>..\..\Executable\bin\x86\Debug\plugins\Leadtools.Codecs.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Dicom">
+      <HintPath>..\..\Executable\bin\x86\Debug\plugins\Leadtools.Dicom.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Dicom.Common">
+      <HintPath>..\..\Executable\bin\x86\Debug\plugins\Leadtools.Dicom.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Leadtools.Drawing">
+      <HintPath>..\..\Executable\bin\x86\Debug\plugins\Leadtools.Drawing.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.configuration" />
     <Reference Include="System.Core">

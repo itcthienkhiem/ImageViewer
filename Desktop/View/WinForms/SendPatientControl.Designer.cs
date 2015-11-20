@@ -109,7 +109,7 @@
             this.editAE.Name = "editAE";
             this.editAE.Size = new System.Drawing.Size(144, 28);
             this.editAE.TabIndex = 5;
-            this.editAE.Text = "";
+            this.editAE.Text = "AW44";
             // 
             // editPort
             // 
@@ -117,7 +117,7 @@
             this.editPort.Name = "editPort";
             this.editPort.Size = new System.Drawing.Size(144, 28);
             this.editPort.TabIndex = 4;
-            this.editPort.Text = "";
+            this.editPort.Text = "4006";
             // 
             // editIP
             // 
@@ -125,7 +125,7 @@
             this.editIP.Name = "editIP";
             this.editIP.Size = new System.Drawing.Size(144, 28);
             this.editIP.TabIndex = 3;
-            this.editIP.Text = "";
+            this.editIP.Text = "192.168.3.54";
             // 
             // label3
             // 

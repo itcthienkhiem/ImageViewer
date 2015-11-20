@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Data;
 using System.Data.SqlClient;
+using System.Data.OracleClient;
 using Global.Data;
 using Global.FtpSocketClient;
 using ClearCanvas.Controls.WinForms.Native;
@@ -88,12 +89,26 @@ namespace ClearCanvas.Desktop
             {
                 string ImagePath = GetRemoteFilePath();
                 string ImageId = GetMaxIDFormImageBack();
-                string sqlstr = string.Format("insert into imageback(imgid,id,imagepath,flag,modulename) values('{0}','{1}','{2}','1','{3}')",
-                ImageId, GlobalData.RunParams.AccessionNumber, ImagePath, GlobalData.RunParams.RunMode);
-                SqlCommand sqlCmd = new SqlCommand();
-                sqlCmd.Connection = GlobalData.MainConn.ChangeType();
-                sqlCmd.CommandText = sqlstr;
-                sqlCmd.ExecuteNonQuery();
+
+                if (Conn.isOracle())
+                {
+                    string sqlstr = string.Format("insert into imageback(imgid,id,imagepath,flag,modulename) values('{0}','{1}','{2}','1','{3}')",
+           ImageId, GlobalData.RunParams.AccessionNumber, ImagePath, GlobalData.RunParams.RunMode);
+                    OracleCommand sqlCmd = new OracleCommand();
+                    sqlCmd.Connection = GlobalData.MainConn.ChangeTypeOracle();
+                    sqlCmd.CommandText = sqlstr;
+                    sqlCmd.ExecuteNonQuery();
+                   
+                }
+                else
+                {
+                    string sqlstr = string.Format("insert into imageback(imgid,id,imagepath,flag,modulename) values('{0}','{1}','{2}','1','{3}')",
+                    ImageId, GlobalData.RunParams.AccessionNumber, ImagePath, GlobalData.RunParams.RunMode);
+                    SqlCommand sqlCmd = new SqlCommand();
+                    sqlCmd.Connection = GlobalData.MainConn.ChangeType();
+                    sqlCmd.CommandText = sqlstr;
+                    sqlCmd.ExecuteNonQuery();
+                }
 
                 string JpegFile = GetRemoteFilePath() + ImageId + ".jpg";
 
@@ -126,15 +141,31 @@ namespace ClearCanvas.Desktop
             string sImgid = GlobalData.RunParams.AccessionNumber + "001";
             string sqlstr = string.Format("select convert(varchar(10),convert(int,substring(isnull(max(imgid),0),13,3))+1) imgid from imageback where id = '{0}'",
                 GlobalData.RunParams.AccessionNumber);
-            SqlDataAdapter sqlDataAd = new SqlDataAdapter(sqlstr, GlobalData.MainConn.ChangeType());
-            sqlDataAd.SelectCommand.CommandType = CommandType.Text;
-            SqlDataReader ImageReader = sqlDataAd.SelectCommand.ExecuteReader();
-            while (ImageReader.Read())
+            if (Conn.isOracle() == true)
             {
-                sImgid = GlobalData.RunParams.AccessionNumber + ((string)ImageReader["imgid"]).PadLeft(3, '0');
+                OracleDataAdapter sqlDataAd = new OracleDataAdapter(sqlstr, GlobalData.MainConn.ChangeTypeOracle());
+                sqlDataAd.SelectCommand.CommandType = CommandType.Text;
+                OracleDataReader ImageReader = sqlDataAd.SelectCommand.ExecuteReader();
+                while (ImageReader.Read())
+                {
+                    sImgid = GlobalData.RunParams.AccessionNumber + ((string)ImageReader["imgid"]).PadLeft(3, '0');
+                }
+                ImageReader.Close();
+                sqlDataAd.Dispose();
             }
-            ImageReader.Close();
-            sqlDataAd.Dispose();
+            else
+            {
+                SqlDataAdapter sqlDataAd = new SqlDataAdapter(sqlstr, GlobalData.MainConn.ChangeType());
+                sqlDataAd.SelectCommand.CommandType = CommandType.Text;
+                SqlDataReader ImageReader = sqlDataAd.SelectCommand.ExecuteReader();
+                while (ImageReader.Read())
+                {
+                    sImgid = GlobalData.RunParams.AccessionNumber + ((string)ImageReader["imgid"]).PadLeft(3, '0');
+                }
+                ImageReader.Close();
+                sqlDataAd.Dispose();
+
+            }
             return sImgid;
         }
 

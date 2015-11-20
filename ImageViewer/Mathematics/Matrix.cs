@@ -46,8 +46,15 @@ namespace ClearCanvas.ImageViewer.Mathematics
 		/// <exception cref="ArgumentException">Thrown if either <paramref name="rows"/> or <paramref name="columns"/> is zero or negative.</exception>
 		public Matrix(int rows, int columns)
 		{
-			Platform.CheckPositive(rows, "rows");
-			Platform.CheckPositive(columns, "columns");
+            try
+            {
+                Platform.CheckPositive(rows, "rows");
+                Platform.CheckPositive(columns, "columns");
+            }
+            catch (Exception ex)
+            {
+                Platform.Log(LogLevel.Error, "the row is " + rows.ToString());
+            }
 
 			_rows = rows;
 			_columns = columns;
