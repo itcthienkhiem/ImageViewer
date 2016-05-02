@@ -101,8 +101,11 @@ namespace ClearCanvas.ImageViewer
 					cancelled = false;
 				}
 
-				if (Failed > 0)
-					throw new LoadSopsException(Total, Failed);
+                if (Failed > 0)
+                {
+                    //throw new LoadSopsException(Total, Failed);
+
+                }
 			}
 
             private void LoadSop(string file, string PatientName)

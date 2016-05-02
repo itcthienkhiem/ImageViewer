@@ -60,11 +60,10 @@ namespace ClearCanvas.Desktop.View.WinForms
 		/// </summary>
 		private void InitializeComponent()
 		{
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TableView));
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            this._contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this._bindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this._contextMenu = new System.Windows.Forms.ContextMenuStrip();
+            this._bindingSource = new System.Windows.Forms.BindingSource();
             this._toolStrip = new System.Windows.Forms.ToolStrip();
             this._sortButton = new System.Windows.Forms.ToolStripDropDownButton();
             this._sortAscendingButton = new System.Windows.Forms.ToolStripMenuItem();

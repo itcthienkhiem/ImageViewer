@@ -33,13 +33,13 @@ namespace ClearCanvas.ImageViewer.Annotations
 	[UserSettingsMigrationDisabled]
 	[SharedSettingsMigrationDisabled]
 	internal sealed partial class AnnotationLayoutStoreSettings
-	{
-		private AnnotationLayoutStoreSettings()
-		{
-		}
+    {
+        private AnnotationLayoutStoreSettings()
+        {
+        }
 
-		public override void Upgrade()
-		{
-	}
-	}
+        public override void Upgrade()
+        {
+        }
+    }
 }

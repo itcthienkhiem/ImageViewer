@@ -3322,6 +3322,11 @@ namespace ClearCanvas.Dicom
         /// <summary>Retrieve a SopClass object associated with the Uid.</summary>
         public static SopClass GetSopClass(String uid)
         {
+            if (uid == null)
+            {
+                uid = MrImageStorageUid;
+            }
+
             SopClass theSop;
             if (!_sopList.TryGetValue(uid, out theSop))
             {

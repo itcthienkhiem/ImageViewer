@@ -28,10 +28,21 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
             {
                 size.Height = clientSize.Height;
                 size.Width = (int)(((double)clientSize.Height) / filmRadio);
+
+                if (size.Width > 4000)
+                {
+                    size.Width = (int)(clientSize.Height * 0.3);
+                    size.Height = (int)(clientSize.Height / filmRadio * 0.3);
+                }
                 return size;
             }
             size.Width = clientSize.Width;
             size.Height = (int)(clientSize.Width * filmRadio);
+            if (size.Width > 4000)
+            {
+                size.Width = (int)(clientSize.Width * 0.3);
+                size.Height = (int)(clientSize.Width * filmRadio * 0.3);
+            }
             return size;
         }
 

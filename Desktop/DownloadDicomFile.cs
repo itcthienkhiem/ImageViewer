@@ -378,6 +378,11 @@ namespace ClearCanvas.Desktop
                     GetDownloadFileNameOracle(sPatientID, sModality, sStudyDate, accessionNum, ref list, ref strPatientName);
                 else
                     GetDownloadFileName(sPatientID, sModality, sStudyDate, accessionNum, ref list, ref strPatientName);
+                Platform.Log(LogLevel.Error, "size of file is " + list.Count + " the patient name is " + strPatientName);
+                if (list.Count == 0)
+                {
+                    Platform.Log(LogLevel.Error, "从数据库查出图像数为 0 ！！ " );
+                }
                 for (int i = 0; i < list.Count; i++)
                 {
                     ArrayList l_list = list[i];

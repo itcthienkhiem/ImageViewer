@@ -222,7 +222,11 @@ namespace ClearCanvas.ImageViewer.StudyManagement
 				DicomAttribute dicomAttribute;
 				if (_parentImageSop.TryGetFrameAttribute(_frameNumber, DicomTags.FrameAcquisitionDatetime, out dicomAttribute) && !dicomAttribute.IsEmpty)
 					return DateTimeParser.GetTimeAttributeValues(dicomAttribute.GetString(0, string.Empty));
-				return DateTimeParser.GetTimeAttributeValues(this, DicomTags.AcquisitionDatetime, DicomTags.AcquisitionTime);
+				string strTemp =  DateTimeParser.GetTimeAttributeValues(this, DicomTags.AcquisitionDatetime, DicomTags.AcquisitionTime);
+                string strTemp2 = DateTimeParser.GetTimeAttributeValues(this, DicomTags.AcquisitionDatetime, DicomTags.ContentTime);
+                if (strTemp == "")
+                    strTemp = strTemp2;
+                return strTemp;
 			}
 		}
 

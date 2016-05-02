@@ -171,6 +171,13 @@ namespace ClearCanvas.Desktop
 
         private string GetRemoteFilePath()
         {
+            if (GlobalData.RunParams.ImageSaveLocal == "1")
+            {
+                return GlobalData.DcmLocalPath + @"\" + 
+                   GlobalData.RunParams.RunMode + @"\" +
+                   GlobalData.RunParams.AccessionNumber.Substring(0, 8) + @"\" +
+                   GlobalData.RunParams.AccessionNumber + @"\";
+            } else 
             return GlobalData.RunParams.RunMode + @"\" +
                    GlobalData.RunParams.AccessionNumber.Substring(0, 8) + @"\" +
                    GlobalData.RunParams.AccessionNumber + @"\";

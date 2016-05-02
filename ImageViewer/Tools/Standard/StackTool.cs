@@ -309,9 +309,11 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
                 }
                 if (selectedImageBox.TopLeftPresentationImage == null)
                     return;
+#if SUINING
                 ImageSop sop = ((IImageSopProvider)selectedImageBox.TopLeftPresentationImage).ImageSop;
                 if (sop.Modality == "CT" || sop.Modality == "MR")
                     return;
+#endif
                 if (increment > 0)
                 {
                     AdvanceDisplaySet(1);
@@ -364,10 +366,11 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
             {
                 if (sourceDisplaySetIndex < 0)
                 {
+#if SUINING
                     ImageSop sop = ((IImageSopProvider)imageBox.TopLeftPresentationImage).ImageSop;
                     if (sop.Modality == "DX" || sop.Modality == "CR")
                         return;
-          
+#endif          
                     if (base.Context.Viewer.LogicalWorkspace.ImageSets.Count >= 2)
                     {
                         int tempNum = 0;
@@ -392,11 +395,11 @@ namespace ClearCanvas.ImageViewer.Tools.Standard
                 }
                 else if (sourceDisplaySetIndex >= parentImageSet.DisplaySets.Count)
                 {
-//#if SUINING
+#if SUINING
                     ImageSop sop = ((IImageSopProvider)imageBox.TopLeftPresentationImage).ImageSop;
                     if (sop.Modality == "DX" || sop.Modality == "CR" || sop.Modality == "RF")
                         return;
-//#endif
+#endif
 
                     if (base.Context.Viewer.LogicalWorkspace.ImageSets.Count >= 2)
                     {

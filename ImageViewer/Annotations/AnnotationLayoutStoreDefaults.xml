@@ -135,8 +135,7 @@
              
             <annotation-box normalized-rectangle="0.000000\0.000000\0.400000\0.025000" annotation-item-id="Dicom.Patient.PatientId" />
             <annotation-box normalized-rectangle="0.000000\0.025000\0.500000\0.050000" annotation-item-id="Dicom.Patient.PatientsName" />
-            <annotation-box normalized-rectangle="0.000000\0.050000\0.500000\0.075000" annotation-item-id="Dicom.Patient.PatientsBirthDate" />
-            <!--<annotation-box normalized-rectangle="0.000000\0.050000\0.500000\0.075000" annotation-item-id="Dicom.PatientStudy.Composite.PatientsAgeSexBirthDate" />-->
+            <annotation-box normalized-rectangle="0.000000\0.050000\0.500000\0.075000" annotation-item-id="Dicom.PatientStudy.Composite.PatientsAgeSexBirthDate" />
             <annotation-box normalized-rectangle="0.000000\0.075000\0.500000\0.100000" annotation-item-id="" />
             <annotation-box normalized-rectangle="0.000000\0.100000\0.500000\0.125000" annotation-item-id="" />
             <annotation-box normalized-rectangle="0.000000\0.125000\0.500000\0.150000" annotation-item-id="" />
@@ -157,7 +156,7 @@
             <annotation-box normalized-rectangle="0.600000\0.000000\1.000000\0.025000" annotation-item-id="Presentation.DisplaySetDescription" />
             <annotation-box normalized-rectangle="0.500000\0.025000\1.000000\0.050000" annotation-item-id="Dicom.GeneralStudy.AccessionNumber" />
             <annotation-box normalized-rectangle="0.500000\0.050000\1.000000\0.075000" annotation-item-id="Dicom.GeneralStudy.StudyDate" />
-            <annotation-box normalized-rectangle="0.500000\0.075000\1.000000\0.100000" annotation-item-id="Dicom.GeneralImage.AcquisitionTime" >
+            <annotation-box normalized-rectangle="0.500000\0.075000\1.000000\0.100000" annotation-item-id="Dicom.GeneralImage.ContentTime" >
               <box-settings>
                 <configuration-settings show-label="true" show-label-if-empty="true" />
               </box-settings>

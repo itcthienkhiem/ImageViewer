@@ -97,6 +97,7 @@
             this.label6.Size = new System.Drawing.Size(53, 12);
             this.label6.TabIndex = 19;
             this.label6.Text = "打印状态";
+            this.label6.Visible = false;
             this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // comboBox1
@@ -109,6 +110,7 @@
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(121, 20);
             this.comboBox1.TabIndex = 18;
+            this.comboBox1.Visible = false;
             // 
             // cmbModality
             // 

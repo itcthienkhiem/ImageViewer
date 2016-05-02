@@ -68,7 +68,10 @@ namespace ClearCanvas.ImageViewer.AnnotationProviders.Dicom
 						delegate(string input)
 							{
 								if (String.IsNullOrEmpty(input))
-									return String.Empty;
+                                {
+
+                                    return String.Empty;                                 
+                                }
 
 								DateTime time;
 								if (!TimeParser.Parse(input, out time))

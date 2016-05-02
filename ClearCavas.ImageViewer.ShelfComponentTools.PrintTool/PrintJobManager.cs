@@ -533,7 +533,14 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
                             g.DrawImage(printImagePixel, x, y, width, height);
                             g.DrawRectangle(Pens.White, x, y, width, height);
                             Rectangle destination = new Rectangle(((int)x) + 2, ((int)y) + 2, ((int)width) - 4, ((int)height) - 4);
-                            IconCreator.DrawTextOverlay(g, destination, tile.ImageData);
+                            try
+                            {
+                                IconCreator.DrawTextOverlay(g, destination, tile.ImageData);
+                            }
+                            catch (Exception ex)
+                            {
+                                Platform.Log(LogLevel.Error, " exception: " + ex.ToString ());
+                            }
                             printImagePixel.Dispose();
                             if (context.CancelRequested)
                             {

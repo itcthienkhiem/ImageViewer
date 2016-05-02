@@ -23,15 +23,15 @@ using Global.Data;
 namespace ClearCanvas.ImageViewer.Tools.Standard
 {
 
-    //[ButtonAction("open", "global-toolbars/ToolbarMpr/ToolbarThirdPrint", "LaunchPrint")]
-    //[MenuAction("openOne", "imageviewer-contextmenu/MenuThirdPrint/MenuPrintChooseOne", "LaunchOnePrint")]
-    //[MenuAction("open", "imageviewer-contextmenu/MenuThirdPrint/MenuPrintChooseDisplaySet", "LaunchPrint")]
-    //[MenuAction("openAll", "imageviewer-contextmenu/MenuThirdPrint/MenuPrintChooseDisplaySetAll", "LaunchPrintAll")]
-    //[KeyboardAction("DicomPrint", "imageviewer-keyboard/ToolsStandardPrint/DicomPrint", "LaunchOnePrint", KeyStroke = XKeys.Control | XKeys.PrintScreen)]
-    //[MenuAction("open", "global-menus/MenuTools/MenuThirdPrint", "LaunchPrint")]
-    //[IconSet("open", "Icons.PrintTool.png", "Icons.PrintTool.png", "Icons.PrintTool.png")]
-    //[EnabledStateObserver("open", "Enabled", "EnabledChanged")]
-    //[VisibleStateObserver("open", "Visible", null)]
+    [ButtonAction("open", "global-toolbars/ToolbarMpr/ToolbarThirdPrint", "LaunchPrint")]
+    [MenuAction("openOne", "imageviewer-contextmenu/MenuThirdPrint/MenuPrintChooseOne", "LaunchOnePrint")]
+    [MenuAction("open", "imageviewer-contextmenu/MenuThirdPrint/MenuPrintChooseDisplaySet", "LaunchPrint")]
+    [MenuAction("openAll", "imageviewer-contextmenu/MenuThirdPrint/MenuPrintChooseDisplaySetAll", "LaunchPrintAll")]
+    [KeyboardAction("DicomPrint", "imageviewer-keyboard/ToolsStandardPrint/DicomPrint", "LaunchOnePrint", KeyStroke = XKeys.Control | XKeys.PrintScreen)]
+    [MenuAction("open", "global-menus/MenuTools/MenuThirdPrint", "LaunchPrint")]
+    [IconSet("open", "Icons.PrintTool.png", "Icons.PrintTool.png", "Icons.PrintTool.png")]
+    [EnabledStateObserver("open", "Enabled", "EnabledChanged")]
+    [VisibleStateObserver("open", "Visible", null)]
 
     [ExtensionOf(typeof(ImageViewerToolExtensionPoint))]
     public class ThirdPrintTool : ImageViewerTool
