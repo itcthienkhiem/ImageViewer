@@ -431,6 +431,7 @@ namespace ClearCanvas.ImageViewer
                 lock (_syncLock)
                 {
                     _viewer.Layout();
+                    _viewer.PhysicalWorkspace.SelectDefaultImageBox();
                 }
             }
         }

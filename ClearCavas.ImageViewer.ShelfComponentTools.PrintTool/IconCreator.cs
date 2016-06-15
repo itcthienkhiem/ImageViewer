@@ -29,20 +29,20 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
                 size.Height = clientSize.Height;
                 size.Width = (int)(((double)clientSize.Height) / filmRadio);
 
-                if (size.Width > 4000)
-                {
-                    size.Width = (int)(clientSize.Height * 0.3);
-                    size.Height = (int)(clientSize.Height / filmRadio * 0.3);
-                }
+                //if (size.Width > 4000)
+                //{
+                //    size.Width = (int)(clientSize.Height * 0.3);
+                //    size.Height = (int)(clientSize.Height / filmRadio * 0.3);
+                //}
                 return size;
             }
             size.Width = clientSize.Width;
             size.Height = (int)(clientSize.Width * filmRadio);
-            if (size.Width > 4000)
-            {
-                size.Width = (int)(clientSize.Width * 0.3);
-                size.Height = (int)(clientSize.Width * filmRadio * 0.3);
-            }
+            //if (size.Width > 4000)
+            //{
+            //    size.Width = (int)(clientSize.Width * 0.3);
+            //    size.Height = (int)(clientSize.Width * filmRadio * 0.3);
+            //}
             return size;
         }
 
@@ -98,34 +98,43 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
          
             if (!spatialTransform.ScaleToFit)
             {
-                Platform.Log(LogLevel.Error, "!spatialTransform.ScaleToFit");
+                //Platform.Log(LogLevel.Error, "!spatialTransform.ScaleToFit");
                 float num = 1f / spatialTransform.Scale;
                 int width = Convert.ToInt32((float)(image.ClientRectangle.Width * num));
                 int height = Convert.ToInt32((float)(image.ClientRectangle.Height * num));
-                if ((width > spatialTransform.SourceWidth) || (height > spatialTransform.SourceHeight))
+                //if ((width > spatialTransform.SourceWidth) || (height > spatialTransform.SourceHeight))
+                //{
+                //    float num4 = ((float)image.ClientRectangle.Width) / ((float)image.ClientRectangle.Height);
+                //    float num5 = ((float)spatialTransform.SourceWidth) / ((float)spatialTransform.SourceHeight);
+                //    if (num4 > num5)
+                //    {
+                //        size = new Size(spatialTransform.SourceWidth, Convert.ToInt32((float)(((float)spatialTransform.SourceWidth) / num4)));
+                //        spatialTransform.Scale = (spatialTransform.Scale * spatialTransform.SourceWidth) / ((float)image.ClientRectangle.Width);
+                //    }
+                //    else
+                //    {
+                //        size = new Size(Convert.ToInt32((float)(spatialTransform.SourceHeight * num4)), spatialTransform.SourceHeight);
+                //        spatialTransform.Scale = (spatialTransform.Scale * spatialTransform.SourceHeight) / ((float)image.ClientRectangle.Height);
+                //    }
+                //}
+                //else
                 {
-                    float num4 = ((float)image.ClientRectangle.Width) / ((float)image.ClientRectangle.Height);
-                    float num5 = ((float)spatialTransform.SourceWidth) / ((float)spatialTransform.SourceHeight);
-                    if (num4 > num5)
+                    if (width >= 3000 || height >= 3000)
                     {
-                        size = new Size(spatialTransform.SourceWidth, Convert.ToInt32((float)(((float)spatialTransform.SourceWidth) / num4)));
-                        spatialTransform.Scale = (spatialTransform.Scale * spatialTransform.SourceWidth) / ((float)image.ClientRectangle.Width);
+                        width = (int)(width * 0.3);
+                        height = (int)(height * 0.3);
                     }
-                    else
-                    {
-                        size = new Size(Convert.ToInt32((float)(spatialTransform.SourceHeight * num4)), spatialTransform.SourceHeight);
-                        spatialTransform.Scale = (spatialTransform.Scale * spatialTransform.SourceHeight) / ((float)image.ClientRectangle.Height);
-                    }
-                }
-                else
-                {
+                   
                     size = new Size(width, height);
                     spatialTransform.Scale = (spatialTransform.Scale * width) / ((float)image.ClientRectangle.Width);
                 }
             }
             else
             {
-                 
+                if (spatialTransform.SourceWidth > 3000 || spatialTransform.SourceHeight > 3000)
+                    size = new Size((int) (spatialTransform.SourceWidth * 0.3), (int)(spatialTransform.SourceHeight * 0.3));
+                else
+
                 size = new Size(spatialTransform.SourceWidth, spatialTransform.SourceHeight);
             }
 

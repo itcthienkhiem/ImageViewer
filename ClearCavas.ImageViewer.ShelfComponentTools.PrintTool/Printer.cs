@@ -241,6 +241,4 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
         }
     }
 
-
-
  }

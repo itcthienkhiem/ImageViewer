@@ -39,6 +39,7 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
         //private IClientSetting _clientSetting;
         private string _currentPrinter;
         private static FilmOrientation _filmOrientation = FilmOrientation.Portrait;
+        //private static double _filmRatio = 0.1;
         private static double _filmRatio = 0.8;
         private List<Film> _films;
         private FilmOrientation _lastFilmOrientation;

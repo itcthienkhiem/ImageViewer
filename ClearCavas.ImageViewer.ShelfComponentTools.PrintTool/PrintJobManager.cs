@@ -348,8 +348,16 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
             int num7 = Convert.ToInt32(strArray3[0]);
             int num8 = Convert.ToInt32(strArray3[1]);
             Size size4 = this.CalcPartSize(tiles, tiles.Count, 0);
+           
             size.Width = num7 * size4.Width;
             size.Height = num8 * size4.Height;
+
+            if (size.Width > 5000  || size.Height > 5000)
+            {
+                 size.Width = (int)(size.Width * 0.3);
+                 size.Height = (int)(size.Height * 0.3);
+                 Platform.Log(LogLevel.Error, "the sizevalue is " + size.ToString());
+            }
             return size;
         }
 
@@ -367,6 +375,8 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
                     size.Width = (size.Width < width) ? width : size.Width;
                     size.Height = (size.Height < height) ? height : size.Height;
                     printImagePixel.Dispose();
+
+                
                 }
                 num++;
                 index++;
@@ -604,8 +614,10 @@ namespace ClearCanvas.ImageViewer.ShelfComponentTools.PrintTool
                     lRasterCodecs.Save(lRasterImage, System.Windows.Forms.Application.StartupPath + @"\PrintFiles\" + lDicomFile, RasterImageFormat.DicomGray, 16);
                     //image.Save("d:\\test.jpg");
                     image.Dispose();
-                    item.BasicGrayscaleImageSequenceList.Add(iod2);
-                    imageBoxPixelModuleIods.Add(item);
+                    lRasterImage.Dispose();
+                    lRasterCodecs.Dispose();
+                    //item.BasicGrayscaleImageSequenceList.Add(iod2);
+                    //imageBoxPixelModuleIods.Add(item);
                     if (userCancelled)
                     {
                         Platform.Log(LogLevel.Info, SR.UserCancel);
