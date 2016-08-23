@@ -191,7 +191,7 @@ namespace ClearCanvas.ImageViewer.Tools.Measurement
 			_graphicBuilder.Graphic.Draw();
 			_undoableCommand = null;
 
-            this.Active = false;//set the defaut is pan
+            this.Active = true;//set the defaut is pan
 			_graphicBuilder = null;
 		}
 

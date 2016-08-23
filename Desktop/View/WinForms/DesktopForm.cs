@@ -406,7 +406,7 @@ namespace ClearCanvas.Desktop.View.WinForms
                 try
                 {
                     string[] files = { "e:\\26885681.dcm", "e:\\26885683.dcm" };
-                    new OpenFilesHelper(files) { WindowBehaviour = ViewerLaunchSettings.WindowBehaviour }.OpenFiles();
+                    //new OpenFilesHelper(files) { WindowBehaviour = ViewerLaunchSettings.WindowBehaviour }.OpenFiles();
                 }
                 catch (Exception e)
                 {

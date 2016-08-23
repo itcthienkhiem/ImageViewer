@@ -26,6 +26,7 @@ namespace ClearCanvas.Desktop
     public class DownloadDicomFile
     {
         public List<string> m_files = null;
+        public string PatientName = "";
         public delegate void ShowMedicalViewDelegate(List<string> list);
         private int m_count = 0;
         //public bool GetPatientRisInfo(string sRisID, string PatientID, string Modality, string StudyDate, string RunMode, out RisTags ristag)
@@ -433,6 +434,7 @@ namespace ClearCanvas.Desktop
             foreach (string str in list)
                 m_files.Add(str);
             list.Clear();
+            this.PatientName = PatientName;
         }
 
         public bool GetDicomFileFromServer(string remotefile, string localfile)

@@ -139,7 +139,8 @@ namespace ClearCanvas.ImageViewer.AnnotationProviders.Dicom
 						    var components = new List<string>();
 						    if (!string.IsNullOrEmpty(frame.ParentImageSop.PatientsAge)) components.Add(frame.ParentImageSop.PatientsAge);
 						    if (!string.IsNullOrEmpty(frame.ParentImageSop.PatientsSex)) components.Add(frame.ParentImageSop.PatientsSex);
-						    if (!string.IsNullOrEmpty(frame.ParentImageSop.PatientsBirthDate)) components.Add(DicomDataFormatHelper.DateFormat(frame.ParentImageSop.PatientsBirthDate));
+                            //luojiang
+						    //if (!string.IsNullOrEmpty(frame.ParentImageSop.PatientsBirthDate)) components.Add(DicomDataFormatHelper.DateFormat(frame.ParentImageSop.PatientsBirthDate));
 						    return string.Join(SR.SeparatorAgeSexBirthDate, components.ToArray());
 						},
 						DicomDataFormatHelper.RawStringFormat

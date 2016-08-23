@@ -154,14 +154,22 @@ namespace ClearCanvas.ImageViewer.StudyManagement
 		/// Creates the <see cref="ImageViewerComponent"/>, loads the specified images,
 		/// and launches the <see cref="ImageViewerComponent"/>.
 		/// </summary>
-		public ImageViewerComponent OpenFiles()
+		public ImageViewerComponent OpenFiles(string strPatientName)
 		{
 			ImageViewerComponent viewer = null;
-			BlockingOperation.Run(delegate { viewer = LoadAndOpenFiles(); });
+            BlockingOperation.Run(delegate { viewer = LoadAndOpenFiles(strPatientName); });
 			return viewer;
 		}
 
-		private ImageViewerComponent LoadAndOpenFiles()
+        public ImageViewerComponent OpenFiles()
+        {
+            string strPatientName = "";
+            ImageViewerComponent viewer = null;
+            BlockingOperation.Run(delegate { viewer = LoadAndOpenFiles(strPatientName); });
+            return viewer;
+        }
+
+		private ImageViewerComponent LoadAndOpenFiles(string strPatientName)
 		{
 			var codeClock = new CodeClock();
 			codeClock.Start();
@@ -177,7 +185,7 @@ namespace ClearCanvas.ImageViewer.StudyManagement
             {
                 UserCancelled = false;
                 bool cancelled;
-                viewer.LoadImages(_filenames.ToArray(), desktopWindow, out cancelled, "");
+                viewer.LoadImages(_filenames.ToArray(), desktopWindow, out cancelled, strPatientName);
                 UserCancelled = cancelled;
             }
             catch (Exception e)

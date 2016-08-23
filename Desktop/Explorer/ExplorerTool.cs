@@ -120,9 +120,10 @@ namespace ClearCanvas.Desktop.Explorer
             DownloadDicomFile downloadfile = new DownloadDicomFile();
             downloadfile.DownloadImages();
             string[] files = downloadfile.m_files.ToArray();
+            string strPatientName = downloadfile.PatientName;
             try
             {
-                new OpenFilesHelper(files) { WindowBehaviour = ViewerLaunchSettings.WindowBehaviour }.OpenFiles();
+                new OpenFilesHelper(files) { WindowBehaviour = ViewerLaunchSettings.WindowBehaviour }.OpenFiles(strPatientName);
             }
             catch (Exception e)
             {
